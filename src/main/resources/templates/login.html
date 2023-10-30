@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Login de Food Express">
+    <meta name="author" content="Johann Amaya">
+    <title>Food Express</title>
+    <link rel="icon" href="../images/logo.ico" type="image/x-icon">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+<body>
+<!-- Barra de navegación -->
+<header>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="../static/index.html"><img src="../images/logoW.png" alt="" width="196" height="47"/></a>
+        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+                <a class="navbar-brand" href="../static/index.html"><img src="../images/logoW.png" alt="" width="196" height="47"/></a>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link " aria-current="page" href="../static/index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about-us.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact-us.html">Contact</a>
+                    </li>
+                </ul>
+                <div class="d-flex  ">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="login.html">Login</a>
+                        </li>
+                    </ul>
+                </div>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
+</header>
+<!-- Container-->
+<div class="container h-100">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="bg-white p-5 rounded-5 text-secondary shadow" style="width: 25rem">
+            <div class="d-flex justify-content-center">
+                <img src="../images/login-icon.svg" alt="login-icon" style="height: 7rem" />
+            </div>
+            <div class="text-center fs-1 fw-bold">Login</div>
+            <div class="input-group mt-4">
+                <div class="input-group-text bg-warning">
+                    <img src="../images/username-icon.svg" alt="username-icon" style="height: 1rem" />
+                </div>
+                <input class="form-control bg-light" type="text" placeholder="Username" />
+            </div>
+            <div class="input-group mt-1">
+                <div class="input-group-text bg-warning">
+                    <img src="../images/password-icon.svg" alt="password-icon" style="height: 1rem" />
+                </div>
+                <input class="form-control bg-light" type="password" placeholder="Password" />
+            </div>
+            <div class="d-flex justify-content-around mt-1">
+                <div class="d-flex align-items-center gap-1">
+                    <input class="form-check-input" type="checkbox" />
+                    <div class="pt-1" style="font-size: 0.9rem">Remember me</div>
+                </div>
+                <div class="pt-1">
+                    <a href="#" class="text-decoration-none text-warning fw-semibold fst-italic" style="font-size: 0.9rem">Forgot your password?</a>
+                </div>
+            </div>
+            <div class="btn btn-warning text-white w-100 mt-4 fw-semibold shadow-sm">Login</div>
+            <div class="d-flex gap-1 justify-content-center mt-1">
+                <div>Don't have an account?</div>
+                <a href="#" class="text-decoration-none text-warning fw-semibold">Register</a>
+            </div>
+            <div class="p-3">
+                <div class="border-bottom text-center" style="height: 0.9rem">
+                    <span class="bg-white px-3">or</span>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <a href="#" class="btn btn-light d-flex gap-2 justify-content-center w-100">
+                    <img src="../images/google-icon.svg" alt="google-icon" style="height: 1.6rem" />
+                    <div class="fw-semibold text-secondary">Continue with Google</div>
+                </a>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!-- Footer -->
+
+
+<!-- JavaScript (Bootstrap) -->
+<script src="../js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
