@@ -56,25 +56,35 @@
 <!-- Container-->
 <div class="container w-75 bg-primary mt-5 rounded shadow" >
     <div class="row align-items-center align-items-stretch">
-        <div class="col d-none d-lg-block col-md-5 col-lg-5 col-xl-6 rounded bg1">
+        <div class="col d-none d-lg-block col-md-5 col-lg-5 col-xl-6 rounded bg0">
 
         </div>
         <div class="col bg-white p-5 col-lg-7 col-xl-6 rounded-end">
             <div class="text-end">
                 <img src="../images/logo.png" alt="" style="width:48px">
             </div>
-            <h2 class="fw-bold text-center pt-5 mb-5">Login</h2>
+            <h2 class="fw-bold text-center pt-5 mb-5">Bienvenido</h2>
 
             <!--
-                Formulario de Login
+                Formulario de Registrar
             -->
-            <form action="" method="POST">
+            <form action="tu_accion_de_registro.php" method="POST">
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" id="nombre">
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label for="apellido" class="form-label">Apellido</label>
+                        <input type="text" class="form-control" name="apellido" id="apellido">
+                    </div>
+                </div>
                 <div class="mb-4">
                     <label for="email" class="form-label">Correo electrónico</label>
                     <input type="email" class="form-control" name="email" id="email">
                 </div>
                 <div class="row">
-                    <div class=" mb-4">
+                    <div class="col-md-6 mb-4">
                         <label for="password" class="form-label">Contraseña</label>
                         <div class="input-group">
                             <input type="password" class="form-control" name="password" id="password" aria-describedby="password-toggle">
@@ -84,13 +94,23 @@
                             </button>
                         </div>
                     </div>
+                    <div class="col-md-6 mb-4">
+                        <label for="confirm_password" class="form-label">Confirmar Contraseña</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" name="confirm_password" id="confirm_password" aria-describedby="confirm-password-toggle">
+                            <button type="button" class="btn btn-outline-secondary" id="confirm-password-toggle">
+                                <img src="../images/eye.svg"  style="height: 1.6rem" />
+                                <i class="fas fa-eye" id="confirm-password-icon"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="d-grid">
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <button type="submit" class="btn btn-primary">Registrarse</button>
                 </div>
                 <div class="my-3">
-                    <span>¿You do not have an account? <a href="register.html">Register</a></span> <br/>
+                    <span>¿Do you already have an account? <a href="login.html">Iniciar sesión</a></span> <br/>
                 </div>
             </form>
 
@@ -122,7 +142,6 @@
         </div>
     </div>
 </div>
-
 <!-- Footer -->
 
 
