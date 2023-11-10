@@ -38,12 +38,17 @@ public class User {
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
+
+
     public User(String email, String password, String role) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         this.email = email;
         this.password = password;
         this.role = (Role) Class.forName(role).getConstructor().newInstance();
     }
 
+    public User() {
+
+    }
 
     /**
      * Me devuelve el Tipo de usuario que es.

@@ -33,6 +33,10 @@ public abstract class Role {
         this.type = type;
     }
 
+    public Role() {
+
+    }
+
     /**
      * Devuelve la descripción del tipo de cliente
      * @return  la descripción del tipo de cliente
