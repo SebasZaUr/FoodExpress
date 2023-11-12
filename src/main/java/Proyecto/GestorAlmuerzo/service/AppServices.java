@@ -71,8 +71,8 @@ public class AppServices {
      * @param user  El usuario que voy actualizar.
      * @return  El usuarío actualizado en la base de datos.
      */
-    public User upgdateUser(User user){
-        if(UserRepository.findById(user.getId()) == null){
+    public User updateUser(User user){
+        if(UserRepository.findById(user.getEmail()) == null){
             return UserRepository.save(user);
         }
         return UserRepository.save(user);

@@ -1,0 +1,104 @@
+/* Establecer la imagen de fondo y su posición
+-------------------------------------------------- */
+.bg0 {
+    background-image: url(../images/food.jpg);
+    background-position: center center;
+}
+
+.bg1 {
+    background-image: url(../images/food_U.jpg);
+    background-position: center center;
+}
+
+.bg2 {
+    background-image: url(../images/cook.jpg);
+    background-position: center center;
+}
+
+.bg3 {
+    background-image: url(../images/cook_1.jpg);
+    background-position: center center;
+}
+
+body {
+    background: #ffe259;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #ffa751, #ffe259);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #ffa751, #ffe259);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+.carousel-item {
+    height: 32rem;
+    background: #000;
+    color: white;
+    position: relative;
+}
+
+.overlay-image {
+    position: absolute;
+    bottom: 10%;
+    left: 0;
+    right: 0;
+    background-position: center;
+    background-size: cover;
+    opacity: 0.5;
+}
+
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+    bottom: 3rem;
+    z-index: 10;
+}
+
+/* Declare heights because of positioning of img element */
+.carousel-item {
+    height: 32rem;
+}
+
+.carousel-item>img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    height: 120vh;
+    /* Usar altura completa de la ventana */
+}
+
+/* ICON
+-------------------------------------------------- */
+.custom-icon-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .custom-icon {
+    font-size: 3rem; /* Ajusta el tamaño del ícono según tus necesidades */
+    margin-right: 10px; /* Espacio entre el ícono y el texto */
+  }
+
+/* Product
+-------------------------------------------------- */
+
+
+  .product-card {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    margin: 15px;
+  }
+
+  @media (max-width: 768px) {
+    .product-card {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  .product-card img {
+    max-width: 100%;
+  }
