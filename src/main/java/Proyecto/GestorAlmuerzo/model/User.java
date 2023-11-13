@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "Ususarios")
 /**
  * Entidad de la base de datos que guarda todos la información de los usuaríos
  *
@@ -24,7 +24,7 @@ public class User {
     @Column
     private String password;
     @Column
-    private Role role;
+    private String role;
 
     /**
      * El constructor de la clase User.
@@ -32,18 +32,13 @@ public class User {
      * @param email  El correo del Usuario
      * @param password La contraceña de la cuenta del ususario
      * @param role  Que tipo de usuario es.
-     * @throws ClassNotFoundException
-     * @throws NoSuchMethodException
-     * @throws InvocationTargetException
-     * @throws InstantiationException
-     * @throws IllegalAccessException
      */
 
 
-    public User(String email, String password, String role) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public User(String email, String password, String role) {
         this.email = email;
         this.password = password;
-        this.role = (Role) Class.forName(role).getConstructor().newInstance();
+        this.role = role;
     }
 
     public User() {
@@ -54,7 +49,7 @@ public class User {
      * Me devuelve el Tipo de usuario que es.
      * @return  El tipo de usuario.
      */
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
