@@ -14,42 +14,29 @@ import jakarta.persistence.Table;
  * @version 28/10/2023
  */
 @Entity
-@Table(name = "Tipos de Usuarios")
+@Table(name = "ROL")
 public abstract class Role {
     @Id
     @Column
-    private String id;
+    protected String id;
 
     @Column
-    private String type;
+    protected String Nombre;
 
-    /**
-     * Constructor de la clase Role
-     * @param id    El id del tipo de cliente
-     * @param type  La descripción del tipo de cliente
-     */
-    public Role(String id, String type){
-        this.id =id;
-        this.type = type;
-    }
-
-    public Role() {
-
-    }
 
     /**
      * Devuelve la descripción del tipo de cliente
      * @return  la descripción del tipo de cliente
      */
-    public String getType() {
-        return type;
+    public String getNombre() {
+        return Nombre;
     }
 
     /**
      * Me permite cambiar la descripción del tipo de cliente
-     * @param type La nueva descripción del tipo de cliente
+     * @param Nombre La nueva descripción del tipo de cliente
      */
-    public void setType(String type) {
-        this.type = type;
+    public void setNombre(String Nombre) {
+        this.Nombre = Nombre;
     }
 }

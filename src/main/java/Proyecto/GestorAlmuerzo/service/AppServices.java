@@ -3,6 +3,7 @@ package Proyecto.GestorAlmuerzo.service;
 import Proyecto.GestorAlmuerzo.Repository.AppRepository;
 import Proyecto.GestorAlmuerzo.exceptions.GestorAlmuerzosAppException;
 import Proyecto.GestorAlmuerzo.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,5 +12,10 @@ import java.lang.reflect.InvocationTargetException;
 
 @Service
 public class AppServices {
+    private final AppRepository configurationRepository;
 
+    @Autowired
+    public AppServices(AppRepository configurationRepository) {
+        this.configurationRepository = configurationRepository;
+    }
 }
