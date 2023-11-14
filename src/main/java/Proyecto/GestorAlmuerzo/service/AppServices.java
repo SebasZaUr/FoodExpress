@@ -12,10 +12,7 @@ import java.lang.reflect.InvocationTargetException;
 
 @Service
 public class AppServices {
-    private final AppRepository configurationRepository;
 
     @Autowired
-    public AppServices(AppRepository configurationRepository) {
-        this.configurationRepository = configurationRepository;
-    }
+    private AppRepository appRepository;
 }
