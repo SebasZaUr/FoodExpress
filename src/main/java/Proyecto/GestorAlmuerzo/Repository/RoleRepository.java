@@ -1,0 +1,26 @@
+package Proyecto.GestorAlmuerzo.Repository;
+
+import java.util.List;
+import java.util.Optional;
+
+import javax.management.Query;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import Proyecto.GestorAlmuerzo.model.Role;
+
+/**
+ * Interface que nos permite conectar con la base de datos.
+ * 
+ * @author Sebastian Zamora
+ * @author Johann Amaya
+ * @author Cesar Amaya
+ * @author Christian Duarte
+ * @version 14/11/2023
+ */
+@Repository
+public interface RoleRepository extends JpaRepository<Role, String> {
+    Optional<Role> findByCategory(String category);
+
+    boolean existsByCategory(String category);
+}

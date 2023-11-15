@@ -1,11 +1,13 @@
 package Proyecto.GestorAlmuerzo.model;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 /**
- * Entidad de la base de datos que guarda todos la información de los tipos de usuaríos
+ * Entidad de la base de datos que guarda todos la información de los tipos de
+ * usuaríos
  *
  * @author Sebastian Zamora
  * @author Johann Amaya
@@ -13,30 +15,44 @@ import jakarta.persistence.Table;
  * @author Christian Duarte
  * @version 28/10/2023
  */
-@Entity
+@Entity(name = "Role")
 @Table(name = "ROL")
-public abstract class Role {
+public class Role {
     @Id
-    @Column
+    @Column(name = "ID")
     protected String id;
 
-    @Column
-    protected String Nombre;
+    @Column(name = "Category")
+    protected String category;
 
+    public Role(String id, String category) {
+        this.id = id;
+        this.category = category;
+    }
+
+    public Role() {
+
+    }
 
     /**
      * Devuelve la descripción del tipo de cliente
-     * @return  la descripción del tipo de cliente
+     * 
+     * @return la descripción del tipo de cliente
      */
     public String getNombre() {
-        return Nombre;
+        return category;
     }
 
     /**
      * Me permite cambiar la descripción del tipo de cliente
+     * 
      * @param Nombre La nueva descripción del tipo de cliente
      */
-    public void setNombre(String Nombre) {
-        this.Nombre = Nombre;
+    public void setNombre(String category) {
+        this.category = category;
+    }
+
+    public String getId() {
+        return this.id;
     }
 }

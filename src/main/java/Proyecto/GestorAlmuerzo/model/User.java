@@ -5,6 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name = "Ususarios")
@@ -25,20 +26,23 @@ public class User {
     private String password;
     @Column
     private String role;
+    @Column
+    private String nombre;
 
     /**
      * El constructor de la clase User.
      *
-     * @param email  El correo del Usuario
+     * @param email    El correo del Usuario
      * @param password La contraceña de la cuenta del ususario
-     * @param role  Que tipo de usuario es.
+     * @param role     Que tipo de usuario es.
      */
 
-
-    public User(String email, String password, String role) {
+    public User(String email, String nombre, String password, String role) {
         this.email = email;
-        this.password = password;
+        this.password = PasswordUtils.encryptPassword(password);
+
         this.role = role;
+        this.nombre = nombre;
     }
 
     public User() {
@@ -47,7 +51,8 @@ public class User {
 
     /**
      * Me devuelve el Tipo de usuario que es.
-     * @return  El tipo de usuario.
+     * 
+     * @return El tipo de usuario.
      */
     public String getRole() {
         return role;
@@ -55,7 +60,8 @@ public class User {
 
     /**
      * Me devuelve el correo del usuario
-     * @return  El correo del usuario.
+     * 
+     * @return El correo del usuario.
      */
     public String getEmail() {
         return email;
@@ -63,7 +69,8 @@ public class User {
 
     /**
      * Me devuelve la contraceña del usuario.
-     * @return  La contraceña del usuario.
+     * 
+     * @return La contraceña del usuario.
      */
     public String getPassword() {
         return password;
@@ -71,6 +78,7 @@ public class User {
 
     /**
      * Me permite cambiar el correo del usuario.
+     * 
      * @param email El nuevo correo del usuario.
      */
     public void setEmail(String email) {
@@ -79,7 +87,8 @@ public class User {
 
     /**
      * Me permite cambiar la contraceña del usuario.
-     * @param password  La nueva contraceña.
+     * 
+     * @param password La nueva contraceña.
      */
     public void setPassword(String password) {
         this.password = password;
