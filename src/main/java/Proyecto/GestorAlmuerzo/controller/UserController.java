@@ -27,7 +27,7 @@ public class UserController {
             throws GestorAlmuerzosAppException {
         String redirect = "login";
         if (userRepository.login(correo, contraseña)) {
-            redirect = "redirect:/index";
+            redirect = "redirect:/";
         }
         return redirect;
     }
@@ -41,7 +41,7 @@ public class UserController {
     @PostMapping("/save")
     public String saveUser(@ModelAttribute("user") User user) {
         userRepository.addUser(user);
-        return "redirect:/index";
+        return "redirect:/";
     }
 
     @GetMapping("/updateProfile/{id}")

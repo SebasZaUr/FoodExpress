@@ -35,7 +35,7 @@ public class UserServices {
         Optional<User> newUser = getUser(email);
         User usuario = newUser.orElseThrow(() -> new NoSuchElementException("No existe un usuario"));
         String userPassword = usuario.getPassword();
-        return true;
+        return password.equals(userPassword);
     }
 
     /**
