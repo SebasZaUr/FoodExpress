@@ -21,7 +21,7 @@ public class UserServices {
      * Verifica que el ususario si este registrado, si esta le da acceso a ala
      * plataforma
      * 
-     * @param email    Correo del Usuario.
+     * @param email Correo del Usuario.
      * @param password Contraceña del Usuario.
      * @throws GestorAlmuerzosAppException Empy
      */

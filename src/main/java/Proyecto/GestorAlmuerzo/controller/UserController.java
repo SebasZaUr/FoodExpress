@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
 
@@ -19,24 +17,24 @@ public class UserController {
     UserServices userRepository;
 
     @GetMapping("/login")
-    public String showUserLogin(Model m) {
+    public String showUserLogin(Model model) {
         return "login";
     }
 
-    @PostMapping("/verifyPorfiel")
-    public String verifyLogin(@RequestAttribute("correo") String correo,
-            @RequestAttribute("contraseña") String contraseña)
+    @PostMapping("/verifyProfile")
+    public String verifyLogin(@RequestParam("correo") String correo,
+                              @RequestParam("contraseña") String contraseña, Model model)
             throws GestorAlmuerzosAppException {
-        String dirijir = "login";
+        String redirect = "login";
         if (userRepository.login(correo, contraseña)) {
-            dirijir = "redirect:/index";
+            redirect = "redirect:/index";
         }
-        return dirijir;
+        return redirect;
     }
 
     @GetMapping("/register")
-    public String showUserRegisterForm(Model m) {
-        m.addAttribute("user", new User());
+    public String showUserRegisterForm(Model model) {
+        model.addAttribute("user", new User());
         return "register";
     }
 
@@ -46,10 +44,10 @@ public class UserController {
         return "redirect:/index";
     }
 
-    @GetMapping("/UpdateProfile/{id}")
-    public String showUserUpdateForm(@PathVariable(value = "id") String id, Model m) {
+    @GetMapping("/updateProfile/{id}")
+    public String showUserUpdateForm(@PathVariable(value = "id") String id, Model model) {
         Optional<User> usuario = userRepository.getUser(id);
-        m.addAttribute("user", usuario);
+        model.addAttribute("user", usuario.orElse(new User())); // Handle the case where the user is not found
         return "update";
     }
 
@@ -64,5 +62,5 @@ public class UserController {
         userRepository.deleteUser(id);
         return "redirect:/index";
     }
-
 }
+

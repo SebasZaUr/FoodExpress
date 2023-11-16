@@ -100,15 +100,10 @@
           <h2 class="fw-bold text-center pt-5 mb-5">Login</h2>
 
           <!-- Formulario de Login -->
-          <form action="" method="POST">
+          <form method="post" action="/verifyProfile">
             <div class="mb-4">
               <label for="email" class="form-label">Correo electrónico</label>
-              <input
-                type="email"
-                class="form-control"
-                name="email"
-                id="email"
-              />
+              <input type="email" class="form-control" name="correo" id="email"/>
             </div>
             <div class="row">
               <div class="mb-4">
@@ -117,7 +112,7 @@
                   <input
                     type="password"
                     class="form-control"
-                    name="password"
+                    name="contraseña"
                     id="password"
                     aria-describedby="password-toggle"
                   />
