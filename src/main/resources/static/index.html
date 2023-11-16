@@ -8,8 +8,8 @@
     <title>Food Express</title>
     <link rel="icon" href="../images/logo.ico" type="image/x-icon" />
     <!-- CSS -->
-    <link rel="stylesheet" href="../css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../css/style.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet" href="../css/style.css" />
   </head>
 
   <body>
@@ -62,7 +62,7 @@
             <div class="d-flex">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link" href="../templates/login.html">Login</a>
+                  <a class="nav-link" href="/login">Login</a>
                 </li>
               </ul>
             </div>
@@ -227,7 +227,7 @@
       
       
     <!-- JavaScript -->
-    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha384-KyZXEAg3QhqLMpG8r+Jz7CEfNuUq7Fk9l4zj6pqc6bVi+O5/DvjN1q5EMWz2VfE3J"

@@ -1,14 +1,22 @@
 package Proyecto.GestorAlmuerzo.model;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Optional;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
+import Proyecto.GestorAlmuerzo.Repository.RoleRepository;
+
 @Entity
-@Table(name = "Ususarios")
+@Table(name = "Usuarios")
 /**
  * Entidad de la base de datos que guarda todos la información de los usuaríos
  *
@@ -24,10 +32,13 @@ public class User {
     private String email;
     @Column
     private String password;
-    @Column
-    private String role;
+    @ManyToOne
+    @JoinColumn(name = "rol", nullable = true)
+    private Role role;
     @Column
     private String nombre;
+    @Transient
+    private String OriginPassword;
 
     /**
      * El constructor de la clase User.
@@ -39,9 +50,8 @@ public class User {
 
     public User(String email, String nombre, String password, String role) {
         this.email = email;
-        this.password = PasswordUtils.encryptPassword(password);
-
-        this.role = role;
+        this.password = password;
+        this.OriginPassword = password;
         this.nombre = nombre;
     }
 
@@ -54,7 +64,7 @@ public class User {
      * 
      * @return El tipo de usuario.
      */
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 

@@ -29,7 +29,7 @@ public class FoodExpress {
             appService.addRol(new Role("1", "cliente"));
             appService.addRol(new Role("2", "administrador"));
             appService.addRol(new Role("3", "empleado"));
-            usuarioService.addUser(new User("sebastian@foodexpres.com", "Sebastian", "1234", "cliente"));
+            usuarioService.addUser(new User("sebastian@foodexpres.com", "Sebastian", "1234", "1"));
         };
 
     }
