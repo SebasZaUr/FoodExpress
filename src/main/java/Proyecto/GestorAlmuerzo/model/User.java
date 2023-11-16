@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import Proyecto.GestorAlmuerzo.Repository.RoleRepository;
 
 @Entity
-@Table(name = "Usuarios")
+@Table(name = "Usuario")
 /**
  * Entidad de la base de datos que guarda todos la información de los usuaríos
  *
@@ -37,6 +37,8 @@ public class User {
     private Role role;
     @Column
     private String nombre;
+    @Column
+    private String apellido;
     @Transient
     private String OriginPassword;
 
@@ -48,15 +50,32 @@ public class User {
      * @param role     Que tipo de usuario es.
      */
 
-    public User(String email, String nombre, String password, String role) {
+    public User(String email, String name,String lastName, String password, String role) {
         this.email = email;
         this.password = password;
         this.OriginPassword = password;
+        this.nombre = name;
+        this.apellido=lastName;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
     public User() {
 
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
     }
 
     /**
@@ -102,5 +121,17 @@ public class User {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", OriginPassword='" + OriginPassword + '\'' +
+                '}';
     }
 }

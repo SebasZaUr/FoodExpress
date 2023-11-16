@@ -44,12 +44,12 @@ public class UserServices {
      * @param password user's password
      * @param role     user's role
      */
-    public void singup(String email, String name, String password, String role)
+    public void singup(String email, String name,String lastName, String password, String role)
             throws GestorAlmuerzosAppException {
         if (getUser(email) == null) {
             throw new GestorAlmuerzosAppException(GestorAlmuerzosAppException.UserExist);
         } else {
-            new User(email, name, password, role);
+            new User(email, name, lastName,password, role);
         }
     }
 

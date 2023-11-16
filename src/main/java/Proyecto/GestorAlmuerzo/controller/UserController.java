@@ -40,6 +40,7 @@ public class UserController {
 
     @PostMapping("/save")
     public String saveUser(@ModelAttribute("user") User user) {
+        System.out.println(user);
         userRepository.addUser(user);
         return "redirect:/";
     }
