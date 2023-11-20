@@ -3,7 +3,9 @@ package Proyecto.GestorAlmuerzo.Repository;
 import Proyecto.GestorAlmuerzo.model.Plate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Interface que nos permite conectar con la base de datos.
@@ -16,5 +18,7 @@ import java.util.List;
  */
 @Repository
 public interface PlateRepository extends JpaRepository<Plate, String> {
-    List<Plate> findById(Long id);
+    Optional<Plate> findById(int id);
+
+    List<Plate> findByCategoriesId(Long categoryId);
 }
