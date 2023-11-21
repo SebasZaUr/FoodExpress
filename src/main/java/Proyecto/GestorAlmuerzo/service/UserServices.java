@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,6 +19,9 @@ public class UserServices {
 
     @Autowired
     private UserRepository UserRepository;
+
+    @Value("${spring.mail.password}")
+    private String password;
 
     public boolean login(String email, String password) throws GestorAlmuerzosAppException {
         if (email.isEmpty()) {
@@ -56,7 +60,7 @@ public class UserServices {
 
     public void sendEmailForgotPassword(User user) {
         Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.host", "smtp.yandex.com");
         props.put("mail.smtp.socketFactory.port", "465");
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.auth", "true");
@@ -64,13 +68,14 @@ public class UserServices {
 
         Session session = Session.getInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("pruebasfoodexpress@gmail.com", "foodexpress");
+                System.out.println("password" + password);
+                return new PasswordAuthentication("foodexpressadm", password);
             }
         });
 
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("pruebasfoodexpress@gmail.com"));
+            message.setFrom(new InternetAddress("foodexpressadm@yandex.com"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(user.getEmail()));
             message.setSubject("Recuperar Contraseña");
 
