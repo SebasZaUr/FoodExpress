@@ -87,9 +87,24 @@ public class UserController {
         return "update";
     }
 
+    @GetMapping("/")
+    public String index(){
+        return "index";
+    }
+
     @GetMapping("/forgotPassword")
     public String forgotPassword(){
         return "forgotPassword";
+    }
+
+    @GetMapping("/about-us")
+    public String aboutUs(){
+        return "about-us";
+    }
+
+    @GetMapping("/contact-us")
+    public String contactUs(){
+        return "contact-us";
     }
 
     @PostMapping("/sendEmail")

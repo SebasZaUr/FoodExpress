@@ -20,16 +20,16 @@ import java.util.Set;
 
 @SpringBootApplication
 public class FoodExpress {
-    @Autowired
+    @Autowired(required = true)
     UserServices usuarioService;
 
-    @Autowired
+    @Autowired(required = true)
     AppServices appService;
 
-    @Autowired
+    @Autowired(required = true)
     CategoryServices categoryServices;
 
-    @Autowired
+    @Autowired(required = true)
     PlateServices plateServices;
     public static void main(String[] args) {
         SpringApplication.run(FoodExpress.class, args);
@@ -43,7 +43,7 @@ public class FoodExpress {
             appService.addRol(new Role("1", "cliente"));
             appService.addRol(new Role("2", "administrador"));
             appService.addRol(new Role("3", "empleado"));
-            usuarioService.addUser(new User("sebastian@foodexpres.com", "Sebastian", "Zamora", "1234", "1"));
+            usuarioService.addUser(new User("sebassele2008@gmail.com", "Sebastian", "Zamora", "1234", "1"));
             categoryServices.addCategory(new Category("Ensalada"));
             categoryServices.addCategory(new Category("Postre"));
             categoryServices.addCategory(new Category("Entradas"));

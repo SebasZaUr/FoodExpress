@@ -64,7 +64,7 @@ public class UserServices {
 
         Session session = Session.getInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("pruebasfoodexpress@gmail.com", "foodexpress1234");
+                return new PasswordAuthentication("pruebasfoodexpress@gmail.com", "foodexpress");
             }
         });
 
