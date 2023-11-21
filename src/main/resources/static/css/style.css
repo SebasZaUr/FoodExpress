@@ -102,3 +102,12 @@ body {
   .product-card img {
     max-width: 100%;
   }
+
+.liveAlertPlaceholder {
+              position: fixed;
+              top: 0;
+              right: 0;
+              z-index: 10000; /* Ajusta el z-index según sea necesario para estar por encima de todo */
+              width: 300px; /* Ajusta el ancho según sea necesario */
+              margin: 10px; /* Ajusta el margen según sea necesario */
+       }
