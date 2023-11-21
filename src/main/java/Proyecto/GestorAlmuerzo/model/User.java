@@ -1,20 +1,14 @@
 package Proyecto.GestorAlmuerzo.model;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.Optional;
-
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
+import Proyecto.GestorAlmuerzo.exceptions.GestorAlmuerzosAppException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import Proyecto.GestorAlmuerzo.Repository.RoleRepository;
-
 @Entity
 @Table(name = "Usuario")
 /**
@@ -39,8 +33,13 @@ public class User {
     private String nombre;
     @Column
     private String apellido;
-    @Transient
-    private String OriginPassword;
+
+    @ManyToOne
+    @JoinColumn(name = "suscripcion", nullable = true)
+    private Suscription suscripcion;
+    //@Autowired
+    //private RoleRepository roleRepository;
+
 
     /**
      * El constructor de la clase User.
@@ -50,12 +49,11 @@ public class User {
      * @param role     Que tipo de usuario es.
      */
 
-    public User(String email, String name,String lastName, String password, String role) {
+    public User(String email, String name,String lastName, String password, String role) throws GestorAlmuerzosAppException {
         this.email = email;
-        this.password = password;
-        this.OriginPassword = password;
         this.nombre = name;
         this.apellido=lastName;
+        this.password=encrypt(password);
     }
 
     public void setApellido(String apellido) {
@@ -80,7 +78,7 @@ public class User {
 
     /**
      * Me devuelve el Tipo de usuario que es.
-     * 
+     *
      * @return El tipo de usuario.
      */
     public Role getRole() {
@@ -89,7 +87,7 @@ public class User {
 
     /**
      * Me devuelve el correo del usuario
-     * 
+     *
      * @return El correo del usuario.
      */
     public String getEmail() {
@@ -98,7 +96,7 @@ public class User {
 
     /**
      * Me devuelve la contraceña del usuario.
-     * 
+     *
      * @return La contraceña del usuario.
      */
     public String getPassword() {
@@ -107,7 +105,7 @@ public class User {
 
     /**
      * Me permite cambiar el correo del usuario.
-     * 
+     *
      * @param email El nuevo correo del usuario.
      */
     public void setEmail(String email) {
@@ -116,11 +114,37 @@ public class User {
 
     /**
      * Me permite cambiar la contraceña del usuario.
-     * 
+     *
      * @param password La nueva contraceña.
      */
     public void setPassword(String password) {
-        this.password = password;
+        this.password= encrypt(password);
+    }
+
+    /**
+     * Me permite encriptar la contraseña para guardarla en la base de datos
+     *
+     * @param password La contraseña que voy a encriptar.
+     */
+    public String encrypt(String password){
+        String encryptPassword = "";
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hashBytes = md.digest(password.getBytes());
+            StringBuilder hexStringBuilder = new StringBuilder();
+            for (byte b : hashBytes) {
+                hexStringBuilder.append(String.format("%02X", b));
+            }
+            encryptPassword = hexStringBuilder.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return encryptPassword;
+    }
+
+    public boolean verifyPassword(String userPassword){
+        String prueba = encrypt(userPassword);
+        return prueba.equals(this.password);
     }
 
     @Override
@@ -131,7 +155,18 @@ public class User {
                 ", role=" + role +
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
-                ", OriginPassword='" + OriginPassword + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User user)) return false;
+        return Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getRole(), user.getRole()) && Objects.equals(getNombre(), user.getNombre()) && Objects.equals(getApellido(), user.getApellido()) && Objects.equals(suscripcion, user.suscripcion);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getEmail(), getPassword(), getRole(), getNombre(), getApellido(), suscripcion);
     }
 }

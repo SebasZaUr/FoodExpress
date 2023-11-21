@@ -1,104 +1,90 @@
 package Proyecto.GestorAlmuerzo.service;
 
-import Proyecto.GestorAlmuerzo.Repository.AppRepository;
+import Proyecto.GestorAlmuerzo.Repository.UserRepository;
 import Proyecto.GestorAlmuerzo.exceptions.GestorAlmuerzosAppException;
 import Proyecto.GestorAlmuerzo.model.User;
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.List;
+import java.util.Optional;
+import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-
 @Service
 public class UserServices {
+
     @Autowired
-    private AppRepository UserRepository;
+    private UserRepository UserRepository;
 
-    /**
-     * Verifica que el ususario si este registrado, si esta le da acceso a ala
-     * plataforma
-     * 
-     * @param email Correo del Usuario.
-     * @param password Contraceña del Usuario.
-     * @throws GestorAlmuerzosAppException Empy
-     */
     public boolean login(String email, String password) throws GestorAlmuerzosAppException {
-        System.out.println(password);
-
-        if (email.equals(""))
-            throw new GestorAlmuerzosAppException(GestorAlmuerzosAppException.Emptyemail);
-        if (password.equals(""))
-            throw new GestorAlmuerzosAppException(GestorAlmuerzosAppException.EmptyPassword);
-        Optional<User> newUser = getUser(email);
-        User usuario = newUser.orElseThrow(() -> new NoSuchElementException("No existe un usuario"));
-        String userPassword = usuario.getPassword();
-        return password.equals(userPassword);
-    }
-
-    /**
-     *
-     * @param email    user's email
-     * @param password user's password
-     * @param role     user's role
-     */
-    public void singup(String email, String name,String lastName, String password, String role)
-            throws GestorAlmuerzosAppException {
-        if (getUser(email) == null) {
-            throw new GestorAlmuerzosAppException(GestorAlmuerzosAppException.UserExist);
-        } else {
-            new User(email, name, lastName,password, role);
+        if (email.isEmpty()) {
+            throw new GestorAlmuerzosAppException(GestorAlmuerzosAppException.EmptyEmail);
         }
+        if (password.isEmpty()) {
+            throw new GestorAlmuerzosAppException(GestorAlmuerzosAppException.EmptyPassword);
+        }
+        Optional<User> newUser = getUser(email);
+        User usuario = newUser.orElseThrow(() -> new GestorAlmuerzosAppException(GestorAlmuerzosAppException.IncorrectInformation));
+        String encryptPassword = usuario.encrypt(password);
+        String userPassword = usuario.getPassword();
+        return encryptPassword.equals(userPassword);
     }
 
-    /**
-     * Me Obtiene un usuario atravez de su id.
-     * 
-     * @param email Correo del usuario.
-     * @return El usuario si se encontro.
-     */
     public Optional<User> getUser(String email) {
         return UserRepository.findById(email);
     }
 
-    /**
-     * Me agrega un usuario a la base de datos
-     * 
-     * @param user El ususarío que voy agregar
-     * @return El usuarío que se agrego a la base de datos
-     */
     public User addUser(User user) {
         return UserRepository.save(user);
     }
 
-    /**
-     * Me actualiza la información de un usuario.
-     * 
-     * @param user El usuario que voy actualizar.
-     * @return El usuarío actualizado en la base de datos.
-     */
     public User updateUser(User user) {
         UserRepository.findById(user.getEmail());
         return UserRepository.save(user);
     }
 
-    /**
-     * Me obtiene todos los usuaríos en la base de datos.
-     * 
-     * @return La lista de los usuariós de la base de datos.
-     */
     public List<User> getAllUsers() {
         return UserRepository.findAll();
     }
 
-    /**
-     * Me elimina un usuarío.
-     * 
-     * @param id El id del usuarío que voy a eliminar.
-     */
     public void deleteUser(String id) {
         UserRepository.deleteById(id);
     }
+
+    public void sendEmailForgotPassword(User user) {
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
+
+        Session session = Session.getInstance(props, new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("pruebasfoodexpress@gmail.com", "foodexpress1234");
+            }
+        });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("pruebasfoodexpress@gmail.com"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(user.getEmail()));
+            message.setSubject("Recuperar Contraseña");
+
+            String resetPasswordLink = "https://tu-sitio.com/reset-password?token=abcd1234";
+            String emailContent = String.format(
+                    "Hola %s %s,\n\nDale click al siguiente link para que recuperes tu contraseña:\n%s",
+                    user.getNombre(), user.getApellido(), resetPasswordLink);
+
+            message.setText(emailContent);
+
+            Transport.send(message);
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
+

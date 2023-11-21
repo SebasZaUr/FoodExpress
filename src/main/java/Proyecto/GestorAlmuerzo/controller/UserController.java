@@ -1,5 +1,6 @@
 package Proyecto.GestorAlmuerzo.controller;
 
+import Proyecto.GestorAlmuerzo.Repository.UserRepository;
 import Proyecto.GestorAlmuerzo.exceptions.GestorAlmuerzosAppException;
 import Proyecto.GestorAlmuerzo.model.Plate;
 import Proyecto.GestorAlmuerzo.model.User;
@@ -9,10 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 import java.util.Optional;
-
+import java.util.List;
 @Controller
 public class UserController {
 
@@ -20,6 +19,8 @@ public class UserController {
     UserServices userRepository;
     @Autowired
     PlateServices plateServices;
+    @Autowired
+    UserRepository repository;
 
     @GetMapping("/login")
     public String showUserLogin(Model model) {
@@ -31,8 +32,16 @@ public class UserController {
                               @RequestParam("contraseña") String contraseña, Model model)
             throws GestorAlmuerzosAppException {
         String redirect = "login";
-        if (userRepository.login(correo, contraseña)) {
-            redirect = "redirect:/";
+        try {
+            if (userRepository.login(correo, contraseña)) {
+                redirect = "redirect:/";
+            }else{
+                model.addAttribute("error", GestorAlmuerzosAppException.IncorrectInformation);
+                return redirect;
+            }
+        }catch (GestorAlmuerzosAppException e){
+            model.addAttribute("error", e.getMessage());
+            return redirect;
         }
         return redirect;
     }
@@ -44,8 +53,29 @@ public class UserController {
     }
 
     @PostMapping("/save")
-    public String saveUser(@ModelAttribute("user") User user) {
-        System.out.println(user);
+    public String saveUser(@RequestParam("nombre") String name,
+                           @RequestParam("apellido") String lastName,@RequestParam("email") String email,@RequestParam("password") String password,
+                           @RequestParam("confirm_password") String confirm,@ModelAttribute("user") User user,Model model) {
+        if(repository.findById(email).isPresent()){
+            model.addAttribute("error", GestorAlmuerzosAppException.EmailExist);
+            return "register";
+        }
+        if(!password.equals(confirm)){
+            model.addAttribute("error", GestorAlmuerzosAppException.NotPasswordConcident);
+            return "register";
+        }
+        if(name.isEmpty()){
+            model.addAttribute("error", GestorAlmuerzosAppException.NameEmpty);
+            return "register";
+        }
+        if(lastName.isEmpty()){
+            model.addAttribute("error", GestorAlmuerzosAppException.LastNameEmpty);
+            return "register";
+        }
+        if(email.isEmpty()){
+            model.addAttribute("error", GestorAlmuerzosAppException.EmptyEmail);
+            return "register";
+        }
         userRepository.addUser(user);
         return "redirect:/";
     }
@@ -55,6 +85,24 @@ public class UserController {
         Optional<User> usuario = userRepository.getUser(id);
         model.addAttribute("user", usuario.orElse(new User())); // Handle the case where the user is not found
         return "update";
+    }
+
+    @GetMapping("/forgotPassword")
+    public String forgotPassword(){
+        return "forgotPassword";
+    }
+
+    @PostMapping("/sendEmail")
+    public String sendEmail(@RequestParam("email") String email,Model model) throws GestorAlmuerzosAppException {
+        Optional<User> usuario = userRepository.getUser(email);
+        try {
+            User user = usuario.orElseThrow(() -> new GestorAlmuerzosAppException(GestorAlmuerzosAppException.EmailNoExist));
+            userRepository.sendEmailForgotPassword(user);
+        }catch(GestorAlmuerzosAppException e){
+            model.addAttribute("error", e.getMessage());
+            return("/forgotPassword");
+        }
+        return "redirect:/";
     }
 
     @PostMapping("/update")

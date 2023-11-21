@@ -102,3 +102,8 @@ body {
   .product-card img {
     max-width: 100%;
   }
+
+
+.error-message {
+    color: red;
+}
