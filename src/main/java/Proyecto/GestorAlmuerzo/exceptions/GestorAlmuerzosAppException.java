@@ -11,6 +11,8 @@ public class GestorAlmuerzosAppException extends Exception{
     public static String LastNameEmpty = "Falta Apellido";
 
     public static final String EmailNoExist = "El correo no esta registrado, por favor ingrese un correo valido";
+
+    public static final String RoleNotExist = "El rol asignado no existe";
     public GestorAlmuerzosAppException(String msm) {
         super(msm);
     }

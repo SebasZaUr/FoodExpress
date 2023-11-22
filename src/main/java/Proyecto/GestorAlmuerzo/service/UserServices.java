@@ -1,5 +1,7 @@
 package Proyecto.GestorAlmuerzo.service;
 
+import Proyecto.GestorAlmuerzo.Repository.RoleRepository;
+import Proyecto.GestorAlmuerzo.Repository.SuscriptionRepository;
 import Proyecto.GestorAlmuerzo.Repository.UserRepository;
 import Proyecto.GestorAlmuerzo.exceptions.GestorAlmuerzosAppException;
 import Proyecto.GestorAlmuerzo.model.User;
@@ -19,6 +21,11 @@ public class UserServices {
     @Autowired
     private UserRepository UserRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+    @Autowired
+    private SuscriptionRepository suscriptionRepository;
+
     public boolean login(String email, String password) throws GestorAlmuerzosAppException {
         if (email.isEmpty()) {
             throw new GestorAlmuerzosAppException(GestorAlmuerzosAppException.EmptyEmail);
@@ -37,8 +44,12 @@ public class UserServices {
         return UserRepository.findById(email);
     }
 
-    public User addUser(User user) {
-        return UserRepository.save(user);
+    public void addUser(User user) {
+        UserRepository.save(user);
+        if(user.getRole().isEmpty()){
+            user.setRole("client",roleRepository);
+            UserRepository.save(user);
+        }
     }
 
     public User updateUser(User user) {
@@ -56,7 +67,7 @@ public class UserServices {
 
     public void sendEmailForgotPassword(User user) {
         Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.host", "smtp.yandex.com");
         props.put("mail.smtp.socketFactory.port", "465");
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.auth", "true");
@@ -64,7 +75,7 @@ public class UserServices {
 
         Session session = Session.getInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("pruebasfoodexpress@gmail.com", "foodexpress");
+                return new PasswordAuthentication("foodexpressadm@yandex.com", "foodexpress123#");
             }
         });
 

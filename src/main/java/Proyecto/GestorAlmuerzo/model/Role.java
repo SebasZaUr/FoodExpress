@@ -46,9 +46,9 @@ public class Role {
     /**
      * Me permite cambiar la descripción del tipo de cliente
      * 
-     * @param Nombre La nueva descripción del tipo de cliente
+     * @param category La nueva descripción del tipo de cliente
      **/
-    public void setNombre(String category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 

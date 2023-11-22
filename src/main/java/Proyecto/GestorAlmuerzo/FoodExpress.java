@@ -1,5 +1,6 @@
 package Proyecto.GestorAlmuerzo;
 
+import Proyecto.GestorAlmuerzo.Repository.RoleRepository;
 import Proyecto.GestorAlmuerzo.model.Category;
 import Proyecto.GestorAlmuerzo.service.AppServices;
 import Proyecto.GestorAlmuerzo.service.CategoryServices;
@@ -20,6 +21,8 @@ import java.util.Set;
 
 @SpringBootApplication
 public class FoodExpress {
+    @Autowired
+    RoleRepository roleRepository;
     @Autowired(required = true)
     UserServices usuarioService;
 
@@ -40,10 +43,14 @@ public class FoodExpress {
     @Bean
     public CommandLineRunner run() throws Exception {
         return (args) -> {
-            appService.addRol(new Role("1", "cliente"));
-            appService.addRol(new Role("2", "administrador"));
-            appService.addRol(new Role("3", "empleado"));
-            usuarioService.addUser(new User("sebassele2008@gmail.com", "Sebastian", "Zamora", "1234", "1"));
+            appService.addRol(new Role("1", "client"));
+            appService.addRol(new Role("2", "admin"));
+            appService.addRol(new Role("3", "cooker"));
+            appService.addRol(new Role("4", "waiter"));
+            usuarioService.addUser(new User("sebassele2008@gmail.com", "Sebastian", "Zamora", "1234", "client",roleRepository));
+            usuarioService.addUser(new User("christian@foodexpres.com", "Chirstian", "Duarte", "1234", "admin",roleRepository));
+            usuarioService.addUser(new User("cesar@foodexpres.com", "Cesar", "Amaya", "1234", "cooker",roleRepository));
+            usuarioService.addUser(new User("johann@foodexpres.com", "Johann", "Amaya", "1234", "waiter",roleRepository));
             categoryServices.addCategory(new Category("Ensalada"));
             categoryServices.addCategory(new Category("Postre"));
             categoryServices.addCategory(new Category("Entradas"));

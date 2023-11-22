@@ -17,9 +17,21 @@ public class Suscription {
     @Column(name = "Tipo")
     private String Type;
 
-    public Suscription(String idSuscription, String type) {
+    @Column(name= "precio")
+    private int price;
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public Suscription(String idSuscription, String type, int price) {
         this.idSuscription = idSuscription;
         Type = type;
+        this.price= price;
     }
 
     public Suscription() {

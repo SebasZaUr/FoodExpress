@@ -17,8 +17,7 @@ import java.util.Optional;
  * @version 14/11/2023
  */
 @Repository
-public interface PlateRepository extends JpaRepository<Plate, String> {
-    Optional<Plate> findById(int id);
+public interface PlateRepository extends JpaRepository<Plate, Integer> {
 
     List<Plate> findByCategoriesId(Long categoryId);
 }

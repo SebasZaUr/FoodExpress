@@ -2,13 +2,13 @@ package Proyecto.GestorAlmuerzo.model;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
+import java.util.Optional;
+import Proyecto.GestorAlmuerzo.Repository.RoleRepository;
 import Proyecto.GestorAlmuerzo.exceptions.GestorAlmuerzosAppException;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import Proyecto.GestorAlmuerzo.service.AppServices;
+import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
+
 @Entity
 @Table(name = "Usuario")
 /**
@@ -37,8 +37,6 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "suscripcion", nullable = true)
     private Suscription suscripcion;
-    //@Autowired
-    //private RoleRepository roleRepository;
 
 
     /**
@@ -49,15 +47,30 @@ public class User {
      * @param role     Que tipo de usuario es.
      */
 
-    public User(String email, String name,String lastName, String password, String role) throws GestorAlmuerzosAppException {
+    public User(String email, String name,String lastName, String password, String role,RoleRepository repository) throws GestorAlmuerzosAppException {
         this.email = email;
         this.nombre = name;
         this.apellido=lastName;
         this.password=encrypt(password);
+        Optional<Role> posibleRol= repository.findByCategory(role);
+        this.role = posibleRol.orElseThrow(() -> new GestorAlmuerzosAppException(GestorAlmuerzosAppException.RoleNotExist));
+    }
+
+    public Suscription getSuscripcion() {
+        return suscripcion;
     }
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
+    }
+
+    public void setRole(String role , RoleRepository repository) {
+        Optional<Role> posibleRol= repository.findByCategory(role);
+        this.role = posibleRol.orElseThrow();
+    }
+
+    public void setSuscripcion(Suscription suscripcion) {
+        this.suscripcion = suscripcion;
     }
 
     public void setNombre(String nombre) {
@@ -81,8 +94,8 @@ public class User {
      *
      * @return El tipo de usuario.
      */
-    public Role getRole() {
-        return role;
+    public String getRole() {
+        return role.getNombre();
     }
 
     /**
@@ -153,8 +166,7 @@ public class User {
                 "email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
-                ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
+                ", nombre='" + nombre + ' '  + apellido + '\'' +
                 '}';
     }
 

@@ -35,7 +35,7 @@ public class PlateServices {
     }
 
     public void deletePlate(int id) {
-        plateRepository.deleteById(String.valueOf(id));
+        plateRepository.deleteById(id);
     }
 
     public List<Plate> getAllPlatesOrderedByName() {

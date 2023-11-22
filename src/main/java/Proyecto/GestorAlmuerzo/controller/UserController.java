@@ -10,10 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.SocketOption;
 import java.util.Optional;
 import java.util.List;
 @Controller
 public class UserController {
+    private String userLogin;
 
     @Autowired
     UserServices userRepository;
@@ -34,7 +37,10 @@ public class UserController {
         String redirect = "login";
         try {
             if (userRepository.login(correo, contraseña)) {
-                redirect = "redirect:/";
+                Optional<User> u = userRepository.getUser(correo);
+                User usuario = u.orElseThrow();
+                userLogin = usuario.getNombre().split(" ")[0] + " " + usuario.getApellido().split(" ")[0];
+                redirect = "redirect:/" + usuario.getRole();
             }else{
                 model.addAttribute("error", GestorAlmuerzosAppException.IncorrectInformation);
                 return redirect;
@@ -46,6 +52,19 @@ public class UserController {
         return redirect;
     }
 
+    @GetMapping("/client")
+    public String loginUser(Model m){
+        String username = (String)m.getAttribute("username");
+        m.addAttribute("username",userLogin);
+        return "client";
+    }
+
+    @GetMapping("/admin")
+    public String loginAdmin(Model m){
+        String username = (String)m.getAttribute("username");
+        m.addAttribute("username",userLogin);
+        return "admin";
+    }
     @GetMapping("/register")
     public String showUserRegisterForm(Model model) {
         model.addAttribute("user", new User());
