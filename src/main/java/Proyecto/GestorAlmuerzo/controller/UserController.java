@@ -40,7 +40,7 @@ public class UserController {
                 Optional<User> u = userRepository.getUser(correo);
                 User usuario = u.orElseThrow();
                 userLogin = usuario.getNombre().split(" ")[0] + " " + usuario.getApellido().split(" ")[0];
-                redirect = "redirect:/" + usuario.getRole();
+                redirect = "redirect:/user/" + usuario.getRole();
             }else{
                 model.addAttribute("error", GestorAlmuerzosAppException.IncorrectInformation);
                 return redirect;
@@ -56,14 +56,14 @@ public class UserController {
     public String loginUser(Model m){
         String username = (String)m.getAttribute("username");
         m.addAttribute("username",userLogin);
-        return "client";
+        return "user/client";
     }
 
     @GetMapping("/admin")
     public String loginAdmin(Model m){
         String username = (String)m.getAttribute("username");
         m.addAttribute("username",userLogin);
-        return "admin";
+        return "user/admin";
     }
     @GetMapping("/register")
     public String showUserRegisterForm(Model model) {
@@ -103,7 +103,7 @@ public class UserController {
     public String showUserUpdateForm(@PathVariable(value = "id") String id, Model model) {
         Optional<User> usuario = userRepository.getUser(id);
         model.addAttribute("user", usuario.orElse(new User())); // Handle the case where the user is not found
-        return "update";
+        return "user/update";
     }
 
     @GetMapping("/")
@@ -113,7 +113,7 @@ public class UserController {
 
     @GetMapping("/forgotPassword")
     public String forgotPassword(){
-        return "forgotPassword";
+        return "user/forgotPassword";
     }
 
     @GetMapping("/about-us")
@@ -136,25 +136,19 @@ public class UserController {
             model.addAttribute("error", e.getMessage());
             return("/forgotPassword");
         }
-        return "redirect:/";
+        return "redirect:/login";
     }
 
     @PostMapping("/update")
     public String updateUser(@ModelAttribute("user") User user) {
         userRepository.updateUser(user);
-        return "redirect:/index";
+        return "redirect:/user/client";
     }
 
     @RequestMapping("/delete/{id}")
     public String deleteUser(@PathVariable String id) {
         userRepository.deleteUser(id);
-        return "redirect:/index";
-    }
-    @GetMapping("/Menu")
-    public String showMenu(Model m) {
-        List<Plate> menu= plateServices.getAllPlates();
-        m.addAttribute("menu", menu);
-        return "menu";
+        return "redirect:/user/client";
     }
 }
 
