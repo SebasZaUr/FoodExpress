@@ -1,10 +1,8 @@
 package Proyecto.GestorAlmuerzo.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -19,6 +17,10 @@ public class Suscription {
 
     @Column(name= "precio")
     private int price;
+
+    @OneToMany(mappedBy = "suscripcion")
+    List<User> usersSuscribe;
+
 
     public int getPrice() {
         return price;

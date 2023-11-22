@@ -1,9 +1,8 @@
 package Proyecto.GestorAlmuerzo.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 /**
  * Entidad de la base de datos que guarda todos la información de los tipos de
@@ -24,6 +23,9 @@ public class Role {
 
     @Column(name = "Category")
     protected String category;
+
+    @OneToMany(mappedBy = "role")
+    private List<User> usuarios;
 
     public Role(String id, String category) {
         this.id = id;

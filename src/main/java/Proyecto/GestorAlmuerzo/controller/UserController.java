@@ -21,8 +21,6 @@ public class UserController {
     @Autowired
     UserServices userRepository;
     @Autowired
-    PlateServices plateServices;
-    @Autowired
     UserRepository repository;
 
     @GetMapping("/login")
@@ -56,14 +54,14 @@ public class UserController {
     public String loginUser(Model m){
         String username = (String)m.getAttribute("username");
         m.addAttribute("username",userLogin);
-        return "client";
+        return "user/client";
     }
 
     @GetMapping("/admin")
     public String loginAdmin(Model m){
         String username = (String)m.getAttribute("username");
         m.addAttribute("username",userLogin);
-        return "admin";
+        return "admin/admin";
     }
     @GetMapping("/register")
     public String showUserRegisterForm(Model model) {
@@ -149,12 +147,6 @@ public class UserController {
     public String deleteUser(@PathVariable String id) {
         userRepository.deleteUser(id);
         return "redirect:/index";
-    }
-    @GetMapping("/Menu")
-    public String showMenu(Model m) {
-        List<Plate> menu= plateServices.getAllPlates();
-        m.addAttribute("menu", menu);
-        return "menu";
     }
 }
 
