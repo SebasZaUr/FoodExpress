@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Login de Food Express" />
+    <meta name="author" content="Johann Amaya" />
+    <title>About us</title>
+    <link rel="icon" href="../static/images/logo.ico" type="image/x-icon" />
+    <!-- CSS -->
+    <link th:href="@{../css/bootstrap.min.css}" rel="stylesheet">
+    <link  rel="stylesheet"  th:href="@{../css/style.css}"/>
+</head>
+<body>
+<!-- Barra de navegación -->
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasNavbar"
+                    aria-controls="offcanvasNavbar"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="/"
+            ><img src="../images/logoW.png" alt="" width="196" height="47"
+            /></a>
+            <div
+                    class="offcanvas offcanvas-end text-bg-dark"
+                    tabindex="-1"
+                    id="offcanvasNavbar"
+                    aria-labelledby="offcanvasNavbarLabel"
+            >
+                <div class="offcanvas-header">
+                    <a class="navbar-brand" href="/"
+                    ><img src="../images/logoW.png" alt="" width="196" height="47"
+                    /></a>
+                    <button
+                            type="button"
+                            class="btn-close btn-close-white"
+                            data-bs-dismiss="offcanvas"
+                            aria-label="Close"
+                    ></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/"
+                            >Home</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about-us">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contact-us">Contact</a>
+                        </li>
+                    </ul>
+                    <div class="d-flex">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/login">Login</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <form class="d-flex" role="search">
+                        <input
+                                class="form-control me-2"
+                                type="search"
+                                placeholder="Search"
+                                aria-label="Search"
+                        />
+                        <button class="btn btn-outline-success" type="submit">
+                            Search
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<section class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <h2 class="text-center mb-4">Sobre Nosotros</h2>
+            <p>
+                En Food Express, hemos transformado la experiencia culinaria para superar desafíos comunes en la industria alimentaria. Nos enorgullece ofrecer soluciones innovadoras a problemas que afectan tanto a nuestros clientes como a nuestro equipo.
+            </p>
+            <h3>Compromiso con la Eficiencia:</h3>
+            <p>
+                Hemos eliminado los largos tiempos de espera en filas gracias a nuestra variedad de métodos de pago y opciones de pedidos anticipados, garantizando que disfrutes de tu comida sin demoras innecesarias.
+            </p>
+            <h3>Sostenibilidad y Frescura:</h3>
+            <p>
+                Abordamos el problema del vencimiento de ingredientes al trabajar con proveedores locales, asegurando la frescura de nuestros insumos y reduciendo el desperdicio de alimentos.
+            </p>
+            <h3>Innovación en el Servicio al Cliente:</h3>
+            <p>
+                Eliminamos la necesidad de cajeros y "meseros" al incorporar sistemas de pago automatizados, reduciendo costos y mejorando la atención al cliente con una experiencia más ágil.
+            </p>
+        </div>
+    </div>
+</section>
+<!-- JavaScript -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../static/js/bootstrap.bundle.min.js"></script>
+<script src="../static/js/script.js"></script>
+</body>
+</html>

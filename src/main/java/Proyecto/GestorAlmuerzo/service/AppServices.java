@@ -1,24 +1,22 @@
 package Proyecto.GestorAlmuerzo.service;
 
-import Proyecto.GestorAlmuerzo.Repository.AppRepository;
 import Proyecto.GestorAlmuerzo.Repository.RoleRepository;
-import Proyecto.GestorAlmuerzo.exceptions.GestorAlmuerzosAppException;
+import Proyecto.GestorAlmuerzo.Repository.SuscriptionRepository;
 import Proyecto.GestorAlmuerzo.model.Role;
-import Proyecto.GestorAlmuerzo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.lang.reflect.InvocationTargetException;
 
 @Service
 public class AppServices {
 
     @Autowired
-    private AppRepository appRepository;
-    @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private SuscriptionRepository suscriptionRepository;
 
     /**
      * Me devuelve el rol
@@ -43,7 +41,7 @@ public class AppServices {
     /**
      * Me actualiza la información de un usuario.
      * 
-     * @param user El usuario que voy actualizar.
+     * @param rol El usuario que voy actualizar.
      * @return El usuarío actualizado en la base de datos.
      */
     public Role updateRole(Role rol) {
