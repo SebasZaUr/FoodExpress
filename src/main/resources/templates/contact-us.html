@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Login de Food Express" />
+    <meta name="author" content="Johann Amaya" />
+    <title>Contact Us</title>
+    <link rel="icon" href="../static/images/logo.ico" type="image/x-icon" />
+    <!-- CSS -->
+    <link th:href="@{../css/bootstrap.min.css}" rel="stylesheet">
+    <link  rel="stylesheet"  th:href="@{../css/style.css}"/>
+</head>
+<body>
+<!-- Barra de navegación -->
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasNavbar"
+                    aria-controls="offcanvasNavbar"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="/"
+            ><img src="../images/logoW.png" alt="" width="196" height="47"
+            /></a>
+            <div
+                    class="offcanvas offcanvas-end text-bg-dark"
+                    tabindex="-1"
+                    id="offcanvasNavbar"
+                    aria-labelledby="offcanvasNavbarLabel"
+            >
+                <div class="offcanvas-header">
+                    <a class="navbar-brand" href="/"
+                    ><img src="../images/logoW.png" alt="" width="196" height="47"
+                    /></a>
+                    <button
+                            type="button"
+                            class="btn-close btn-close-white"
+                            data-bs-dismiss="offcanvas"
+                            aria-label="Close"
+                    ></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/"
+                            >Home</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about-us">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contact-us">Contact</a>
+                        </li>
+                    </ul>
+                    <div class="d-flex">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/login">Login</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <form class="d-flex" role="search">
+                        <input
+                                class="form-control me-2"
+                                type="search"
+                                placeholder="Search"
+                                aria-label="Search"
+                        />
+                        <button class="btn btn-outline-success" type="submit">
+                            Search
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="container w-75 bg-primary mt-5 rounded shadow">
+    <div class="row align-items-center align-items-stretch">
+        <div class="col d-none d-lg-block col-md-5 col-lg-5 col-xl-6 rounded bg1">
+        </div>
+        <div class="col bg-white p-5 col-lg-7 col-xl-6 rounded-end">
+            <div class="text-end">
+                <img src="../static/images/logo.png" alt="" style="width: 48px" />
+            </div>
+            <h2 class="fw-bold text-center pt-5 mb-5">Contáctanos</h2>
+            <!-- Formulario de Contacto -->
+            <form method="post" action="#">
+                <div class="mb-4">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" name="nombre" id="nombre" required>
+                </div>
+                <div class="mb-4">
+                    <label for="correo" class="form-label">Correo electrónico</label>
+                    <input type="email" class="form-control" name="correo" id="correo" required>
+                </div>
+                <div class="mb-4">
+                    <label for="mensaje" class="form-label">Mensaje</label>
+                    <textarea class="form-control" id="mensaje" name="mensaje" rows="4" required></textarea>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- JavaScript -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../static/js/bootstrap.bundle.min.js"></script>
+<script src="../static/js/script.js"></script>
+</body>
+</html>
