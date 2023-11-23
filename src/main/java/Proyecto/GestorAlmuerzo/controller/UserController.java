@@ -40,7 +40,7 @@ public class UserController {
                 Optional<User> u = userRepository.getUser(correo);
                 User usuario = u.orElseThrow();
                 userLogin = usuario.getNombre().split(" ")[0] + " " + usuario.getApellido().split(" ")[0];
-                redirect = "redirect:/user/" + usuario.getRole();
+                redirect = "redirect:/" + usuario.getRole();
             }else{
                 model.addAttribute("error", GestorAlmuerzosAppException.IncorrectInformation);
                 return redirect;
