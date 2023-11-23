@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/admin/menu")
 public class MenuController {
 
     @Autowired
@@ -21,7 +22,7 @@ public class MenuController {
     @Autowired
     private CategoryServices categoryServices;
 
-    @GetMapping("/configure-menu")
+    @GetMapping
     public String showMenu(@RequestParam(name = "sortBy",defaultValue = "name") String sortBy,
                            @RequestParam(name = "categoryFilter",required = false) Long categoryId,
                            Model model) {
