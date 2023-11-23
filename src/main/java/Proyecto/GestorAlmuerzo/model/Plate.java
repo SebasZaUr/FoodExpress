@@ -54,6 +54,15 @@ public class Plate {
     public Plate(){
 
     }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
     public String getName() {
         return name;
     }

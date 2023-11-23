@@ -56,6 +56,8 @@ public class UserController {
     public String loginUser(Model m){
         String username = (String)m.getAttribute("username");
         m.addAttribute("username",userLogin);
+        List<Plate> menu = plateServices.getAllPlates();
+        m.addAttribute("menu", menu);
         return "user/client";
     }
 

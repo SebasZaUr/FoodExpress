@@ -73,5 +73,6 @@ public class FoodExpress {
             plateServices.addPlate(new Plate(12, "Elegancia Verde", "Brócoli al vapor con almendras tostadas",10800,defaulCategoria,"../images/plates/brocoli.jpg"));
             plateServices.addPlate(new Plate(13, "Tradición Italiana", "Lasaña boloñesa",12100,defaulCategoria,"../images/plates/lasagna.jpg"));
             plateServices.addPlate(new Plate(14, "Fiesta Mexicana", "Tacos de carnitas con salsa de aguacate",11500,defaulCategoria,"../images/plates/tacos.jpg"));
+
         };
     }}
