@@ -28,6 +28,9 @@ public class Plate {
     @Column
     private int price;
 
+       @Column
+    private String picture;
+
     @ManyToMany
     @JoinTable(
             name = "plate_categories",
@@ -40,16 +43,26 @@ public class Plate {
      *
      * @param name    El nombre del plato
      */
-    public Plate(Integer id, String name, String description, int price,Set<Category> categories){
+    public Plate(Integer id, String name, String description, int price,Set<Category> categories, String picture){
         this.id= id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.categories = categories;
+        this.picture = picture;
     }
     public Plate(){
 
     }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
     public String getName() {
         return name;
     }

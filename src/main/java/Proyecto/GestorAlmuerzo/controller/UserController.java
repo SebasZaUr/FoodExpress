@@ -40,7 +40,7 @@ public class UserController {
                 Optional<User> u = userRepository.getUser(correo);
                 User usuario = u.orElseThrow();
                 userLogin = usuario.getNombre().split(" ")[0] + " " + usuario.getApellido().split(" ")[0];
-                redirect = "redirect:/user/" + usuario.getRole();
+                redirect = "redirect:/" + usuario.getRole();
             }else{
                 model.addAttribute("error", GestorAlmuerzosAppException.IncorrectInformation);
                 return redirect;
@@ -56,6 +56,8 @@ public class UserController {
     public String loginUser(Model m){
         String username = (String)m.getAttribute("username");
         m.addAttribute("username",userLogin);
+        List<Plate> menu = plateServices.getAllPlates();
+        m.addAttribute("menu", menu);
         return "user/client";
     }
 
@@ -95,8 +97,10 @@ public class UserController {
             model.addAttribute("error", GestorAlmuerzosAppException.EmptyEmail);
             return "register";
         }
-        userRepository.addUser(user);
-        return "redirect:/";
+        userRepository.addUser(user,true);
+        String retu = user.getRole();
+        userLogin = user.getNombre().split(" ")[0] + " " + user.getApellido().split(" ")[0];
+        return "redirect:/" + retu;
     }
 
     @GetMapping("/updateProfile/{id}")
@@ -106,8 +110,10 @@ public class UserController {
         return "user/update";
     }
 
-    @GetMapping("/")
-    public String index(){
+     @GetMapping("/")
+    public String index(Model model){
+        List<Plate> menu = plateServices.getAllPlates();
+        model.addAttribute("menu", menu);
         return "index";
     }
 
