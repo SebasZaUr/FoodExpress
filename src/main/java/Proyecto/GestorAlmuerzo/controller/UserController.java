@@ -97,8 +97,10 @@ public class UserController {
             model.addAttribute("error", GestorAlmuerzosAppException.EmptyEmail);
             return "register";
         }
-        userRepository.addUser(user);
-        return "redirect:/";
+        userRepository.addUser(user,true);
+        String retu = user.getRole();
+        userLogin = user.getNombre().split(" ")[0] + " " + user.getApellido().split(" ")[0];
+        return "redirect:/" + retu;
     }
 
     @GetMapping("/updateProfile/{id}")

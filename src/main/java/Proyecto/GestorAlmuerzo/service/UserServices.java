@@ -44,9 +44,9 @@ public class UserServices {
         return UserRepository.findById(email);
     }
 
-    public void addUser(User user) {
+    public void addUser(User user,boolean role) {
         UserRepository.save(user);
-        if(user.getRole().isEmpty()){
+        if(role){
             user.setRole("client",roleRepository);
             UserRepository.save(user);
         }

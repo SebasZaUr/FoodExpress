@@ -47,10 +47,10 @@ public class FoodExpress {
             appService.addRol(new Role("2", "admin"));
             appService.addRol(new Role("3", "cooker"));
             appService.addRol(new Role("4", "waiter"));
-            usuarioService.addUser(new User("sebassele2008@gmail.com", "Sebastian", "Zamora", "1234", "client",roleRepository));
-            usuarioService.addUser(new User("christian@foodexpres.com", "Chirstian", "Duarte", "1234", "admin",roleRepository));
-            usuarioService.addUser(new User("cesar@foodexpres.com", "Cesar", "Amaya", "1234", "cooker",roleRepository));
-            usuarioService.addUser(new User("johann@foodexpres.com", "Johann", "Amaya", "1234", "waiter",roleRepository));
+            usuarioService.addUser(new User("sebassele2008@gmail.com", "Sebastian", "Zamora", "1234", "client",roleRepository),false);
+            usuarioService.addUser(new User("christian@foodexpres.com", "Chirstian", "Duarte", "1234", "admin",roleRepository),false);
+            usuarioService.addUser(new User("cesar@foodexpres.com", "Cesar", "Amaya", "1234", "cooker",roleRepository),false);
+            usuarioService.addUser(new User("johann@foodexpres.com", "Johann", "Amaya", "1234", "waiter",roleRepository),false);
             categoryServices.addCategory(new Category("Ensalada"));
             categoryServices.addCategory(new Category("Postre"));
             categoryServices.addCategory(new Category("Entradas"));
