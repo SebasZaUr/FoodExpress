@@ -140,7 +140,7 @@ public class UserController {
             userRepository.sendEmailForgotPassword(user);
         }catch(GestorAlmuerzosAppException e){
             model.addAttribute("error", e.getMessage());
-            return("/forgotPassword");
+            return("/user/forgotPassword");
         }
         return "redirect:/login";
     }

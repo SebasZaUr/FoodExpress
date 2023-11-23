@@ -13,6 +13,7 @@ import java.util.Optional;
 import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,6 +26,11 @@ public class UserServices {
     private RoleRepository roleRepository;
     @Autowired
     private SuscriptionRepository suscriptionRepository;
+    @Value("${spring.email.name}")
+    private String email;
+
+    @Value("${spring.email.password}")
+    private String password;
 
     public boolean login(String email, String password) throws GestorAlmuerzosAppException {
         if (email.isEmpty()) {
@@ -75,7 +81,7 @@ public class UserServices {
 
         Session session = Session.getInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("foodexpressadm@yandex.com", "foodexpress123#");
+                return new PasswordAuthentication(email, password);
             }
         });
 
