@@ -106,8 +106,10 @@ public class UserController {
         return "user/update";
     }
 
-    @GetMapping("/")
-    public String index(){
+     @GetMapping("/")
+    public String index(Model model){
+        List<Plate> menu = plateServices.getAllPlates();
+        model.addAttribute("menu", menu);
         return "index";
     }
 
