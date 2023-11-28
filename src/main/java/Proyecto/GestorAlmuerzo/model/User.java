@@ -5,9 +5,7 @@ import java.util.Objects;
 import java.util.Optional;
 import Proyecto.GestorAlmuerzo.Repository.RoleRepository;
 import Proyecto.GestorAlmuerzo.exceptions.GestorAlmuerzosAppException;
-import Proyecto.GestorAlmuerzo.service.AppServices;
 import jakarta.persistence.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name = "Usuario")
@@ -181,4 +179,6 @@ public class User {
     public int hashCode() {
         return Objects.hash(getEmail(), getPassword(), getRole(), getNombre(), getApellido(), suscripcion);
     }
+
+
 }

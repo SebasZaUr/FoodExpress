@@ -1,0 +1,22 @@
+    .userview{
+        background-color: wheat;
+        width: 300px;
+        height: 350px;
+        border-radius: 30px;
+        margin-left: 100px;
+        margin-top: 50px;
+    }
+
+    .informacion{
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .suscripcion{
+         background-color: wheat;
+         width: 300px;
+         height: 200px;
+         border-radius: 30px;
+         margin-left: 500px;
+         text-align: center
+    }

@@ -17,13 +17,21 @@ import java.util.List;
 @Controller
 public class UserController {
     private String userLogin;
-
-    @Autowired
-    UserServices userRepository;
     @Autowired
     PlateServices plateServices;
     @Autowired
+    UserServices userRepository;
+
+    @Autowired
     UserRepository repository;
+
+    @GetMapping("/")
+    public String index(Model model){
+        List<Plate> menu = plateServices.getAllPlates();
+        setValues(model);
+        model.addAttribute("menu", menu);
+        return "index";
+    }
 
     @GetMapping("/login")
     public String showUserLogin(Model model) {
@@ -39,7 +47,7 @@ public class UserController {
             if (userRepository.login(correo, contraseña)) {
                 Optional<User> u = userRepository.getUser(correo);
                 User usuario = u.orElseThrow();
-                userLogin = usuario.getNombre().split(" ")[0] + " " + usuario.getApellido().split(" ")[0];
+                userLogin = correo;
                 redirect = "redirect:/" + usuario.getRole();
             }else{
                 model.addAttribute("error", GestorAlmuerzosAppException.IncorrectInformation);
@@ -54,8 +62,10 @@ public class UserController {
 
     @GetMapping("/client")
     public String loginUser(Model m){
-        String username = (String)m.getAttribute("username");
-        m.addAttribute("username",userLogin);
+        Optional<User> u = userRepository.getUser(userLogin);
+        User usuario = u.orElseThrow();
+        String fullName = usuario.getNombre().split(" ")[0] + " "+usuario.getApellido().split(" ")[0];
+        m.addAttribute("username",fullName);
         List<Plate> menu = plateServices.getAllPlates();
         m.addAttribute("menu", menu);
         return "user/client";
@@ -63,8 +73,10 @@ public class UserController {
 
     @GetMapping("/admin")
     public String loginAdmin(Model m){
-        String username = (String)m.getAttribute("username");
-        m.addAttribute("username",userLogin);
+        Optional<User> u = userRepository.getUser(userLogin);
+        User usuario = u.orElseThrow();
+        String fullName = usuario.getNombre().split(" ")[0] + " "+usuario.getApellido().split(" ")[0];
+        m.addAttribute("username",fullName);
         return "user/admin";
     }
     @GetMapping("/register")
@@ -105,17 +117,12 @@ public class UserController {
 
     @GetMapping("/updateProfile/{id}")
     public String showUserUpdateForm(@PathVariable(value = "id") String id, Model model) {
+        setValues(model);
         Optional<User> usuario = userRepository.getUser(id);
         model.addAttribute("user", usuario.orElse(new User())); // Handle the case where the user is not found
         return "user/update";
     }
 
-     @GetMapping("/")
-    public String index(Model model){
-        List<Plate> menu = plateServices.getAllPlates();
-        model.addAttribute("menu", menu);
-        return "index";
-    }
 
     @GetMapping("/forgotPassword")
     public String forgotPassword(){
@@ -148,13 +155,40 @@ public class UserController {
     @PostMapping("/update")
     public String updateUser(@ModelAttribute("user") User user) {
         userRepository.updateUser(user);
-        return "redirect:/user/client";
+        userRepository.addUser(user,true);
+        return "redirect:/client";
     }
 
     @RequestMapping("/delete/{id}")
     public String deleteUser(@PathVariable String id) {
+        userLogin=null;
         userRepository.deleteUser(id);
-        return "redirect:/user/client";
+        return "redirect:/";
+    }
+
+    @GetMapping("/userInfo")
+    public String viewUserInfo(Model m){
+        setValues(m);
+        Optional<User> usuario =repository.findById(userLogin);
+        User user = usuario.orElseThrow();
+        m.addAttribute("user",user);
+        return "user/user-info";
+    }
+
+    @PostMapping("/logout")
+    public String logout(){
+        userLogin = null;
+        return "redirect:/";
+    }
+
+    private void setValues(Model m){
+        if(userLogin != null){
+            Optional<User> usuario =repository.findById(userLogin);
+            User user = usuario.orElseThrow();
+            String fullName = user.getNombre().split(" ")[0] + " "+user.getApellido().split(" ")[0];
+            m.addAttribute("username",fullName);
+            m.addAttribute("link","yes");
+        }
     }
 }
 
