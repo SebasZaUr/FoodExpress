@@ -44,7 +44,7 @@ public class FoodExpress {
             appService.addRol(new Role("3", "ROLE_cooker"));
             appService.addRol(new Role("4", "ROLE_waiter"));
             usuarioService.addUser(new User("sebassele2008@gmail.com", "Sebastian", "Zamora", "1234", "client",roleRepository),false);
-            usuarioService.addUser(new User("christian@foodexpres.com", "Chirstian", "Duarte", "1234", "admin",roleRepository),false);
+            usuarioService.addUser(new User("christian@foodexpres.com", "Christian", "Duarte", "1234", "admin",roleRepository),false);
             usuarioService.addUser(new User("cesar@foodexpres.com", "Cesar", "Amaya", "1234", "cooker",roleRepository),false);
             usuarioService.addUser(new User("johann@foodexpres.com", "Johann", "Amaya", "1234", "waiter",roleRepository),false);
             categoryServices.addCategory(new Category("Ensalada"));
@@ -54,7 +54,7 @@ public class FoodExpress {
             categoryServices.addCategory(new Category("Especiales"));
             categoryServices.addCategory(new Category("Nuevo Plato"));
             Set<Category> defaulCategoria = new HashSet<>();
-            defaulCategoria.add(categoryServices.getCategoryByName("salads"));
+            defaulCategoria.add(categoryServices.getCategoryByName("Plato Principal"));
             ingredientServices.addIngredient(new Ingredient(2L, "Aceite de oliva", "Extra virgen", 250));
             ingredientServices.addIngredient(new Ingredient(3L, "Sal", "Marina", 500));
             ingredientServices.addIngredient(new Ingredient(4L, "Pimienta", "Negra molida", 100));

@@ -154,8 +154,6 @@ body {
         border-top: 1px solid #333;
 
       }
-
-<<<<<<< HEAD
 .liveAlertPlaceholder {
               position: fixed;
               top: 0;
@@ -164,9 +162,7 @@ body {
               width: 300px; /* Ajusta el ancho según sea necesario */
               margin: 10px; /* Ajusta el margen según sea necesario */
        }
-=======
 
 .error-message {
     color: red;
 }
->>>>>>> 854281c8ab28f2854c343e3627348689171fdf15

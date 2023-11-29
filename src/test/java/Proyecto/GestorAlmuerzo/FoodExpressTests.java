@@ -19,7 +19,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.ui.Model;
 
 import java.util.*;
 
@@ -59,7 +58,7 @@ class FoodExpressTests {
         User user = new User("sebassele2008@gmail.com", "Sebastian", "Zamora", "1234", null,roleRepository);
         when(userRepository.findById(Mockito.anyString())).thenReturn(Optional.of(user));
         boolean result = userService.login("sebassele2008@gmail.com", "1234");
-        assertTrue(result); // Adjust this based on your actual success condition
+        assertTrue(result);
     }
 
     @Test
@@ -258,9 +257,7 @@ class FoodExpressTests {
     @Test
     void testDeletePlate() {
         int plateId = 1;
-
         plateServices.deletePlate(plateId);
-
         verify(plateRepository, times(1)).deleteById(plateId);
     }
 }
