@@ -83,5 +83,6 @@ public class MenuController {
         plateServices.deletePlate(plateId);
         return "redirect:/admin/menu";
     }
+
 }
 

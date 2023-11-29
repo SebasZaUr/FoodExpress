@@ -102,6 +102,58 @@ body {
   .product-card img {
     max-width: 100%;
   }
+  .cart{
+          display: flex;
+          background_color: white;
+          justify-content: space-between;
+          align-items: center;
+          color: white;
+
+      }
+      .cart p{
+          align-items: center;
+          justify-content: center;
+          color: white;
+      }
+      .container{
+        display: flex;
+        justify-content: center;
+        width: 70px;
+        margin-bottom: 30px;
+      }
+      .root{
+        width: 60px;
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        grid-gap: 20px;
+      }
+      .sidebar{
+       width: 500px;
+       border-radious: 5px;
+       background-color: white;
+       margin-left: 20px;
+       padding: 15px;
+       text-align: center;
+      }
+      .head{
+        display: flex;
+        background-color: #ffa751;
+        border-radius: 3px;
+        height: 40px;
+        padding: 10px;
+        margin-bottom: 20px;
+        color: white;
+        display: flex;
+        align-items: center;
+      }
+      .foot{
+        display: flex;
+        justify-content: space-between;
+        margin: 20px 0px;
+        padding: 10px 0px;
+        border-top: 1px solid #333;
+
+      }
 
 <<<<<<< HEAD
 .liveAlertPlaceholder {

@@ -10,6 +10,7 @@
     <!-- CSS -->
     <link th:href="@{/css/style.css}" rel="stylesheet" href="../css/style.css" />
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
 
   <body>
@@ -76,6 +77,9 @@
               <button class="btn btn-outline-success" type="submit">
                 Search
               </button>
+              <a class="cart" href='/order' style="cursor: pointer;">
+                <i class="fa-solid fa-cart-shopping fa-2xl"></i><p id="count">0</p>
+              </a>
             </form>
           </div>
         </div>
@@ -237,6 +241,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="../js/all.min.js"></script>
+    <script src="addtocart.js"></script>
 
   </body>
 </html>
