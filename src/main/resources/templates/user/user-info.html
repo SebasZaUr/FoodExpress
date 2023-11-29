@@ -109,14 +109,8 @@
                     <button class="btn btn-outline-success" type="submit">Eliminar perfil</button>
                 </form>
             </div>
-            <div class="suscripcion" th:if="${user.suscripcion}">
+            <div class="suscripcion" th:if="${user.points} > 0" >
 
-            </div>
-            <div class="suscripcion" th:unless="${user.suscripcion}">
-                <label>Sin ninguna Suscripcion</label>
-                <form th:action="@{/suscription}" method="post">
-                    <button class="btn btn-outline-success" type="submit">Adquirir una</button>
-                </form>
             </div>
         </div>
     </body>

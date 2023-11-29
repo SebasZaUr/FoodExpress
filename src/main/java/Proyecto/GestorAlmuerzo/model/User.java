@@ -22,8 +22,12 @@ public class User {
     @Id
     @Column
     private String email;
+
     @Column
     private String password;
+
+
+
     @ManyToOne
     @JoinColumn(name = "rol", nullable = true)
     private Role role;
@@ -32,10 +36,8 @@ public class User {
     @Column
     private String apellido;
 
-    @ManyToOne
-    @JoinColumn(name = "suscripcion", nullable = true)
-    private Suscription suscripcion;
-
+    @Column
+    private int points;
 
     /**
      * El constructor de la clase User.
@@ -50,12 +52,22 @@ public class User {
         this.nombre = name;
         this.apellido=lastName;
         this.password=encrypt(password);
-        Optional<Role> posibleRol= repository.findByCategory(role);
-        this.role = posibleRol.orElseThrow(() -> new GestorAlmuerzosAppException(GestorAlmuerzosAppException.RoleNotExist));
+        points = 0;
+        if(role != null){
+            Optional<Role> posibleRol= repository.findByCategory("ROLE_" + role);
+            this.role = posibleRol.orElseThrow(() -> new GestorAlmuerzosAppException(GestorAlmuerzosAppException.RoleNotExist));
+        }
     }
 
-    public Suscription getSuscripcion() {
-        return suscripcion;
+    public int getPoints() {
+        return points;
+    }
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     public void setApellido(String apellido) {
@@ -67,9 +79,6 @@ public class User {
         this.role = posibleRol.orElseThrow();
     }
 
-    public void setSuscripcion(Suscription suscripcion) {
-        this.suscripcion = suscripcion;
-    }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -93,7 +102,7 @@ public class User {
      * @return El tipo de usuario.
      */
     public String getRole() {
-        return role.getNombre();
+        return role.getNombre().split("_")[1];
     }
 
     /**
@@ -165,6 +174,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", role=" + role +
                 ", nombre='" + nombre + ' '  + apellido + '\'' +
+                "puntos=" + Integer.toString(points) + '\'' +
                 '}';
     }
 
@@ -172,13 +182,11 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User user)) return false;
-        return Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getRole(), user.getRole()) && Objects.equals(getNombre(), user.getNombre()) && Objects.equals(getApellido(), user.getApellido()) && Objects.equals(suscripcion, user.suscripcion);
+        return getPoints() == user.getPoints() && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getRole(), user.getRole()) && Objects.equals(getNombre(), user.getNombre()) && Objects.equals(getApellido(), user.getApellido());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getEmail(), getPassword(), getRole(), getNombre(), getApellido(), suscripcion);
+        return Objects.hash(getEmail(), getPassword(), getRole(), getNombre(), getApellido(), getPoints());
     }
-
-
 }

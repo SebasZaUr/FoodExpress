@@ -1,7 +1,6 @@
 package Proyecto.GestorAlmuerzo.service;
 
 import Proyecto.GestorAlmuerzo.Repository.RoleRepository;
-import Proyecto.GestorAlmuerzo.Repository.SuscriptionRepository;
 import Proyecto.GestorAlmuerzo.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,9 +14,6 @@ public class AppServices {
     @Autowired
     private RoleRepository roleRepository;
 
-    @Autowired
-    private SuscriptionRepository suscriptionRepository;
-
     /**
      * Me devuelve el rol
      * 
@@ -30,12 +26,11 @@ public class AppServices {
 
     /**
      * Me añade un nuevo rol
-     * 
+     *
      * @param rol El nuevo rol que voy agregar.
-     * @return El rol que agrege
      */
-    public Role addRol(Role rol) {
-        return roleRepository.save(rol);
+    public void addRol(Role rol) {
+        roleRepository.save(rol);
     }
 
     /**
@@ -45,10 +40,6 @@ public class AppServices {
      * @return El usuarío actualizado en la base de datos.
      */
     public Role updateRole(Role rol) {
-        if (roleRepository.findById(rol.getId()) == null) {
-            return roleRepository.save(rol);
-        }
-
         return roleRepository.save(rol);
     }
 

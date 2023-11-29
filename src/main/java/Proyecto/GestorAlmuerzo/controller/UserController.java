@@ -4,6 +4,7 @@ import Proyecto.GestorAlmuerzo.Repository.UserRepository;
 import Proyecto.GestorAlmuerzo.exceptions.GestorAlmuerzosAppException;
 import Proyecto.GestorAlmuerzo.model.Plate;
 import Proyecto.GestorAlmuerzo.model.User;
+import Proyecto.GestorAlmuerzo.model.UserDTO;
 import Proyecto.GestorAlmuerzo.service.PlateServices;
 import Proyecto.GestorAlmuerzo.service.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.sound.midi.Soundbank;
 import java.net.SocketOption;
 import java.util.Optional;
 import java.util.List;
@@ -40,11 +42,11 @@ public class UserController {
 
     @PostMapping("/verifyProfile")
     public String verifyLogin(@RequestParam("correo") String correo,
-                              @RequestParam("contraseña") String contraseña, Model model)
+                              @RequestParam("contraseña") String password, Model model)
             throws GestorAlmuerzosAppException {
         String redirect = "login";
         try {
-            if (userRepository.login(correo, contraseña)) {
+            if (userRepository.login(correo, password)) {
                 Optional<User> u = userRepository.getUser(correo);
                 User usuario = u.orElseThrow();
                 userLogin = correo;
@@ -62,10 +64,7 @@ public class UserController {
 
     @GetMapping("/client")
     public String loginUser(Model m){
-        Optional<User> u = userRepository.getUser(userLogin);
-        User usuario = u.orElseThrow();
-        String fullName = usuario.getNombre().split(" ")[0] + " "+usuario.getApellido().split(" ")[0];
-        m.addAttribute("username",fullName);
+        setValues(m);
         List<Plate> menu = plateServices.getAllPlates();
         m.addAttribute("menu", menu);
         return "user/client";
@@ -73,10 +72,7 @@ public class UserController {
 
     @GetMapping("/admin")
     public String loginAdmin(Model m){
-        Optional<User> u = userRepository.getUser(userLogin);
-        User usuario = u.orElseThrow();
-        String fullName = usuario.getNombre().split(" ")[0] + " "+usuario.getApellido().split(" ")[0];
-        m.addAttribute("username",fullName);
+        setValues(m);
         return "user/admin";
     }
     @GetMapping("/register")
@@ -109,9 +105,10 @@ public class UserController {
             model.addAttribute("error", GestorAlmuerzosAppException.EmptyEmail);
             return "register";
         }
+        UserDTO usuario = new UserDTO(name,lastName,email);
         userRepository.addUser(user,true);
         String retu = user.getRole();
-        userLogin = user.getNombre().split(" ")[0] + " " + user.getApellido().split(" ")[0];
+        setValues(model);
         return "redirect:/" + retu;
     }
 
@@ -144,7 +141,6 @@ public class UserController {
         Optional<User> usuario = userRepository.getUser(email);
         try {
             User user = usuario.orElseThrow(() -> new GestorAlmuerzosAppException(GestorAlmuerzosAppException.EmailNoExist));
-            userRepository.sendEmailForgotPassword(user);
         }catch(GestorAlmuerzosAppException e){
             model.addAttribute("error", e.getMessage());
             return("/forgotPassword");

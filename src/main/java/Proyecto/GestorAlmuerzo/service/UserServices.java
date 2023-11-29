@@ -1,7 +1,6 @@
 package Proyecto.GestorAlmuerzo.service;
 
 import Proyecto.GestorAlmuerzo.Repository.RoleRepository;
-import Proyecto.GestorAlmuerzo.Repository.SuscriptionRepository;
 import Proyecto.GestorAlmuerzo.Repository.UserRepository;
 import Proyecto.GestorAlmuerzo.exceptions.GestorAlmuerzosAppException;
 import Proyecto.GestorAlmuerzo.model.User;
@@ -12,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
 
+import Proyecto.GestorAlmuerzo.model.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +23,6 @@ public class UserServices {
 
     @Autowired
     private RoleRepository roleRepository;
-    @Autowired
-    private SuscriptionRepository suscriptionRepository;
 
     public boolean login(String email, String password) throws GestorAlmuerzosAppException {
         if (email.isEmpty()) {
@@ -63,39 +61,6 @@ public class UserServices {
 
     public void deleteUser(String id) {
         UserRepository.deleteById(id);
-    }
-
-    public void sendEmailForgotPassword(User user) {
-        Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.yandex.com");
-        props.put("mail.smtp.socketFactory.port", "465");
-        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.port", "465");
-
-        Session session = Session.getInstance(props, new Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("foodexpressadm@yandex.com", "foodexpress123#");
-            }
-        });
-
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("pruebasfoodexpress@gmail.com"));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(user.getEmail()));
-            message.setSubject("Recuperar Contraseña");
-
-            String resetPasswordLink = "https://tu-sitio.com/reset-password?token=abcd1234";
-            String emailContent = String.format(
-                    "Hola %s %s,\n\nDale click al siguiente link para que recuperes tu contraseña:\n%s",
-                    user.getNombre(), user.getApellido(), resetPasswordLink);
-
-            message.setText(emailContent);
-
-            Transport.send(message);
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        }
     }
 }
 

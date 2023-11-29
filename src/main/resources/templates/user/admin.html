@@ -60,7 +60,7 @@
                 <div class="d-flex">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="/adminInfo" th:text="${username} ?  ${username} : 'Login'"></a>
+                            <a class="nav-link" href="/userInfo" th:text="${username} ?  ${username} : 'Login'"></a>
                         </li>
                     </ul>
                 </div>
@@ -75,7 +75,9 @@
                         Search
                     </button>
                 </form>
-                <button class="btn btn-outline-success" type="submit" href="/logout">Cerrar Cesion</button>
+                <form th:action="@{/logout}" method="post">
+                    <button class="btn btn-outline-success" type="submit">Cerrar Cesion</button>
+                </form>
             </div>
         </div>
     </div>
