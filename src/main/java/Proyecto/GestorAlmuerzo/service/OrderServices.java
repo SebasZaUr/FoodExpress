@@ -4,6 +4,7 @@ import Proyecto.GestorAlmuerzo.Repository.OrderRepository;
 import Proyecto.GestorAlmuerzo.model.Order;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +17,7 @@ import java.util.Optional;
  * @author Christian Duarte
  * @version 28/11/2023
  */
+@Service
 public class OrderServices {
     @Autowired
     private OrderRepository orderRepository;
