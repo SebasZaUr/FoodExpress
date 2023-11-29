@@ -186,5 +186,9 @@ public class UserController {
             m.addAttribute("link","yes");
         }
     }
+    @GetMapping("/order")
+    public String showOrder(Model model) {
+        return "order";
+    }
 }
 
