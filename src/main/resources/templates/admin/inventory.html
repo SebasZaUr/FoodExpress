@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Ingredientes</title>
+
+    <link rel="icon" href="/static/images/logo.ico" type="image/x-icon" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet" href="../css/style.css" />
+</head>
+<body class="container">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/admin"><img src="../images/logoW.png" alt="" width="196" height="47"/></a>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/admin"
+                    >Home</a
+                    >
+                </li>
+            </ul>
+        </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- Lista de platos -->
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Lista de Ingredientes</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Cantidad</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="ingredient : ${ingredients}">
+                            <td th:text="${ingredient.id}">ID</td>
+                            <td th:text="${ingredient.name}">Nombre</td>
+                            <td th:text="${ingredient.description}">Descripción</td>
+                            <td th:text="${ingredient.amount}">Cantidad</td>
+
+                            <td class="actions-column">
+                                <form th:action="@{'/admin/inventory/deleteIngredient/' + ${ingredient.id}}" method="post">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                </form>
+                                <a th:href="@{'/admin/inventory/editIngredient/' + ${ingredient.id}}" class="btn btn-primary btn-sm ms-2">Editar</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulario de agregación de ingredientes -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Agregar Nuevo Ingrediente</h5>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{'/admin/inventory/addIngredient'}" method="post" class="add-ingredient-form">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nombre:</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Descripción:</label>
+                            <textarea id="description" name="description" class="form-control" required></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="amount" class="form-label">Cantidad:</label>
+                            <input type="number" id="amount" name="amount" class="form-control" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Agregar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+

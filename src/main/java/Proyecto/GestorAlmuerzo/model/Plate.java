@@ -28,7 +28,7 @@ public class Plate {
     @Column
     private int price;
 
-       @Column
+    @Column
     private String picture;
 
     @ManyToMany

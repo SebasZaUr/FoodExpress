@@ -1,14 +1,8 @@
 package Proyecto.GestorAlmuerzo;
 
 import Proyecto.GestorAlmuerzo.Repository.RoleRepository;
-import Proyecto.GestorAlmuerzo.model.Category;
-import Proyecto.GestorAlmuerzo.service.AppServices;
-import Proyecto.GestorAlmuerzo.service.CategoryServices;
-import Proyecto.GestorAlmuerzo.service.UserServices;
-import Proyecto.GestorAlmuerzo.service.PlateServices;
-import Proyecto.GestorAlmuerzo.model.User;
-import Proyecto.GestorAlmuerzo.model.Plate;
-import Proyecto.GestorAlmuerzo.model.Role;
+import Proyecto.GestorAlmuerzo.model.*;
+import Proyecto.GestorAlmuerzo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,7 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @SpringBootApplication
@@ -31,6 +24,9 @@ public class FoodExpress {
 
     @Autowired(required = true)
     CategoryServices categoryServices;
+
+    @Autowired(required = false)
+    IngredientServices ingredientServices;
 
     @Autowired(required = true)
     PlateServices plateServices;
@@ -59,6 +55,19 @@ public class FoodExpress {
             categoryServices.addCategory(new Category("Nuevo Plato"));
             Set<Category> defaulCategoria = new HashSet<>();
             defaulCategoria.add(categoryServices.getCategoryByName("salads"));
+            ingredientServices.addIngredient(new Ingredient(2L, "Aceite de oliva", "Extra virgen", 250));
+            ingredientServices.addIngredient(new Ingredient(3L, "Sal", "Marina", 500));
+            ingredientServices.addIngredient(new Ingredient(4L, "Pimienta", "Negra molida", 100));
+            ingredientServices.addIngredient(new Ingredient(5L, "Ajo", "Fresco", 50));
+            ingredientServices.addIngredient(new Ingredient(6L, "Cebolla", "Blanca", 200));
+            ingredientServices.addIngredient(new Ingredient(7L, "Pasta", "Spaghetti", 300));
+            ingredientServices.addIngredient(new Ingredient(8L, "Queso", "Parmesano rallado", 150));
+            ingredientServices.addIngredient(new Ingredient(9L, "Tomate", "Cherry", 120));
+            ingredientServices.addIngredient(new Ingredient(10L, "Albahaca", "Fresca", 30));
+            ingredientServices.addIngredient(new Ingredient(11L, "Calabacín", "Verde", 180));
+            ingredientServices.addIngredient(new Ingredient(12L, "Jamón", "Serrano", 120));
+            ingredientServices.addIngredient(new Ingredient(13L, "Huevo", "Orgánico", 60));
+            ingredientServices.addIngredient(new Ingredient(14L, "Pimiento", "Rojo", 140));
             plateServices.addPlate(new Plate(1, "Brillo Andino", "Ensalada de quinoa con aguacate y tomate cherry",12000,defaulCategoria,"../images/plates/quinoa.jpg"));
             plateServices.addPlate(new Plate(2, "Delicia Marina", "Carpaccio de salmón con alcaparras y limón",13000,defaulCategoria,"../images/plates/capaccio.jpg"));
             plateServices.addPlate(new Plate(3, "Susurros Tropicales", "Crema de calabaza con jengibre y coco",11000,defaulCategoria,"../images/plates/crema.jpg"));
