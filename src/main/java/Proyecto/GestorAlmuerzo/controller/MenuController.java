@@ -68,9 +68,7 @@ public class MenuController {
     public String editPlate(@PathVariable String id, @ModelAttribute("plate") Plate plate) {
         int plateId = Integer.parseInt(id);
         Optional<Plate> existingPlate = plateServices.getPlateById(plateId);
-        if(existingPlate.isEmpty()) {
-        }
-        else {
+        if(existingPlate.isPresent()) {
             plate.setId(plateId);
             plateServices.updatePlate(plate);
         }

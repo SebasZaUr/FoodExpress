@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Página principal de Food Express"/>
+    <meta name="author" content="Johann Amaya"/>
+    <title>Food Express</title>
+    <link rel="icon" href="../../static/images/logo.ico" type="image/x-icon"/>
+    <!-- CSS -->
+    <link th:href="@{/css/style.css}" rel="stylesheet" href="../css/style.css"/>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" href="../css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+          integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<div id="liveAlertPlaceholder"></div>
+<body>
+<!-- Barra de navegación -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/admin"
+        ><img src="../../../../images/logoW.png" alt="" width="196" height="47"
+        /></a>
+        <div
+                class="offcanvas offcanvas-end text-bg-dark"
+                tabindex="-1"
+                id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel"
+        >
+            <div class="offcanvas-header">
+                <a class="navbar-brand" href=""
+                ><img src="../../../../images/logoW.png" alt="" width="196" height="47"
+                /></a>
+                <button
+                        type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="offcanvas"
+                        aria-label="Close"
+                ></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/admin"
+                        >Home</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{'/admin/menu'}" class="nav-link active" aria-current="page"
+                        >Gestion de platos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{'/admin/inventory'}" class="nav-link active" aria-current="page"
+                        >Registro de ingredientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{'/usersRoles'}" class="nav-link active" aria-current="page"
+                        >Administrar Usuarios</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/userInfo" th:text="${username} ?  ${username} : 'Login'"></a>
+                        </li>
+                    </ul>
+                </div>
+                <form class="d-flex" role="search">
+                    <input
+                            class="form-control me-2"
+                            type="search"
+                            placeholder="Search"
+                            aria-label="Search"
+                    />
+                    <button class="btn btn-outline-success" type="submit">
+                        Search
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Lista de Usuarios</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Correo</th>
+                            <th>Nombre</th>
+                            <th>Rol</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user : ${Usuarios}">
+                            <td th:text="${user.email}">ID</td>
+                            <td th:text="${user.nombre} +' '+ ${user.apellido} ">Nombre</td>
+                            <td>
+                                <div class="dropdown show">
+                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button"
+                                       id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                       aria-expanded="false" th:text="${user.Role}"></a>
+
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- JavaScript -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+                integrity="sha384-KyZXEAg3QhqLMpG8r+Jz7CEfNuUq7Fk9l4zj6pqc6bVi+O5/DvjN1q5EMWz2VfE3J"
+                crossorigin="anonymous"></script>
+        <script src="../../../../js/all.min.js"></script>
+        <script src="../../../../js/script.js"></script>
+        <script src="../../../../js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

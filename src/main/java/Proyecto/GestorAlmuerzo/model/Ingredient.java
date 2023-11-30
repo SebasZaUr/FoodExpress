@@ -9,9 +9,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
 public class Ingredient {
+    public Ingredient(String name, String description, int amount) {
+        this.name = name;
+        this.description = description;
+        this.amount = amount;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,5 +38,8 @@ public class Ingredient {
                 ", description='" + description + '\'' +
                 ", amount=" + amount +
                 '}';
+    }
+
+    public void setId(long plateId) {
     }
 }
