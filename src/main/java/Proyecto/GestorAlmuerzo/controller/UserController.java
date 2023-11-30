@@ -186,9 +186,13 @@ public class UserController {
             m.addAttribute("link","yes");
         }
     }
-    @GetMapping("/order")
-    public String showOrder(Model model) {
-        return "order";
+
+    @GetMapping("/usersRoles")
+    private String showAllUsers(Model m){
+        List<User> listUsers = userRepository.getAllUsers();
+        m.addAttribute("Usuarios", listUsers);
+        return "admin/listUsers";
     }
+
 }
 

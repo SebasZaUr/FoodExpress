@@ -40,7 +40,7 @@ public class Role {
      * @return la descripción del tipo de cliente
      */
     public String getNombre() {
-        return category;
+        return category.toLowerCase();
     }
 
     /**
@@ -49,7 +49,7 @@ public class Role {
      * @param category La nueva descripción del tipo de cliente
      **/
     public void setCategory(String category) {
-        this.category = category;
+        this.category = category.toUpperCase();
     }
 
     public String getId() {
