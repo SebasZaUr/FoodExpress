@@ -24,16 +24,6 @@ public class UserServices {
 
     @Autowired
     private RoleRepository roleRepository;
-<<<<<<< HEAD
-=======
-    @Autowired
-    private SuscriptionRepository suscriptionRepository;
-    @Value("${spring.email.name}")
-    private String email;
-
-    @Value("${spring.email.password}")
-    private String password;
->>>>>>> b0f3fed0c6fc9e4df88d50e39203e0592733d27f
 
     public boolean login(String email, String password) throws GestorAlmuerzosAppException {
         if (email.isEmpty()) {
@@ -73,41 +63,6 @@ public class UserServices {
     public void deleteUser(String id) {
         UserRepository.deleteById(id);
     }
-<<<<<<< HEAD
-=======
 
-    public void sendEmailForgotPassword(User user) {
-        Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.yandex.com");
-        props.put("mail.smtp.socketFactory.port", "465");
-        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.port", "465");
-
-        Session session = Session.getInstance(props, new Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(email, password);
-            }
-        });
-
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("pruebasfoodexpress@gmail.com"));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(user.getEmail()));
-            message.setSubject("Recuperar Contraseña");
-
-            String resetPasswordLink = "https://tu-sitio.com/reset-password?token=abcd1234";
-            String emailContent = String.format(
-                    "Hola %s %s,\n\nDale click al siguiente link para que recuperes tu contraseña:\n%s",
-                    user.getNombre(), user.getApellido(), resetPasswordLink);
-
-            message.setText(emailContent);
-
-            Transport.send(message);
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        }
-    }
->>>>>>> b0f3fed0c6fc9e4df88d50e39203e0592733d27f
 }
 
