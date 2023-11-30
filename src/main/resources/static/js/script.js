@@ -1,8 +1,8 @@
 $(document).ready(function() {
     // Cambiar la visibilidad de la contraseña
     $("#password-toggle, #confirm-password-toggle").click(function() {
-        let inputField = $(this).parent().find("input");
-        let passwordIcon = $(this).find("i");
+        var inputField = $(this).parent().find("input");
+        var passwordIcon = $(this).find("i");
 
         if (inputField.attr("type") === "password") {
             inputField.attr("type", "text");

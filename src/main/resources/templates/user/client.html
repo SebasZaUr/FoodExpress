@@ -1,17 +1,31 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Página principal de Food Express" />
+    <meta name="description" content="Index" />
     <meta name="author" content="Johann Amaya" />
     <title>Food Express</title>
-    <link rel="icon" href="../../static/images/logo.ico" type="image/x-icon" />
+    <link rel="icon" href="../images/logo.ico" type="image/x-icon" />
     <!-- CSS -->
-    <link th:href="@{/css/style.css}" rel="stylesheet" href="../css/style.css" />
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" href="../css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
+    <link
+      th:href="@{/css/style.css}"
+      rel="stylesheet"
+      href="../css/style.css"
+    />
+    <link
+      th:href="@{/css/bootstrap.min.css}"
+      rel="stylesheet"
+      href="../css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
 <div id="liveAlertPlaceholder"></div>
 <body>
 <!-- Barra de navegación -->
@@ -76,10 +90,6 @@
                         Search
                     </button>
                 </form>
-                <form th:action="@{/logout}" method="post">
-                    <button class="btn btn-outline-success" type="submit">Cerrar Cesion</button>
-                </form>
-
             </div>
         </div>
     </div>
@@ -212,24 +222,36 @@
         <!-- Trending products-->
         <div class="container my-4">
             <div class="row justify-content-center">
-                <!-- Itera sobre la lista de platos y muestra cada uno como una tarjeta -->
-                <div th:each="plate, iterStat : ${menu}" class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="card mb-4">
-                        <!-- Usa la expresión Thymeleaf para establecer dinámicamente la URL de la imagen -->
-                        <img th:src="${plate.picture}" class="card-img-top" alt="Product Image">
-                        <div class="card-body">
-                            <h5 th:text="${plate.name}" class="card-title"></h5>
-                            <p th:text="${plate.description}" class="card-text"></p>
-                            <p th:text="'$' + ${plate.price}" class="card-text"></p>
-                            <a href="#" class="btn btn-success">Add to Cart</a>
-                        </div>
-                    </div>
+              <!-- Itera sobre la lista de platos y muestra cada uno como una tarjeta -->
+              <div
+                th:each="plate, iterStat : ${menu}"
+                class="col-lg-3 col-md-6 col-sm-12"
+              >
+                <div class="card mb-4">
+                  <!-- Usa la expresión Thymeleaf para establecer dinámicamente la URL de la imagen -->
+                  <img
+                    th:src="${plate.picture}"
+                    class="card-img-top fixed-size-image"
+                    alt="Product Image"
+                  />
+  
+                  <div class="card-body">
+                    <h5 th:text="${plate.name}" class="card-title"></h5>
+                    <p th:text="${plate.description}" class="card-text"></p>
+                    <p th:text="'$' + ${plate.price}" class="card-text"></p>
+                    <a
+                      href="#"
+                      class="btn btn-success"
+                      onclick="addToCart('${plate.id}')"
+                      >Add to Cart</a
+                    >
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-
-    </div>
-</div>
+      </div>>
 
 
 

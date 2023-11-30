@@ -3,14 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Página principal de Food Express" />
+    <meta name="description" content="Index" />
     <meta name="author" content="Johann Amaya" />
     <title>Food Express</title>
     <link rel="icon" href="../images/logo.ico" type="image/x-icon" />
     <!-- CSS -->
-    <link th:href="@{/css/style.css}" rel="stylesheet" href="../css/style.css" />
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" href="../css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      th:href="@{/css/style.css}"
+      rel="stylesheet"
+      href="../css/style.css"
+    />
+    <link
+      th:href="@{/css/bootstrap.min.css}"
+      rel="stylesheet"
+      href="../css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
 
   <body>
@@ -49,9 +63,7 @@
           <div class="offcanvas-body">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/"
-                  >Home</a
-                >
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/about-us">About</a>
@@ -63,7 +75,11 @@
             <div class="d-flex">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link" th:href="${link} ? '/userInfo' : '/login'" th:text="${username} ?  ${username} : 'Login'"></a>
+                  <a
+                    class="nav-link"
+                    th:href="${link} ? '/userInfo' : '/login'"
+                    th:text="${username} ?  ${username} : 'Login'"
+                  ></a>
                 </li>
               </ul>
             </div>
@@ -77,9 +93,6 @@
               <button class="btn btn-outline-success" type="submit">
                 Search
               </button>
-              <a class="cart" href='/order' style="cursor: pointer;">
-                <i class="fa-solid fa-cart-shopping fa-2xl"></i><p id="count">0</p>
-              </a>
             </form>
           </div>
         </div>
@@ -127,15 +140,16 @@
         </div>
         <div class="carousel-item">
           <img
-                  src="../images/restaurant.jpg"
-                  class="overlay-image"
-                  alt="Imagen 2"
+            src="../images/restaurant.jpg"
+            class="overlay-image"
+            alt="Imagen 2"
           />
           <div class="container">
             <div class="carousel-caption">
               <h1>Reserva Ahora y Deléitate con lo Mejor de la Gastronomía.</h1>
               <p>
-                Haz tu reserva ahora y descubre por qué somos la elección preferida de los amantes de la buena comida
+                Haz tu reserva ahora y descubre por qué somos la elección
+                preferida de los amantes de la buena comida
               </p>
               <p><a class="btn btn-lg btn-primary" href="#">Reserva</a></p>
             </div>
@@ -209,30 +223,40 @@
           </div>
         </div>
 
-    <!-- Trending products-->
+        <!-- Trending products-->
         <div class="container my-4">
           <div class="row justify-content-center">
             <!-- Itera sobre la lista de platos y muestra cada uno como una tarjeta -->
-            <div th:each="plate, iterStat : ${menu}" class="col-lg-3 col-md-6 col-sm-12">
+            <div
+              th:each="plate, iterStat : ${menu}"
+              class="col-lg-3 col-md-6 col-sm-12"
+            >
               <div class="card mb-4">
                 <!-- Usa la expresión Thymeleaf para establecer dinámicamente la URL de la imagen -->
-                <img th:src="${plate.picture}" class="card-img-top" alt="Product Image">
+                <img
+                  th:src="${plate.picture}"
+                  class="card-img-top fixed-size-image"
+                  alt="Product Image"
+                />
+
                 <div class="card-body">
                   <h5 th:text="${plate.name}" class="card-title"></h5>
                   <p th:text="${plate.description}" class="card-text"></p>
                   <p th:text="'$' + ${plate.price}" class="card-text"></p>
-                  <a href="#" class="btn btn-success" onclick="addToCart('${plate.id}')">Add to Cart</a>
+                  <a
+                    href="#"
+                    class="btn btn-success"
+                    onclick="addToCart('${plate.id}')"
+                    >Add to Cart</a
+                  >
                 </div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
 
-      
-      
     <!-- JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script
@@ -241,7 +265,5 @@
       crossorigin="anonymous"
     ></script>
     <script src="../js/all.min.js"></script>
-    <script src="addtocart.js"></script>
-
   </body>
 </html>

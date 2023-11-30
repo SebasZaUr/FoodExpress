@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Página principal de Food Express" />
@@ -8,94 +8,109 @@
     <title>Order</title>
     <link rel="icon" href="../images/logo.ico" type="image/x-icon" />
     <!-- CSS -->
-    <link th:href="@{/css/style.css}" rel="stylesheet" href="../css/style.css" />
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" href="../css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
+    <link
+      th:href="@{/css/style.css}"
+      rel="stylesheet"
+      href="../css/style.css"
+    />
+    <link
+      th:href="@{/css/bootstrap.min.css}"
+      rel="stylesheet"
+      href="../css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
 
-<body>
-<!-- Barra de navegación -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
+  <body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
         <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasNavbar"
-                aria-controls="offcanvasNavbar"
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar"
         >
-            <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="${link}"
-        ><img src="../images/logoW.png" alt="" width="196" height="47"
+          ><img src="../images/logoW.png" alt="" width="196" height="47"
         /></a>
         <div
-                class="offcanvas offcanvas-end text-bg-dark"
-                tabindex="-1"
-                id="offcanvasNavbar"
-                aria-labelledby="offcanvasNavbarLabel"
+          class="offcanvas offcanvas-end text-bg-dark"
+          tabindex="-1"
+          id="offcanvasNavbar"
+          aria-labelledby="offcanvasNavbarLabel"
         >
-            <div class="offcanvas-header">
-                <a class="navbar-brand" href="/"
-                ><img src="../images/logoW.png" alt="" width="196" height="47"
-                /></a>
-                <button
-                        type="button"
-                        class="btn-close btn-close-white"
-                        data-bs-dismiss="offcanvas"
-                        aria-label="Close"
-                ></button>
+          <div class="offcanvas-header">
+            <a class="navbar-brand" href="/"
+              ><img src="../images/logoW.png" alt="" width="196" height="47"
+            /></a>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/about-us">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/contact-us">Contact</a>
+              </li>
+            </ul>
+            <div class="d-flex">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    th:href="${link} ? '/userInfo' : '/login'"
+                    th:text="${username} ?  ${username} : 'Login'"
+                  ></a>
+                </li>
+              </ul>
             </div>
-            <div class="offcanvas-body">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/"
-                        >Home</a
-                        >
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/about-us">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/contact-us">Contact</a>
-                    </li>
-                </ul>
-                <div class="d-flex">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="${link} ? '/userInfo' : '/login'" th:text="${username} ?  ${username} : 'Login'"></a>
-                        </li>
-                    </ul>
-                </div>
-                <form class="d-flex" role="search">
-                    <input
-                            class="form-control me-2"
-                            type="search"
-                            placeholder="Search"
-                            aria-label="Search"
-                    />
-                    <button class="btn btn-outline-success" type="submit">
-                        Search
-                    </button>
-                </form>
-            </div>
+            <form class="d-flex" role="search">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button class="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </form>
+          </div>
         </div>
-    </div>
-</nav>
+      </div>
+    </nav>
 
-<div class = "container">
-    <div id="root">
-    <div class="sidebar">
-        <div class="head"><p>My Cart</p></div>
-        <div id="cartItem">Your cart is empty</div>
-        <div class="foot">
+    <div class="container">
+      <div id="root">
+        <div class="sidebar">
+          <div class="head"><p>My Cart</p></div>
+          <div id="cartItem">Your cart is empty</div>
+          <div class="foot">
             <h3>Total</h3>
             <h2 id="total">$0.00</h2>
+          </div>
         </div>
-
+      </div>
     </div>
-    </div>
-</div>
-<script src="addtocart.js"></script>
-</body>
+    <script src="addtocart.js"></script>
+  </body>
 </html>
