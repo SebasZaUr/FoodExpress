@@ -31,39 +31,23 @@
 <!-- Barra de navegación -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasNavbar"
-                aria-controls="offcanvasNavbar"
-        >
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="../index.html"
-        ><img src="../images/logoW.png" alt="" width="196" height="47"
-        /></a>
-        <div
-                class="offcanvas offcanvas-end text-bg-dark"
-                tabindex="-1"
-                id="offcanvasNavbar"
-                aria-labelledby="offcanvasNavbarLabel"
-        >
+        <a class="navbar-brand" href="../client.html">
+            <img src="../images/logoW.png" alt="" width="196" height="47"/>
+        </a>
+        <div class="offcanvas offcanvas-end text-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
-                <a class="navbar-brand" href="/"><img src="../images/logoW.png" alt="" width="196" height="47"/></a>
-                <button
-                        type="button"
-                        class="btn-close btn-close-white"
-                        data-bs-dismiss="offcanvas"
-                        aria-label="Close"
-                ></button>
+                <a class="navbar-brand" href="/">
+                    <img src="../images/logoW.png" alt="" width="196" height="47"/>
+                </a>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/"
-                        >Home</a
-                        >
+                        <a class="nav-link active" aria-current="page" href="../client.html">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/about-us">About</a>
@@ -72,28 +56,29 @@
                         <a class="nav-link" href="/contact-us">Contact</a>
                     </li>
                 </ul>
+
                 <div class="d-flex">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="/userInfo" th:text="${username} ?  ${username} : 'Login'"></a>
+                            <i class="fa-solid fa-cart-shopping fa-fade"></i>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/userInfo" th:text="${username} ? ${username} : 'Login'"></a>
                         </li>
                     </ul>
                 </div>
+                
                 <form class="d-flex" role="search">
-                    <input
-                            class="form-control me-2"
-                            type="search"
-                            placeholder="Search"
-                            aria-label="Search"
-                    />
-                    <button class="btn btn-outline-success" type="submit">
-                        Search
-                    </button>
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                    <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
         </div>
     </div>
 </nav>
+
 
 <!-- Carousel-->
 <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
