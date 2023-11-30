@@ -143,7 +143,7 @@ public class UserController {
             User user = usuario.orElseThrow(() -> new GestorAlmuerzosAppException(GestorAlmuerzosAppException.EmailNoExist));
         }catch(GestorAlmuerzosAppException e){
             model.addAttribute("error", e.getMessage());
-            return("/forgotPassword");
+            return("/user/forgotPassword");
         }
         return "redirect:/login";
     }
