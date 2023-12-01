@@ -26,8 +26,6 @@ public class User {
     @Column
     private String password;
 
-
-
     @ManyToOne
     @JoinColumn(name = "rol", nullable = true)
     private Role role;
@@ -62,9 +60,6 @@ public class User {
     public int getPoints() {
         return points;
     }
-    public void setRole(Role role) {
-        this.role = role;
-    }
 
     public void setPoints(int points) {
         this.points = points;
@@ -75,7 +70,7 @@ public class User {
     }
 
     public void setRole(String role , RoleRepository repository) {
-        Optional<Role> posibleRol= repository.findByCategory(role);
+        Optional<Role> posibleRol= repository.findByCategory("Role_" + role);
         this.role = posibleRol.orElseThrow();
     }
 
