@@ -55,7 +55,7 @@ class FoodExpressTests {
 
     @Test
     public void testLoginSuccessful() throws GestorAlmuerzosAppException {
-        Role rol = new Role("1", "client");
+        Role rol = new Role( "client");
         roleRepository.save(rol);
         User user = new User("sebassele2008@gmail.com", "Sebastian", "Zamora", "1234", null,roleRepository);
         when(userRepository.findById(Mockito.anyString())).thenReturn(Optional.of(user));
@@ -106,10 +106,11 @@ class FoodExpressTests {
     }
 
     @Test
-    public void ShouldNotLoginWithEmptyPassword()  {
+   public void ShouldNotLoginWithEmptyPassword()  {
         try {
             User user = new User("sebassele2008@gmail.com", "Sebastian", "Zamora", "1234", null, roleRepository);
             boolean result = userService.login("sebassele2008@gmail.com", "");
+            assertFalse(result);
         } catch (GestorAlmuerzosAppException e){
             assertEquals(e.getMessage(),GestorAlmuerzosAppException.EmptyPassword);
         }
@@ -117,8 +118,8 @@ class FoodExpressTests {
 
     @Test
     void testGetRol() {
-        String roleId = "1";
-        Role expectedRole = new Role(roleId, "client");
+        Role expectedRole = new Role( "client");
+        int roleId = expectedRole.getId();
         when(roleRepository.findById(roleId)).thenReturn(Optional.of(expectedRole));
 
         Optional<Role> result = appServices.getRol(roleId);
@@ -128,7 +129,7 @@ class FoodExpressTests {
 
     @Test
     void testAddRol() {
-        Role roleToAdd = new Role("1", "client");
+        Role roleToAdd = new Role("client");
 
         appServices.addRol(roleToAdd);
 
@@ -137,7 +138,7 @@ class FoodExpressTests {
 
     @Test
     void testUpdateRole() {
-        Role roleToUpdate = new Role("1", "updatedRole");
+        Role roleToUpdate = new Role("updatedRole");
         when(roleRepository.save(Mockito.any(Role.class))).thenReturn(roleToUpdate);
 
         Role result = appServices.updateRole(roleToUpdate);
@@ -147,7 +148,7 @@ class FoodExpressTests {
 
     @Test
     void testGetAllRoles() {
-        List<Role> expectedRoles = Collections.singletonList(new Role("1", "client"));
+        List<Role> expectedRoles = Collections.singletonList(new Role( "client"));
         when(roleRepository.findAll()).thenReturn(expectedRoles);
 
         List<Role> result = appServices.getAllRoles();
@@ -157,10 +158,8 @@ class FoodExpressTests {
 
     @Test
     void testDeleteUser() {
-        String roleIdToDelete = "1";
-
+        int roleIdToDelete = 1;
         appServices.deleteUser(roleIdToDelete);
-
         verify(roleRepository, times(1)).deleteById(roleIdToDelete);
     }
 
