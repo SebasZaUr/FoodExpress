@@ -1,7 +1,6 @@
 package proyecto.gestorAlmuerzo.controller;
-
-import Proyecto.gestorAlmuerzo.model.Ingredient;
-import Proyecto.gestorAlmuerzo.service.IngredientServices;
+import proyecto.gestorAlmuerzo.model.Ingredient;
+import proyecto.gestorAlmuerzo.service.IngredientServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

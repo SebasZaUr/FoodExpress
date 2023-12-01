@@ -1,4 +1,4 @@
-package proyecto.gestorAlmuerzo;
+package Proyecto.gestorAlmuerzo;
 
 import proyecto.gestorAlmuerzo.repository.CategoryRepository;
 import proyecto.gestorAlmuerzo.repository.PlateRepository;
