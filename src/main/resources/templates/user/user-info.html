@@ -120,25 +120,19 @@
                   <label class="fw-bold">Correo:</label>
                   <p th:text="${user.email}"></p>
                 </div>
-                <form
-                  th:action="@{/updateProfile/{id}(id=${user.email})}"
-                  method="post"
-                >
+                <a th:href="@{/updateProfile/{id}(id=${user.email})}" >
                   <button class="btn btn-outline-success me-2" type="submit">
                     Actualizar información
                   </button>
-                </form>
-                <form
-                  th:action="@{/delete/{id}(id=${user.email})}"
-                  method="post"
-                >
+                </a>
+                <a th:href="@{/delete/{id}(id=${user.email})}">
                   <button class="btn btn-outline-danger" type="submit">
                     Eliminar perfil
                   </button>
-                </form>
-                <form th:action="@{/logout}" method="post">
+                </a>
+                <a th:href="@{/logout}" >
                     <button class="btn btn-outline-success" type="submit">Cerrar Cesion</button>
-                </form>
+                </a>
               </div>
               <div class="suscripcion" th:if="${user.points} > 0">
                 <!-- Agrega contenido para la sección de suscripción si es necesario -->

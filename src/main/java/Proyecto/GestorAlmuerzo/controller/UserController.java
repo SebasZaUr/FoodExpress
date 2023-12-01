@@ -151,7 +151,6 @@ public class UserController {
     @PostMapping("/update")
     public String updateUser(@ModelAttribute("user") User user) {
         userRepository.updateUser(user);
-        userRepository.addUser(user,true);
         return "redirect:/client";
     }
 

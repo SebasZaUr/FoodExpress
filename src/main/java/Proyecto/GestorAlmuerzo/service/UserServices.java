@@ -4,14 +4,10 @@ import Proyecto.GestorAlmuerzo.Repository.RoleRepository;
 import Proyecto.GestorAlmuerzo.Repository.UserRepository;
 import Proyecto.GestorAlmuerzo.exceptions.GestorAlmuerzosAppException;
 import Proyecto.GestorAlmuerzo.model.User;
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+
 import java.util.List;
 import java.util.Optional;
-import java.util.Properties;
 
-import Proyecto.GestorAlmuerzo.model.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,9 +46,12 @@ public class UserServices {
         }
     }
 
-    public User updateUser(User user) {
-        UserRepository.findById(user.getEmail());
-        return UserRepository.save(user);
+    public void updateUser(User user) {
+        Optional<User> usuario = UserRepository.findById(user.getEmail());
+        User u = usuario.orElseThrow();
+        String role = u.getRole();
+        user.setRole(role,roleRepository);
+        UserRepository.save(user);
     }
 
     public List<User> getAllUsers() {
