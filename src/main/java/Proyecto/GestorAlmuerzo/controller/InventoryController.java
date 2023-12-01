@@ -1,7 +1,7 @@
-package Proyecto.GestorAlmuerzo.controller;
+package proyecto.gestorAlmuerzo.controller;
 
-import Proyecto.GestorAlmuerzo.model.Ingredient;
-import Proyecto.GestorAlmuerzo.service.IngredientServices;
+import Proyecto.gestorAlmuerzo.model.Ingredient;
+import Proyecto.gestorAlmuerzo.service.IngredientServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,14 +51,14 @@ public class InventoryController {
             ingredient.setId((long) plateId);
             ingredientServices.updatePlate(ingredient);
         }
-        return "redirect:admin/inventory";
+        return "redirect:/admin/inventory";
     }
 
-    @RequestMapping("/deleteIngredient/{id}")
+    @PostMapping("/deleteIngredient/{id}")
     public String deletePlate(@PathVariable String id) {
         int plateId = Integer.parseInt(id);
         ingredientServices.deletePlate(plateId);
-        return "redirect:admin/inventory";
+        return "redirect:/admin/inventory";
     }
 }
 

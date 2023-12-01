@@ -1,4 +1,4 @@
-package Proyecto.GestorAlmuerzo.model;
+package proyecto.gestorAlmuerzo.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

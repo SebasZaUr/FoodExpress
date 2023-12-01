@@ -1,26 +1,25 @@
-package Proyecto.GestorAlmuerzo;
+package proyecto.gestorAlmuerzo;
 
-import Proyecto.GestorAlmuerzo.Repository.CategoryRepository;
-import Proyecto.GestorAlmuerzo.Repository.PlateRepository;
-import Proyecto.GestorAlmuerzo.Repository.RoleRepository;
-import Proyecto.GestorAlmuerzo.Repository.UserRepository;
-import Proyecto.GestorAlmuerzo.controller.UserController;
-import Proyecto.GestorAlmuerzo.exceptions.GestorAlmuerzosAppException;
-import Proyecto.GestorAlmuerzo.model.Category;
-import Proyecto.GestorAlmuerzo.model.Plate;
-import Proyecto.GestorAlmuerzo.model.Role;
-import Proyecto.GestorAlmuerzo.model.User;
-import Proyecto.GestorAlmuerzo.service.AppServices;
-import Proyecto.GestorAlmuerzo.service.CategoryServices;
-import Proyecto.GestorAlmuerzo.service.PlateServices;
-import Proyecto.GestorAlmuerzo.service.UserServices;
+import proyecto.gestorAlmuerzo.repository.CategoryRepository;
+import proyecto.gestorAlmuerzo.repository.PlateRepository;
+import proyecto.gestorAlmuerzo.repository.RoleRepository;
+import proyecto.gestorAlmuerzo.repository.UserRepository;
+import proyecto.gestorAlmuerzo.controller.UserController;
+import proyecto.gestorAlmuerzo.exceptions.GestorAlmuerzosAppException;
+import proyecto.gestorAlmuerzo.model.Category;
+import proyecto.gestorAlmuerzo.model.Plate;
+import proyecto.gestorAlmuerzo.model.Role;
+import proyecto.gestorAlmuerzo.model.User;
+import proyecto.gestorAlmuerzo.service.AppServices;
+import proyecto.gestorAlmuerzo.service.CategoryServices;
+import proyecto.gestorAlmuerzo.service.PlateServices;
+import proyecto.gestorAlmuerzo.service.UserServices;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.*;
 

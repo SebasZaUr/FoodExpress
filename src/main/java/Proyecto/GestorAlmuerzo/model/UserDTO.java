@@ -1,4 +1,4 @@
-package Proyecto.GestorAlmuerzo.model;
+package proyecto.gestorAlmuerzo.model;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;

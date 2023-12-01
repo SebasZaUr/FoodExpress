@@ -1,15 +1,14 @@
-package Proyecto.GestorAlmuerzo.service;
+package proyecto.gestorAlmuerzo.service;
 
-import Proyecto.GestorAlmuerzo.Repository.RoleRepository;
-import Proyecto.GestorAlmuerzo.Repository.UserRepository;
-import Proyecto.GestorAlmuerzo.exceptions.GestorAlmuerzosAppException;
-import Proyecto.GestorAlmuerzo.model.User;
+import proyecto.gestorAlmuerzo.repository.RoleRepository;
+import proyecto.gestorAlmuerzo.repository.UserRepository;
+import proyecto.gestorAlmuerzo.exceptions.GestorAlmuerzosAppException;
+import proyecto.gestorAlmuerzo.model.User;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
