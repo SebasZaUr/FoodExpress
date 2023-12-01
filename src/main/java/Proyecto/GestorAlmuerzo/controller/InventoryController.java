@@ -51,14 +51,14 @@ public class InventoryController {
             ingredient.setId((long) plateId);
             ingredientServices.updatePlate(ingredient);
         }
-        return "redirect:admin/inventory";
+        return "redirect:/admin/inventory";
     }
 
-    @RequestMapping("/deleteIngredient/{id}")
+    @PostMapping("/deleteIngredient/{id}")
     public String deletePlate(@PathVariable String id) {
         int plateId = Integer.parseInt(id);
         ingredientServices.deletePlate(plateId);
-        return "redirect:admin/inventory";
+        return "redirect:/admin/inventory";
     }
 }
 
