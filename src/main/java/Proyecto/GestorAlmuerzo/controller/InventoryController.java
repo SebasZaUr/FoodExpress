@@ -24,7 +24,7 @@ public class InventoryController {
         ingredients = ingredientServices.getAllIngredients();
 
         model.addAttribute("ingredients", ingredients);
-        return "/admin/inventory";
+        return "admin/inventory";
     }
 
     @PostMapping("/addIngredient")

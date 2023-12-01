@@ -33,7 +33,7 @@ public class UserServices {
             throw new GestorAlmuerzosAppException(GestorAlmuerzosAppException.EmptyPassword);
         }
         Optional<User> newUser = getUser(email);
-        User usuario = newUser.orElseThrow(() -> new GestorAlmuerzosAppException(GestorAlmuerzosAppException.IncorrectInformation));
+        User usuario = newUser.orElseThrow(() -> new GestorAlmuerzosAppException(GestorAlmuerzosAppException.EmailNoExist));
         String encryptPassword = usuario.encrypt(password);
         String userPassword = usuario.getPassword();
         return encryptPassword.equals(userPassword);
