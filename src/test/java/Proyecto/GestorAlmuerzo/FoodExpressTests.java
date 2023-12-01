@@ -109,9 +109,8 @@ class FoodExpressTests {
    public void ShouldNotLoginWithEmptyPassword()  {
         try {
             User user = new User("sebassele2008@gmail.com", "Sebastian", "Zamora", "1234", null, roleRepository);
-            when(userRepository.findById(Mockito.anyString())).thenReturn(Optional.of(user));
             boolean result = userService.login("sebassele2008@gmail.com", "");
-           assertFalse(result);
+            assertFalse(result);
         } catch (GestorAlmuerzosAppException e){
             assertEquals(e.getMessage(),GestorAlmuerzosAppException.EmptyPassword);
         }

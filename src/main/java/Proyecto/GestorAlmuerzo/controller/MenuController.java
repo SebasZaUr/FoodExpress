@@ -51,7 +51,7 @@ public class MenuController {
     @PostMapping("/addPlate")
     public String addPlate(@ModelAttribute("plate") Plate plate) {
         plateServices.addPlate(plate);
-        return "redirect:/admin/menu";
+        return "redirect:admin/menu";
     }
 
     @GetMapping("/editPlate/{id}")
@@ -72,14 +72,14 @@ public class MenuController {
             plate.setId(plateId);
             plateServices.updatePlate(plate);
         }
-        return "redirect:/admin/menu";
+        return "redirect:admin/menu";
     }
 
     @RequestMapping("/deletePlate/{id}")
     public String deletePlate(@PathVariable String id) {
         int plateId = Integer.parseInt(id);
         plateServices.deletePlate(plateId);
-        return "redirect:/admin/menu";
+        return "redirect:admin/menu";
     }
 
 }
