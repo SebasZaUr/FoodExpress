@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,7 +29,7 @@ public class UserServices {
             throw new GestorAlmuerzosAppException(GestorAlmuerzosAppException.EmptyPassword);
         }
         Optional<User> newUser = getUser(email);
-        User usuario = newUser.orElseThrow(() -> new GestorAlmuerzosAppException(GestorAlmuerzosAppException.IncorrectInformation));
+        User usuario = newUser.orElseThrow(() -> new GestorAlmuerzosAppException(GestorAlmuerzosAppException.EmailNoExist));
         String encryptPassword = usuario.encrypt(password);
         String userPassword = usuario.getPassword();
         return encryptPassword.equals(userPassword);
@@ -61,5 +62,6 @@ public class UserServices {
     public void deleteUser(String id) {
         UserRepository.deleteById(id);
     }
+
 }
 

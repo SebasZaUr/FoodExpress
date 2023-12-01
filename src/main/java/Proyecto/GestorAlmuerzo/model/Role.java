@@ -1,9 +1,6 @@
 package Proyecto.GestorAlmuerzo.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 /**
  * Entidad de la base de datos que guarda todos la información de los tipos de
@@ -19,14 +16,13 @@ import jakarta.persistence.Table;
 @Table(name = "ROL")
 public class Role {
     @Id
-    @Column(name = "ID")
-    protected String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected int id;
 
     @Column(name = "Category")
     protected String category;
 
-    public Role(String id, String category) {
-        this.id = id;
+    public Role( String category) {
         this.category = category;
     }
 
@@ -52,7 +48,7 @@ public class Role {
         this.category = category.toUpperCase();
     }
 
-    public String getId() {
+    public int getId() {
         return this.id;
     }
 }

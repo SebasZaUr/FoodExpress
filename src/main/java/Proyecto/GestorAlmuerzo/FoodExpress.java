@@ -39,10 +39,10 @@ public class FoodExpress {
     @Bean
     public CommandLineRunner run() throws Exception {
         return (args) -> {
-            appService.addRol(new Role("1", "ROLE_client"));
-            appService.addRol(new Role("2", "ROLE_admin"));
-            appService.addRol(new Role("3", "ROLE_cooker"));
-            appService.addRol(new Role("4", "ROLE_waiter"));
+            appService.addRol(new Role( "ROLE_client"));
+            appService.addRol(new Role("ROLE_admin"));
+            appService.addRol(new Role("ROLE_cooker"));
+            appService.addRol(new Role("ROLE_waiter"));
             usuarioService.addUser(new User("sebassele2008@gmail.com", "Sebastian", "Zamora", "1234", "client",roleRepository),false);
             usuarioService.addUser(new User("christian@foodexpres.com", "Christian", "Duarte", "1234", "admin",roleRepository),false);
             usuarioService.addUser(new User("cesar@foodexpres.com", "Cesar", "Amaya", "1234", "cooker",roleRepository),false);

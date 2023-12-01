@@ -19,7 +19,7 @@ import Proyecto.GestorAlmuerzo.model.Role;
  * @version 14/11/2023
  */
 @Repository
-public interface RoleRepository extends JpaRepository<Role, String> {
+public interface RoleRepository extends JpaRepository<Role, Integer> {
     Optional<Role> findByCategory(String category);
 
     boolean existsByCategory(String category);

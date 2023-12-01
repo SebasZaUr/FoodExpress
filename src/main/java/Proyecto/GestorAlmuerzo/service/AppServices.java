@@ -20,7 +20,7 @@ public class AppServices {
      * @param id El nombre del rol
      * @return El rol seleccionado.
      */
-    public Optional<Role> getRol(String id) {
+    public Optional<Role> getRol(int id) {
         return roleRepository.findById(id);
     };
 
@@ -57,7 +57,7 @@ public class AppServices {
      * 
      * @param id El id del usuarío que voy a eliminar.
      */
-    public void deleteUser(String id) {
+    public void deleteUser(int id) {
         roleRepository.deleteById(id);
     }
 }
