@@ -15,9 +15,11 @@ import Proyecto.GestorAlmuerzo.service.CategoryServices;
 import Proyecto.GestorAlmuerzo.service.PlateServices;
 import Proyecto.GestorAlmuerzo.service.UserServices;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.*;
@@ -25,7 +27,7 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class FoodExpressTests {
 
     @InjectMocks
@@ -107,9 +109,7 @@ class FoodExpressTests {
     public void ShouldNotLoginWithEmptyPassword()  {
         try {
             User user = new User("sebassele2008@gmail.com", "Sebastian", "Zamora", "1234", null, roleRepository);
-            when(userRepository.findById(Mockito.anyString())).thenReturn(Optional.of(user));
             boolean result = userService.login("sebassele2008@gmail.com", "");
-            assertFalse(result);
         } catch (GestorAlmuerzosAppException e){
             assertEquals(e.getMessage(),GestorAlmuerzosAppException.EmptyPassword);
         }

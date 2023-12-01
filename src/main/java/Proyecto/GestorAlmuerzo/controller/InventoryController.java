@@ -24,13 +24,13 @@ public class InventoryController {
         ingredients = ingredientServices.getAllIngredients();
 
         model.addAttribute("ingredients", ingredients);
-        return "/admin/inventory";
+        return "admin/inventory";
     }
 
     @PostMapping("/addIngredient")
     public String addIngredient(@ModelAttribute("ingredient") Ingredient ingredient) {
         ingredientServices.addIngredient(ingredient);
-        return "redirect:/admin/inventory";
+        return "redirect:admin/inventory";
     }
 
     @GetMapping("/editIngredient/{id}")
@@ -51,14 +51,14 @@ public class InventoryController {
             ingredient.setId((long) plateId);
             ingredientServices.updatePlate(ingredient);
         }
-        return "redirect:/admin/inventory";
+        return "redirect:admin/inventory";
     }
 
     @RequestMapping("/deleteIngredient/{id}")
     public String deletePlate(@PathVariable String id) {
         int plateId = Integer.parseInt(id);
         ingredientServices.deletePlate(plateId);
-        return "redirect:/admin/inventory";
+        return "redirect:admin/inventory";
     }
 }
 
