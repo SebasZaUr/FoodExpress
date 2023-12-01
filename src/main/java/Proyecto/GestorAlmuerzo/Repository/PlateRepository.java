@@ -1,11 +1,10 @@
-package Proyecto.GestorAlmuerzo.Repository;
+package proyecto.gestorAlmuerzo.repository;
 
-import Proyecto.GestorAlmuerzo.model.Plate;
+import proyecto.gestorAlmuerzo.model.Plate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Interface que nos permite conectar con la base de datos.

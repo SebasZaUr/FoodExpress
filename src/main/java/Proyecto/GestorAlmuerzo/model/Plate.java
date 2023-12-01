@@ -1,6 +1,5 @@
-package Proyecto.GestorAlmuerzo.model;
+package proyecto.gestorAlmuerzo.model;
 import jakarta.persistence.*;
-
 import java.util.HashSet;
 import java.util.Set;
 

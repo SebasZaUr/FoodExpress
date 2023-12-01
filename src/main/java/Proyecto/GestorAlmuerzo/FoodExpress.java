@@ -1,8 +1,8 @@
-package Proyecto.GestorAlmuerzo;
+package proyecto.gestorAlmuerzo;
 
-import Proyecto.GestorAlmuerzo.Repository.RoleRepository;
-import Proyecto.GestorAlmuerzo.model.*;
-import Proyecto.GestorAlmuerzo.service.*;
+import proyecto.gestorAlmuerzo.repository.RoleRepository;
+import proyecto.gestorAlmuerzo.model.*;
+import proyecto.gestorAlmuerzo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

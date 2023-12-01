@@ -1,7 +1,7 @@
-package Proyecto.GestorAlmuerzo.service;
+package proyecto.gestorAlmuerzo.service;
 
-import Proyecto.GestorAlmuerzo.Repository.CategoryRepository;
-import Proyecto.GestorAlmuerzo.model.Category;
+import proyecto.gestorAlmuerzo.repository.CategoryRepository;
+import proyecto.gestorAlmuerzo.model.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
