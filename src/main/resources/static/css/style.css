@@ -115,3 +115,49 @@ body {
   width: 300px; /* Ajusta el ancho según sea necesario */
   margin: 10px; /* Ajusta el margen según sea necesario */
 }
+
+
+
+.container {
+    display: flex;
+    width: 70px;
+    margin-bottom: 30px;
+    align-items: center; /* Centra verticalmente el contenido en el cuerpo del documento */
+    justify-content: center; /* Centra horizontalmente el contenido en el cuerpo del documento */
+
+}
+
+.root {
+    width: 60px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+}
+
+.sidebar {
+    width: 500px;
+    border-radius: 5px;
+    background-color: white;
+    margin-left: 20px;
+    padding: 15px;
+    text-align: center;
+}
+
+.head {
+    background-color: #ffa751;
+    border-radius: 3px;
+    height: 40px;
+    padding: 10px;
+    margin-bottom: 20px;
+    color: white;
+    align-items: center; /* Centra verticalmente el contenido en .head */
+}
+
+.foot {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0px;
+    padding: 10px 0px;
+    border-top: 1px solid #333;
+}
+
