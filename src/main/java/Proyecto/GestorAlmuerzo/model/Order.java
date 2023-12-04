@@ -3,12 +3,12 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "Order")
-@AllArgsConstructor
-@NoArgsConstructor
+@Table(name = "Orders")
 /**
  * Entidad de la base de datos que guarda la informacion de un pedido
  *
@@ -29,11 +29,23 @@ public class Order {
     private String idPago;
 
     @Column
-    private String userId;
+    private String idUsuario;
 
-    @Column
     @ManyToMany
-    private List<Plate> plates;
+    @JoinTable(
+            name = "order_dish",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "dish_id")
+    )
+    private Set<Plate> plates = new HashSet<>();
+
+    public Order(int id, String fecha, String idPago, String idUsuario, List<Plate> plates) {
+        this.id = id;
+        this.fecha = fecha;
+        this.idPago = idPago;
+        this.idUsuario = idUsuario;
+//        this.plates = plates;
+    }
 
     public Order(int id) {
         this.id = id;
@@ -64,20 +76,20 @@ public class Order {
     }
 
     public String getIdUsuario() {
-        return userId;
+        return idUsuario;
     }
 
     public void setIdUsuario(String idUsuario) {
-        this.userId = idUsuario;
+        this.idUsuario = idUsuario;
     }
 
-    public List<Plate> getPlates() {
-        return plates;
-    }
-
-    public void setPlates(List<Plate> plates) {
-        this.plates = plates;
-    }
+//    public List<Plate> getPlates() {
+//        return plates;
+//    }
+//
+//    public void setPlates(List<Plate> plates) {
+//        this.plates = plates;
+//    }
 
     @Override
     public String toString() {
@@ -85,8 +97,8 @@ public class Order {
                 "id=" + id +
                 ", fecha='" + fecha + '\'' +
                 ", idPago='" + idPago + '\'' +
-                ", idUsuario='" + userId + '\'' +
-                ", plates=" + plates +
+                ", idUsuario='" + idUsuario + '\'' +
+//                ", plates=" + plates +
                 '}';
     }
 }
