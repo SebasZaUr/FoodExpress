@@ -1,5 +1,4 @@
-package proyecto.gestorAlmuerzo.model;
-
+package Proyecto.GestorAlmuerzo.model;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -7,7 +6,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Table(name = "Plate")
+@Table(name = "Order")
 @AllArgsConstructor
 @NoArgsConstructor
 /**
@@ -33,7 +32,7 @@ public class Order {
     private String userId;
 
     @Column
-    @OneToMany
+    @ManyToMany
     private List<Plate> plates;
 
     public Order(int id) {

@@ -1,7 +1,4 @@
-package proyecto.gestorAlmuerzo.model;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+package Proyecto.GestorAlmuerzo.model;
 
 import jakarta.persistence.*;
 import java.util.HashSet;

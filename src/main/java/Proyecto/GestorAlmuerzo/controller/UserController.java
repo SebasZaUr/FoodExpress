@@ -1,12 +1,12 @@
-package proyecto.gestorAlmuerzo.controller;
+package Proyecto.GestorAlmuerzo.controller;
 
-import proyecto.gestorAlmuerzo.repository.UserRepository;
+import Proyecto.GestorAlmuerzo.Repository.UserRepository;
 import proyecto.gestorAlmuerzo.exceptions.GestorAlmuerzosAppException;
-import proyecto.gestorAlmuerzo.model.Plate;
-import proyecto.gestorAlmuerzo.model.User;
-import proyecto.gestorAlmuerzo.model.UserDTO;
-import proyecto.gestorAlmuerzo.service.PlateServices;
-import proyecto.gestorAlmuerzo.service.UserServices;
+import Proyecto.GestorAlmuerzo.model.Plate;
+import Proyecto.GestorAlmuerzo.model.User;
+import Proyecto.GestorAlmuerzo.model.UserDTO;
+import Proyecto.GestorAlmuerzo.service.PlateServices;
+import Proyecto.GestorAlmuerzo.service.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

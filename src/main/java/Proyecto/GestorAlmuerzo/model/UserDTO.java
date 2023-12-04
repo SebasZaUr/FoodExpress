@@ -1,7 +1,6 @@
-package proyecto.gestorAlmuerzo.model;
+package Proyecto.GestorAlmuerzo.model;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.*;
 public class UserDTO {
     @NotEmpty
     private String firstName;

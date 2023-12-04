@@ -1,19 +1,9 @@
-package proyecto.gestorAlmuerzo;
-
-import proyecto.gestorAlmuerzo.repository.CategoryRepository;
-import proyecto.gestorAlmuerzo.repository.PlateRepository;
-import proyecto.gestorAlmuerzo.repository.RoleRepository;
-import proyecto.gestorAlmuerzo.repository.UserRepository;
-import proyecto.gestorAlmuerzo.controller.UserController;
+package Proyecto.gestorAlmuerzo;
+import Proyecto.GestorAlmuerzo.Repository.*;
 import proyecto.gestorAlmuerzo.exceptions.GestorAlmuerzosAppException;
-import proyecto.gestorAlmuerzo.model.Category;
-import proyecto.gestorAlmuerzo.model.Plate;
-import proyecto.gestorAlmuerzo.model.Role;
-import proyecto.gestorAlmuerzo.model.User;
-import proyecto.gestorAlmuerzo.service.AppServices;
-import proyecto.gestorAlmuerzo.service.CategoryServices;
-import proyecto.gestorAlmuerzo.service.PlateServices;
-import proyecto.gestorAlmuerzo.service.UserServices;
+import Proyecto.GestorAlmuerzo.model.*;
+import Proyecto.GestorAlmuerzo.service.*;
+import Proyecto.GestorAlmuerzo.controller.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

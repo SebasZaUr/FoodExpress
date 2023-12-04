@@ -1,12 +1,11 @@
-package proyecto.gestorAlmuerzo.model;
+package Proyecto.GestorAlmuerzo.model;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Objects;
-import java.util.Optional;
-import proyecto.gestorAlmuerzo.repository.RoleRepository;
+import java.util.*;
+import Proyecto.GestorAlmuerzo.Repository.RoleRepository;
 import proyecto.gestorAlmuerzo.exceptions.GestorAlmuerzosAppException;
 import jakarta.persistence.*;
-
 @Entity
 @Table(name = "Usuario")
 /**

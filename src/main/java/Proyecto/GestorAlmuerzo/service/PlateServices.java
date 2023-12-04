@@ -1,8 +1,8 @@
-package proyecto.gestorAlmuerzo.service;
+package Proyecto.GestorAlmuerzo.service;
 
 
-import proyecto.gestorAlmuerzo.repository.PlateRepository;
-import proyecto.gestorAlmuerzo.model.Plate;
+import Proyecto.GestorAlmuerzo.Repository.PlateRepository;
+import Proyecto.GestorAlmuerzo.model.Plate;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;

@@ -1,6 +1,6 @@
-package proyecto.gestorAlmuerzo.repository;
+package Proyecto.GestorAlmuerzo.Repository;
 
-import proyecto.gestorAlmuerzo.model.Category;
+import Proyecto.GestorAlmuerzo.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
