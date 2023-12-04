@@ -161,3 +161,19 @@ body {
     border-top: 1px solid #333;
 }
 
+.cart {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fa-solid {
+    color: goldenrod;
+}
+
+.cart p {
+    align-items: center;
+    justify-content: center;
+    color: white; /* Cambia el color del texto dentro de la etiqueta <p> a negro */
+}
+
