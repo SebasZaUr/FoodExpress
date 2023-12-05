@@ -4,9 +4,13 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import Proyecto.GestorAlmuerzo.Repository.RoleRepository;
+import lombok.Getter;
+import lombok.Setter;
 import proyecto.gestorAlmuerzo.exceptions.GestorAlmuerzosAppException;
 import jakarta.persistence.*;
 @Entity
+@Getter
+@Setter
 @Table(name = "Usuario")
 /**
  * Entidad de la base de datos que guarda todos la información de los usuaríos
@@ -36,6 +40,19 @@ public class User {
     @Column
     private int points;
 
+    @ManyToMany
+    @JoinTable(
+            name = "user_preferences",
+            joinColumns = @JoinColumn(name = "user_email"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+    private Set<Ingredient> preferences = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_banned_ingredients",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+    private Set<Ingredient> bannedIngredients;
     /**
      * El constructor de la clase User.
      *
