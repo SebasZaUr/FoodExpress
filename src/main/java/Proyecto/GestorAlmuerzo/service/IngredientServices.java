@@ -28,11 +28,15 @@ public class IngredientServices {
     }
 
     @Transactional
-    public void updatePlate(Ingredient ingredient) {
+    public void updateIngredient(Ingredient ingredient) {
         ingredientRepository.save(ingredient);
     }
 
-    public void deletePlate(int plateId) {
+    public void deleteIngredient(int plateId) {
         ingredientRepository.deleteById(plateId);
+    }
+
+    public Ingredient getIngredientByName(String name) {
+        return ingredientRepository.findByName(name);
     }
 }

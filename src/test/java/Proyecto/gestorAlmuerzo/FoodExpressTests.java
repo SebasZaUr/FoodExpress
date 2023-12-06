@@ -197,7 +197,9 @@ class FoodExpressTests {
     void testGetAllPlates() {
         Set<Category> categories = new HashSet<>();
         categories.add(new Category("Category1"));
-        Plate expectedPlate = new Plate(1, "Test Plate", "Description", 10, categories, "picture.jpg");
+        Set<Ingredient> ingredients = new HashSet<>();
+        ingredients.add(new Ingredient("Ingredient1"));
+        Plate expectedPlate = new Plate(1, "Test Plate", "Description", 10, categories,ingredients, "picture.jpg");
         when(plateRepository.findAll()).thenReturn(Collections.singletonList(expectedPlate));
 
         List<Plate> result = plateServices.getAllPlates();
@@ -209,8 +211,11 @@ class FoodExpressTests {
     void testGetPlateById() {
         Set<Category> categories = new HashSet<>();
         categories.add(new Category("Category1"));
+        Set<Ingredient> ingredients = new HashSet<>();
+        ingredients.add(new Ingredient("Ingredient1"));
+
         int plateId = 1;
-        Plate expectedPlate = new Plate(plateId, "Test Plate", "Description", 10, categories, "picture.jpg");
+        Plate expectedPlate = new Plate(plateId, "Test Plate", "Description", 10, categories,ingredients,"picture.jpg");
         when(plateRepository.findById(plateId)).thenReturn(Optional.of(expectedPlate));
 
         Optional<Plate> result = plateServices.getPlateById(plateId);
@@ -222,7 +227,9 @@ class FoodExpressTests {
     void testAddPlate() {
         Set<Category> categories = new HashSet<>();
         categories.add(new Category("Category1"));
-        Plate plateToAdd = new Plate(1, "New Plate", "Description", 15, categories, "new_picture.jpg");
+        Set<Ingredient> ingredients = new HashSet<>();
+        ingredients.add(new Ingredient("Ingredient1"));
+        Plate plateToAdd = new Plate(1, "New Plate", "Description", 15, categories,ingredients, "new_picture.jpg");
 
         when(plateRepository.save(plateToAdd)).thenReturn(plateToAdd);
 
@@ -235,8 +242,9 @@ class FoodExpressTests {
     void testUpdatePlate() {
         HashSet<Category> categories = new HashSet<>();
         categories.add(new Category("Category1"));
-        Plate plateToUpdate = new Plate(1, "Updated Plate", "Updated Description", 20, categories, "updated_picture.jpg");
-
+        Set<Ingredient> ingredients = new HashSet<>();
+        ingredients.add(new Ingredient("Ingredient1"));
+        Plate plateToUpdate = new Plate(1, "Updated Plate", "Updated Description", 20, categories,ingredients,"updated_picture.jpg");
         plateServices.updatePlate(plateToUpdate);
 
         verify(plateRepository, times(1)).save(plateToUpdate);

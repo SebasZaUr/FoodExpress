@@ -30,6 +30,9 @@ public class Ingredient {
     @Column
     private int amount;
 
+    public Ingredient(String ingredient1) {
+    }
+
     @Override
     public String toString() {
         return "Ingredient{" +

@@ -14,10 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 public class UserController {
@@ -69,8 +66,12 @@ public class UserController {
     @GetMapping("/client")
     public String loginUser(Model m){
         setValues(m);
+        Optional<User> user = userServices.getUser(userLogin);
+        ArrayList<Ingredient> preferences = new ArrayList<>(user.get().getPreferences());
+        ArrayList<Ingredient> bannedIngredients = new ArrayList<>(userServices.getUser(userLogin).get().getBannedIngredients());
         List<Plate> menu = plateServices.getAllPlates();
-        m.addAttribute("menu", menu);
+        List<Plate> filteredPlates = plateServices.getFilteredPlates(menu, preferences, bannedIngredients);
+        m.addAttribute("menu", filteredPlates);
         return "user/client";
     }
 
@@ -218,6 +219,14 @@ public class UserController {
         if (user.isPresent()) {
             User existingUser = user.get();
 
+            // Eliminar ingredientes de disgustos si ya están en las preferencias
+            if (existingUser.getBannedIngredients() != null && ingredientIds != null) {
+                for (int ingredientId : ingredientIds) {
+                    Optional<Ingredient> ingredientOptional = ingredientServices.getIngredientById(ingredientId);
+                    ingredientOptional.ifPresent(existingUser.getBannedIngredients()::remove);
+                }
+            }
+
             Set<Ingredient> existingPreferences = existingUser.getPreferences();
             if (existingPreferences == null) {
                 existingPreferences = new HashSet<>();
@@ -242,11 +251,18 @@ public class UserController {
         if (user.isPresent()) {
             User existingUser = user.get();
 
+            // Eliminar ingredientes de preferencias si ya están en los disgustos
+            if (existingUser.getPreferences() != null && bannedIngredientIds != null) {
+                for (int bannedIngredientId : bannedIngredientIds) {
+                    Optional<Ingredient> ingredientOptional = ingredientServices.getIngredientById(bannedIngredientId);
+                    ingredientOptional.ifPresent(existingUser.getPreferences()::remove);
+                }
+            }
+
             Set<Ingredient> existingBanned = existingUser.getBannedIngredients();
             if (existingBanned == null) {
                 existingBanned = new HashSet<>();
             }
-
             if (bannedIngredientIds != null) {
                 for (int bannedIngredientId : bannedIngredientIds) {
                     Optional<Ingredient> ingredientOptional = ingredientServices.getIngredientById(bannedIngredientId);
@@ -301,8 +317,6 @@ public class UserController {
 
         return "redirect:/preferences";
     }
-
-
 
 }
 

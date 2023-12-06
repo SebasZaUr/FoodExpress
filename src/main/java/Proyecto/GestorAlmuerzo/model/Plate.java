@@ -1,9 +1,15 @@
 package Proyecto.GestorAlmuerzo.model;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Setter
+@Getter
 @Table(name = "Plate")
 /**
  * Entidad de la base de datos que guarda todos la información de los platos
@@ -37,17 +43,26 @@ public class Plate {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "plate_ingredient",
+            joinColumns = @JoinColumn(name = "plate_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id")
+    )
+    private Set<Ingredient> ingredients = new HashSet<>();
+
     /**
      * El constructor de la clase Plate.
      *
      * @param name    El nombre del plato
      */
-    public Plate(Integer id, String name, String description, int price,Set<Category> categories, String picture){
+    public Plate(Integer id, String name, String description, int price, Set<Category> categories, Set<Ingredient> ingredients, String picture){
         this.id= id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.categories = categories;
+        this.ingredients = ingredients;
         this.picture = picture;
     }
     public Plate(){
