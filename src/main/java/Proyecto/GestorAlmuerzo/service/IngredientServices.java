@@ -39,4 +39,8 @@ public class IngredientServices {
     public Ingredient getIngredientByName(String name) {
         return ingredientRepository.findByName(name);
     }
+
+    public List<Ingredient> getAllIngredientsByIds(List<Integer> idsIngredients) {
+        return ingredientRepository.findAllById(idsIngredients);
+    }
 }

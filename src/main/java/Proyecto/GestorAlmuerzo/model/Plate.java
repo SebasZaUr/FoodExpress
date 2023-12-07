@@ -123,7 +123,10 @@ public class Plate {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", price=" + price +
+                ", picture='" + picture + '\'' +
+                ", categories=" + categories +
+                ", ingredients=" + ingredients +
                 '}';
     }
-
 }

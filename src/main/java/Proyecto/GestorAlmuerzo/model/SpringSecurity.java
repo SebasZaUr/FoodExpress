@@ -22,7 +22,7 @@ public class SpringSecurity {
                                 .requestMatchers("/register").permitAll()
                                 .requestMatchers("/login").permitAll()
                                 .requestMatchers("/index").permitAll()
-                                .requestMatchers("/admin/menu").hasRole("admin")
+                                .requestMatchers("/admin/menu").permitAll()
                 )
                 .formLogin(form ->
                         form
