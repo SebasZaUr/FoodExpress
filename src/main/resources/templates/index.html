@@ -236,11 +236,8 @@
             >
               <div class="card mb-4">
                 <!-- Usa la expresión Thymeleaf para establecer dinámicamente la URL de la imagen -->
-                <img
-                  th:src="${plate.picture}"
-                  class="card-img-top fixed-size-image"
-                  alt="Product Image"
-                />
+                <img th:if="${plate.picture != null}" th:src="${plate.picture}" class="card-img-top fixed-size-image" alt="Product Image" />
+                <img th:if="${plate.picture == null}" th:src="${plate.pictureRemote}" class="card-img-top fixed-size-image" alt="Product Image" />
 
                 <div class="card-body">
                   <h5 th:text="${plate.name}" class="card-title"></h5>

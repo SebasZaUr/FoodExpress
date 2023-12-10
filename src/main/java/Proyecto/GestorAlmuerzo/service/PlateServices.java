@@ -1,6 +1,7 @@
 package Proyecto.GestorAlmuerzo.service;
 
 
+import Proyecto.GestorAlmuerzo.Repository.IngredientRepository;
 import Proyecto.GestorAlmuerzo.Repository.PlateRepository;
 import Proyecto.GestorAlmuerzo.model.Ingredient;
 import Proyecto.GestorAlmuerzo.model.Plate;
@@ -10,7 +11,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class PlateServices {
@@ -18,15 +18,19 @@ public class PlateServices {
     @Autowired
     private PlateRepository plateRepository;
 
+    @Autowired
+    private IngredientRepository ingredientRepository;
+
     public List<Plate> getAllPlates() {
         return plateRepository.findAll();
     }
 
-    public Optional<Plate> getPlateById(int id) {
+    public Optional<Plate> getPlateById(long id) {
         return plateRepository.findById(id);
     }
 
     public Plate addPlate(Plate plate) {
+
         return plateRepository.save(plate);
     }
 
@@ -35,7 +39,7 @@ public class PlateServices {
         plateRepository.save(plate);
     }
 
-    public void deletePlate(int id) {
+    public void deletePlate(long id) {
         plateRepository.deleteById(id);
     }
 
@@ -84,5 +88,7 @@ public class PlateServices {
         }
         return cont>0;
     }
+
+
 }
 

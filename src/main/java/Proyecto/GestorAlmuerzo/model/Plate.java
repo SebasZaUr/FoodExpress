@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,6 +36,10 @@ public class Plate {
 
     @Column
     private String picture;
+
+    @Lob
+    @Column(name = "ruta", length = 1048576)
+    private String ruta;
 
     @ManyToMany
     @JoinTable(

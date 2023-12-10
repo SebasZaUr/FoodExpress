@@ -16,7 +16,7 @@ import java.util.List;
  * @version 14/11/2023
  */
 @Repository
-public interface PlateRepository extends JpaRepository<Plate, Integer> {
+public interface PlateRepository extends JpaRepository<Plate, Long> {
 
     List<Plate> findByCategoriesId(Long categoryId);
 }

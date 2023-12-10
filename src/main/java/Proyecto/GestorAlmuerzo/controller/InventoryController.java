@@ -1,11 +1,13 @@
 package Proyecto.GestorAlmuerzo.controller;
 
-import Proyecto.GestorAlmuerzo.model.*;
+import Proyecto.GestorAlmuerzo.model.Ingredient;
 import Proyecto.GestorAlmuerzo.service.IngredientServices;
+import Proyecto.GestorAlmuerzo.service.PlateServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +19,9 @@ public class InventoryController {
     @Autowired
     private IngredientServices ingredientServices;
 
+    @Autowired
+    private PlateServices plateServices;
+
     @GetMapping
     public String showMenu(Model model) {
 
@@ -24,13 +29,14 @@ public class InventoryController {
         ingredients = ingredientServices.getAllIngredients();
 
         model.addAttribute("ingredients", ingredients);
-        return "admin/inventory";
+
+        return "/admin/inventory";
     }
 
     @PostMapping("/addIngredient")
     public String addIngredient(@ModelAttribute("ingredient") Ingredient ingredient) {
         ingredientServices.addIngredient(ingredient);
-        return "redirect:admin/inventory";
+        return "redirect:/admin/inventory";
     }
 
     @GetMapping("/editIngredient/{id}")
@@ -46,6 +52,7 @@ public class InventoryController {
         int plateId = Integer.parseInt(id);
         Optional<Ingredient> existingPlate = ingredientServices.getIngredientById(plateId);
         if(existingPlate.isEmpty()) {
+
         }
         else {
             ingredient.setId((long) plateId);
@@ -54,11 +61,17 @@ public class InventoryController {
         return "redirect:/admin/inventory";
     }
 
-    @PostMapping("/deleteIngredient/{id}")
-    public String deletePlate(@PathVariable String id) {
-        int plateId = Integer.parseInt(id);
-        ingredientServices.deleteIngredient(plateId);
+    @RequestMapping("/deleteIngredient/{id}")
+    public String deletePlate(@PathVariable String id, RedirectAttributes redirectAttributes) {
+        try {
+            long ingredientId = Long.parseLong(id);
+            ingredientServices.deleteIngredient(ingredientId);
+        }catch (proyecto.gestorAlmuerzo.exceptions.GestorAlmuerzosAppException e){
+            redirectAttributes.addFlashAttribute("error", "Error al eliminar el ingrediente: " + e.getMessage());
+            return "redirect:/admin/inventory?error";
+        }
         return "redirect:/admin/inventory";
+
     }
 }
 

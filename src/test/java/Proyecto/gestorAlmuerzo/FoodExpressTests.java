@@ -214,8 +214,8 @@ class FoodExpressTests {
         Set<Ingredient> ingredients = new HashSet<>();
         ingredients.add(new Ingredient("Ingredient1"));
 
-        int plateId = 1;
-        Plate expectedPlate = new Plate(plateId, "Test Plate", "Description", 10, categories,ingredients,"picture.jpg");
+        long plateId = 1;
+        Plate expectedPlate = new Plate((int) plateId, "Test Plate", "Description", 10, categories,ingredients,"picture.jpg");
         when(plateRepository.findById(plateId)).thenReturn(Optional.of(expectedPlate));
 
         Optional<Plate> result = plateServices.getPlateById(plateId);
@@ -254,6 +254,6 @@ class FoodExpressTests {
     void testDeletePlate() {
         int plateId = 1;
         plateServices.deletePlate(plateId);
-        verify(plateRepository, times(1)).deleteById(plateId);
+        verify(plateRepository, times(1)).deleteById((long) plateId);
     }
 }

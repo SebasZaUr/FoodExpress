@@ -178,7 +178,7 @@
             </form>
 
             <!-- Formulario para agregar nuevos platos -->
-            <form th:action="@{'/admin/menu/addPlate'}" method="post" class="add-plate-form">
+            <form th:action="@{'/admin/menu/addPlate'}" method="post" class="add-plate-form" enctype="multipart/form-data">>
                 <h3>Agregar Nuevo Plato</h3>
                 <div class="mb-3">
                     <label for="name" class="form-label">Nombre:</label>
@@ -209,6 +209,10 @@
                         <label th:for="${'ingredients-' + ingredient.id}" th:text="${ingredient.name}"></label>
 
                     </div>
+                </div>
+                <div class="mb-3">
+                    <label for="pictureFile" class="form-label">Imagen:</label>
+                    <input type="file" id="pictureFile" name="pictureFile" class="form-control" required>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Agregar</button>
