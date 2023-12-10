@@ -45,6 +45,10 @@ public class Ingredient {
         this.name = name;
     }
 
+    public Ingredient(int ingredientId, String testPlate, String description, int i) {
+
+    }
+
     @Override
     public String toString() {
         return "Ingredient{" +

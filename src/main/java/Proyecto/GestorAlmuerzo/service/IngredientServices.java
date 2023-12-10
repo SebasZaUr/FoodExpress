@@ -22,8 +22,9 @@ public class IngredientServices {
         return ingredientRepository.findAll();
     }
 
-    public void addIngredient(Ingredient ingredient) {
+    public Ingredient addIngredient(Ingredient ingredient) {
         ingredientRepository.save(ingredient);
+        return ingredient;
     }
 
     public Optional<Ingredient> getIngredientById(long ingredientId) {

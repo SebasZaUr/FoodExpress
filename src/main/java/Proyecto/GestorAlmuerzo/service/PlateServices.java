@@ -79,7 +79,7 @@ public class PlateServices {
         return filteredPlates;
     }
 
-    private boolean plateContainsIngredients(Plate plate, List<Ingredient> ingredients) {
+    protected boolean plateContainsIngredients(Plate plate, List<Ingredient> ingredients) {
         int cont = 0;
         for (Ingredient ingredient : ingredients) {
             if (plate.getIngredients().contains(ingredient)) {

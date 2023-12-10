@@ -90,7 +90,6 @@ public class User {
         this.role = posibleRol.orElseThrow();
     }
 
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
