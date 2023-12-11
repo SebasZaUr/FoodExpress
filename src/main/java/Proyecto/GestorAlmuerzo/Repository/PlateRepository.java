@@ -1,6 +1,6 @@
-package proyecto.gestorAlmuerzo.repository;
+package Proyecto.GestorAlmuerzo.Repository;
 
-import proyecto.gestorAlmuerzo.model.Plate;
+import Proyecto.GestorAlmuerzo.model.Plate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +16,7 @@ import java.util.List;
  * @version 14/11/2023
  */
 @Repository
-public interface PlateRepository extends JpaRepository<Plate, Integer> {
+public interface PlateRepository extends JpaRepository<Plate, Long> {
 
     List<Plate> findByCategoriesId(Long categoryId);
 }

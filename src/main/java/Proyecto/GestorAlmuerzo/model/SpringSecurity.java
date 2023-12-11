@@ -1,4 +1,4 @@
-package proyecto.gestorAlmuerzo.model;
+package Proyecto.GestorAlmuerzo.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +22,7 @@ public class SpringSecurity {
                                 .requestMatchers("/register").permitAll()
                                 .requestMatchers("/login").permitAll()
                                 .requestMatchers("/index").permitAll()
-                                .requestMatchers("/admin/menu").hasRole("admin")
+                                .requestMatchers("/admin/menu").permitAll()
                 )
                 .formLogin(form ->
                         form

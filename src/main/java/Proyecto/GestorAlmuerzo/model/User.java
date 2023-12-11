@@ -1,13 +1,16 @@
-package proyecto.gestorAlmuerzo.model;
+package Proyecto.GestorAlmuerzo.model;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Objects;
-import java.util.Optional;
-import proyecto.gestorAlmuerzo.repository.RoleRepository;
+import java.util.*;
+import Proyecto.GestorAlmuerzo.Repository.RoleRepository;
+import lombok.Getter;
+import lombok.Setter;
 import proyecto.gestorAlmuerzo.exceptions.GestorAlmuerzosAppException;
 import jakarta.persistence.*;
-
 @Entity
+@Getter
+@Setter
 @Table(name = "Usuario")
 /**
  * Entidad de la base de datos que guarda todos la información de los usuaríos
@@ -37,6 +40,22 @@ public class User {
     @Column
     private int points;
 
+    @OneToMany
+    private List<Order> ordenes;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_preferences",
+            joinColumns = @JoinColumn(name = "user_email"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+    private Set<Ingredient> preferences = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_banned_ingredients",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+    private Set<Ingredient> bannedIngredients;
     /**
      * El constructor de la clase User.
      *
@@ -73,7 +92,6 @@ public class User {
         Optional<Role> posibleRol= repository.findByCategory("Role_" + role);
         this.role = posibleRol.orElseThrow();
     }
-
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -183,5 +201,13 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(getEmail(), getPassword(), getRole(), getNombre(), getApellido(), getPoints());
+    }
+
+    public List<Order> getOrdenes() {
+        return ordenes;
+    }
+
+    public void setOrdenes(List<Order> ordenes) {
+        this.ordenes = ordenes;
     }
 }

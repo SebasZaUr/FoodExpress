@@ -1,9 +1,13 @@
-package proyecto.gestorAlmuerzo.model;
+package Proyecto.GestorAlmuerzo.model;
 import jakarta.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.*;
 
 @Entity
+@Setter
+@Getter
 @Table(name = "Plate")
 /**
  * Entidad de la base de datos que guarda todos la información de los platos
@@ -21,6 +25,18 @@ public class Plate {
     @Column
     private String name;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Plate plate)) return false;
+        return getId() == plate.getId() && getPrice() == plate.getPrice() && Objects.equals(getName(), plate.getName()) && Objects.equals(getDescription(), plate.getDescription()) && Objects.equals(getPicture(), plate.getPicture()) && Objects.equals(ruta, plate.ruta) && Objects.equals(getCategories(), plate.getCategories()) && Objects.equals(ingredients, plate.ingredients);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getDescription(), getPrice(), getPicture(), ruta, getCategories(), ingredients);
+    }
+
     @Column
     private String description;
 
@@ -30,6 +46,10 @@ public class Plate {
     @Column
     private String picture;
 
+    @Lob
+    @Column(name = "ruta", length = 1048576)
+    private String ruta;
+
     @ManyToMany
     @JoinTable(
             name = "plate_categories",
@@ -37,17 +57,26 @@ public class Plate {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "plate_ingredient",
+            joinColumns = @JoinColumn(name = "plate_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id")
+    )
+    private Set<Ingredient> ingredients = new HashSet<>();
+
     /**
      * El constructor de la clase Plate.
      *
      * @param name    El nombre del plato
      */
-    public Plate(Integer id, String name, String description, int price,Set<Category> categories, String picture){
+    public Plate(Integer id, String name, String description, int price, Set<Category> categories, Set<Ingredient> ingredients, String picture){
         this.id= id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.categories = categories;
+        this.ingredients = ingredients;
         this.picture = picture;
     }
     public Plate(){
@@ -108,7 +137,10 @@ public class Plate {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", price=" + price +
+                ", picture='" + picture + '\'' +
+                ", categories=" + categories +
+                ", ingredients=" + ingredients +
                 '}';
     }
-
 }

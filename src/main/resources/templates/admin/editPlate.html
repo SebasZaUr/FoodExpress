@@ -106,6 +106,15 @@
         </select>
     </div>
 
+    <div class="mb-3">
+        <label for="ingredients" class="form-label">Ingredientes</label>
+        <div th:each="ingredient: ${ingredients}">
+            <input type="checkbox" name="ingredients" th:value="${ingredient.id}"/>
+            <label th:for="${'ingredients-' + ingredient.id}" th:text="${ingredient.name}"></label>
+
+        </div>
+    </div>
+
     <button type="submit" class="btn btn-primary">Actualizar</button>
 </form>
 

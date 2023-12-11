@@ -1,15 +1,12 @@
-package proyecto.gestorAlmuerzo.model;
-
+package Proyecto.GestorAlmuerzo.model;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.util.*;
 
 @Entity
-@Table(name = "Plate")
-@AllArgsConstructor
-@NoArgsConstructor
+@Table(name = "Orders")
 /**
  * Entidad de la base de datos que guarda la informacion de un pedido
  *
@@ -26,18 +23,35 @@ public class Order {
     @Column
     private String fecha;
 
-    @Column
-    private String idPago;
+    @ManyToOne
+    @JoinColumn(name = "orden", nullable = true)
+    private User idUsuario;
+
+    @ManyToMany
+    @JoinTable(
+            name = "order_dish",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "dish_id")
+    )
+    private List<Plate> orderPlates;
 
     @Column
-    private String userId;
+    private boolean pay = false;
 
     @Column
-    @OneToMany
-    private List<Plate> plates;
+    private int price;
 
-    public Order(int id) {
+
+
+    public Order(int id, String fecha, User idUsuario,int price) {
         this.id = id;
+        this.fecha = fecha;
+        this.idUsuario = idUsuario;
+        this.price = price;
+//        this.plates = plates;
+    }
+
+    public Order() {
     }
 
     public int getId() {
@@ -56,28 +70,68 @@ public class Order {
         this.fecha = fecha;
     }
 
-    public String getIdPago() {
-        return idPago;
-    }
 
-    public void setIdPago(String idPago) {
-        this.idPago = idPago;
-    }
 
     public String getIdUsuario() {
-        return userId;
+        return idUsuario.getEmail();
     }
 
-    public void setIdUsuario(String idUsuario) {
-        this.userId = idUsuario;
+    public void setIdUsuario(User idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
-    public List<Plate> getPlates() {
-        return plates;
+    public int countPlate(){
+        return orderPlates.size();
     }
 
-    public void setPlates(List<Plate> plates) {
-        this.plates = plates;
+    public List<Plate> getOrderPlates() {
+        return orderPlates;
+    }
+
+    public void setOrderPlates(List<Plate> plates) {
+        this.orderPlates = plates;
+    }
+
+    public void pay() {
+        this.pay = true;
+    }
+
+    public void addOrderPlate(Plate plate){
+        if (orderPlates == null) {
+            List<Plate> plates = new ArrayList<>();
+            plates.add(plate);
+            orderPlates = plates;
+        } else {
+            orderPlates.add(plate);
+        }
+    }
+
+    public int countPlates(){
+        int value =0;
+        if(orderPlates != null){
+            value =orderPlates.size();
+        }
+        return value;
+    }
+
+    public void deletePlate(Plate plato){
+        orderPlates.remove(plato);
+    }
+
+    public void setPay() {
+        this.pay = false;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public boolean isPay() {
+        return pay;
     }
 
     @Override
@@ -85,9 +139,8 @@ public class Order {
         return "Order{" +
                 "id=" + id +
                 ", fecha='" + fecha + '\'' +
-                ", idPago='" + idPago + '\'' +
-                ", idUsuario='" + userId + '\'' +
-                ", plates=" + plates +
+                ", idUsuario='" + idUsuario.getEmail() + '\'' +
+//                ", plates=" + plates +
                 '}';
     }
 }

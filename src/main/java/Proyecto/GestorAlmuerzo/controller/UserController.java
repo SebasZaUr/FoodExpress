@@ -1,29 +1,41 @@
-package proyecto.gestorAlmuerzo.controller;
+package Proyecto.GestorAlmuerzo.controller;
 
-import proyecto.gestorAlmuerzo.repository.UserRepository;
+import Proyecto.GestorAlmuerzo.Repository.UserRepository;
+import Proyecto.GestorAlmuerzo.model.*;
+import Proyecto.GestorAlmuerzo.service.IngredientServices;
+import Proyecto.GestorAlmuerzo.service.OrderServices;
 import proyecto.gestorAlmuerzo.exceptions.GestorAlmuerzosAppException;
-import proyecto.gestorAlmuerzo.model.Plate;
-import proyecto.gestorAlmuerzo.model.User;
-import proyecto.gestorAlmuerzo.model.UserDTO;
-import proyecto.gestorAlmuerzo.service.PlateServices;
-import proyecto.gestorAlmuerzo.service.UserServices;
+import Proyecto.GestorAlmuerzo.service.PlateServices;
+import Proyecto.GestorAlmuerzo.service.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import java.util.*;
+
 @Controller
 public class UserController {
+    private Random num = new Random();
+    private int valorTotal;
     private String userLogin;
     @Autowired
     PlateServices plateServices;
     @Autowired
-    UserServices userRepository;
-
+    UserServices userServices;
+    @Autowired
+    IngredientServices ingredientServices;
     @Autowired
     UserRepository repository;
+
+    @Autowired
+    OrderServices orderServices;
+
+    private Order order;
+    private List<Plate> plateList = new ArrayList<>();
 
     @GetMapping("/")
     public String index(Model model){
@@ -44,8 +56,8 @@ public class UserController {
             throws GestorAlmuerzosAppException {
         String redirect = "login";
         try {
-            if (userRepository.login(correo, password)) {
-                Optional<User> u = userRepository.getUser(correo);
+            if (userServices.login(correo, password)) {
+                Optional<User> u = userServices.getUser(correo);
                 User usuario = u.orElseThrow();
                 userLogin = correo;
                 redirect = "redirect:/" + usuario.getRole();
@@ -63,8 +75,12 @@ public class UserController {
     @GetMapping("/client")
     public String loginUser(Model m){
         setValues(m);
+        Optional<User> user = userServices.getUser(userLogin);
+        ArrayList<Ingredient> preferences = new ArrayList<>(user.get().getPreferences());
+        ArrayList<Ingredient> bannedIngredients = new ArrayList<>(userServices.getUser(userLogin).get().getBannedIngredients());
         List<Plate> menu = plateServices.getAllPlates();
-        m.addAttribute("menu", menu);
+        List<Plate> filteredPlates = plateServices.getFilteredPlates(menu, preferences, bannedIngredients);
+        m.addAttribute("menu", filteredPlates);
         return "user/client";
     }
 
@@ -104,7 +120,7 @@ public class UserController {
             return "register";
         }
         UserDTO usuario = new UserDTO(name,lastName,email);
-        userRepository.addUser(user,true);
+        userServices.addUser(user,true);
         String retu = user.getRole();
         setValues(model);
         return "redirect:/" + retu;
@@ -113,7 +129,7 @@ public class UserController {
     @GetMapping("/updateProfile/{id}")
     public String showUserUpdateForm(@PathVariable(value = "id") String id, Model model) {
         setValues(model);
-        Optional<User> usuario = userRepository.getUser(id);
+        Optional<User> usuario = userServices.getUser(id);
         model.addAttribute("user", usuario.orElse(new User())); // Handle the case where the user is not found
         return "user/update";
     }
@@ -136,7 +152,7 @@ public class UserController {
 
     @PostMapping("/sendEmail")
     public String sendEmail(@RequestParam("email") String email,Model model) throws GestorAlmuerzosAppException {
-        Optional<User> usuario = userRepository.getUser(email);
+        Optional<User> usuario = userServices.getUser(email);
         try {
             User user = usuario.orElseThrow(() -> new GestorAlmuerzosAppException(GestorAlmuerzosAppException.EmailNoExist));
         }catch(GestorAlmuerzosAppException e){
@@ -148,14 +164,14 @@ public class UserController {
 
     @PostMapping("/update")
     public String updateUser(@ModelAttribute("user") User user) {
-        userRepository.updateUser(user);
+        userServices.updateUser(user);
         return "redirect:/client";
     }
 
     @RequestMapping("/delete/{id}")
     public String deleteUser(@PathVariable String id) {
         userLogin=null;
-        userRepository.deleteUser(id);
+        userServices.deleteUser(id);
         return "redirect:/";
     }
 
@@ -181,14 +197,183 @@ public class UserController {
             String fullName = user.getNombre().split(" ")[0] + " "+user.getApellido().split(" ")[0];
             m.addAttribute("username",fullName);
             m.addAttribute("link","yes");
+            m.addAttribute("numberPlate",plateList.size());
         }
     }
 
     @GetMapping("/usersRoles")
     private String showAllUsers(Model m){
-        List<User> listUsers = userRepository.getAllUsers();
+        List<User> listUsers = userServices.getAllUsers();
         m.addAttribute("Usuarios", listUsers);
         return "admin/listUsers";
+    }
+
+    @GetMapping("/preferences")
+    public String showPreferences(Model model) {
+        List<Ingredient> allIngredients = ingredientServices.getAllIngredients();
+        Optional<User> user = userServices.getUser(userLogin);
+        if (user.isPresent()) {
+            Set<Ingredient> preferences = user.get().getPreferences();
+            Set<Ingredient> bannedIngredients = user.get().getBannedIngredients();
+            model.addAttribute("bannedIngredients",bannedIngredients);
+            model.addAttribute("preferences", preferences);
+            model.addAttribute("allIngredients",allIngredients);
+        }
+        setValues(model);
+        return "preferences";
+    }
+
+    @PostMapping("/savePreferences")
+    public String savePreferences(@RequestParam(value = "ingredientIds", required = false) List<Integer> ingredientIds, Model model) {
+        Optional<User> user = userServices.getUser(userLogin);
+        if (user.isPresent()) {
+            User existingUser = user.get();
+
+            // Eliminar ingredientes de disgustos si ya están en las preferencias
+            if (existingUser.getBannedIngredients() != null && ingredientIds != null) {
+                for (int ingredientId : ingredientIds) {
+                    Optional<Ingredient> ingredientOptional = ingredientServices.getIngredientById(ingredientId);
+                    ingredientOptional.ifPresent(existingUser.getBannedIngredients()::remove);
+                }
+            }
+
+            Set<Ingredient> existingPreferences = existingUser.getPreferences();
+            if (existingPreferences == null) {
+                existingPreferences = new HashSet<>();
+            }
+
+            if (ingredientIds != null) {
+                for (int ingredientId : ingredientIds) {
+                    Optional<Ingredient> ingredientOptional = ingredientServices.getIngredientById(ingredientId);
+                    ingredientOptional.ifPresent(existingPreferences::add);
+                }
+            }
+            existingUser.setPreferences(existingPreferences);
+            userServices.updateUser(existingUser);
+        }
+
+        return "redirect:/preferences";
+    }
+
+    @PostMapping("/saveBannedIngredients")
+    public String saveBannedIngredients(@RequestParam(value = "bannedIngredientIds", required = false) List<Integer> bannedIngredientIds,Model model){
+        Optional<User> user = userServices.getUser(userLogin);
+        if (user.isPresent()) {
+            User existingUser = user.get();
+
+            // Eliminar ingredientes de preferencias si ya están en los disgustos
+            if (existingUser.getPreferences() != null && bannedIngredientIds != null) {
+                for (int bannedIngredientId : bannedIngredientIds) {
+                    Optional<Ingredient> ingredientOptional = ingredientServices.getIngredientById(bannedIngredientId);
+                    ingredientOptional.ifPresent(existingUser.getPreferences()::remove);
+                }
+            }
+
+            Set<Ingredient> existingBanned = existingUser.getBannedIngredients();
+            if (existingBanned == null) {
+                existingBanned = new HashSet<>();
+            }
+            if (bannedIngredientIds != null) {
+                for (int bannedIngredientId : bannedIngredientIds) {
+                    Optional<Ingredient> ingredientOptional = ingredientServices.getIngredientById(bannedIngredientId);
+                    ingredientOptional.ifPresent(existingBanned::add);
+                }
+            }
+            existingUser.setBannedIngredients(existingBanned);
+            userServices.updateUser(existingUser);
+        }
+
+        return "redirect:/preferences";
+    }
+
+
+    @PostMapping("/deletePreferences")
+    public String deletePreferences(@RequestParam(value = "ingredientIds", required = false) List<Integer> ingredientIds, Model model) {
+        Optional<User> user = userServices.getUser(userLogin);
+        if (user.isPresent()) {
+            User existingUser = user.get();
+
+            Set<Ingredient> existingPreferences = existingUser.getPreferences();
+            if (existingPreferences != null && ingredientIds != null) {
+                for (int ingredientId : ingredientIds) {
+                    Optional<Ingredient> ingredientOptional = ingredientServices.getIngredientById(ingredientId);
+                    ingredientOptional.ifPresent(existingPreferences::remove);
+                }
+                existingUser.setPreferences(existingPreferences);
+                userServices.updateUser(existingUser);
+            }
+        }
+
+        return "redirect:/preferences";
+    }
+
+    @PostMapping("/deleteBannedIngredients")
+    public String deleteBannedIngredients(@RequestParam(value = "bannedIngredientIds", required = false) List<Integer> bannedIngredientIds,
+             Model model) {
+        Optional<User> user = userServices.getUser(userLogin);
+        if (user.isPresent()) {
+            User existingUser = user.get();
+
+            Set<Ingredient> existingBannedIngredients = existingUser.getBannedIngredients();
+            if (existingBannedIngredients != null && bannedIngredientIds != null) {
+                for (int bannedIngredientId : bannedIngredientIds) {
+                    Optional<Ingredient> ingredientOptional = ingredientServices.getIngredientById(bannedIngredientId);
+                    ingredientOptional.ifPresent(existingBannedIngredients::remove);
+                }
+                existingUser.setBannedIngredients(existingBannedIngredients);
+                userServices.updateUser(existingUser);
+            }
+        }
+
+        return "redirect:/preferences";
+    }
+
+    @PostMapping("/addToCart")
+    private String addPlateToCart(@RequestParam("id") int plateId,Model m){
+        Optional<Plate> plate = plateServices.getPlateById(plateId);
+        Plate plato =plate.orElseThrow();
+        plateList.add(plato);
+        m.addAttribute("countOrder",plateList.size());
+        setValues(m);
+        return "redirect:/client";
+    }
+
+    @GetMapping("cart")
+    private String listPlatesOrder(Model m){
+        setValues(m);
+        valorTotal = 0;
+        for (Plate plato:plateList){
+            valorTotal += plato.getPrice();
+        }
+        m.addAttribute("precio",valorTotal);
+        m.addAttribute("platos",plateList);
+        return "user/buy's-cart";
+    }
+
+    @PostMapping("payOrder")
+    private String payOrder(Model m){
+        Optional<User> usuario = userServices.getUser(userLogin);
+        User user = usuario.orElseThrow();
+        List<Order> orderList = user.getOrdenes();
+        Date fecahHoy= new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        order = new Order(orderList.size()+1,dateFormat.format(fecahHoy),user,valorTotal);
+        for(Plate plato: plateList){
+            order.addOrderPlate(plato);
+        }
+        plateList = new ArrayList<>();
+        orderList.add(order);
+        orderServices.addOrder(order);
+        return "redirect:/facture";
+    }
+
+    @GetMapping("/facture")
+    private String generateFacture(Model m){
+        m.addAttribute("order",order);
+        long randomLong = Math.abs(num.nextLong());
+        m.addAttribute("numFactura",randomLong);
+        setValues(m);
+        return "user/factura";
     }
 
 }
