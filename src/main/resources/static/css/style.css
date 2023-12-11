@@ -1,179 +1,117 @@
 /* Establecer la imagen de fondo y su posición
 -------------------------------------------------- */
 .bg0, .bg1, .bg2, .bg3 {
-  background-position: center center;
-  background-size: cover; /* Ajusta el tamaño de la imagen para cubrir completamente el contenedor */
+    background-position: center center;
+    background-size: cover; /* Ajusta el tamaño de la imagen para cubrir completamente el contenedor */
 }
 
 .bg0 {
-  background-image: url(../images/food.jpg);
+    background-image: url(../images/food.jpg);
 }
 
 .bg1 {
-  background-image: url(../images/food_U.jpg);
+    background-image: url(../images/food_U.jpg);
 }
 
 .bg2 {
-  background-image: url(../images/cook.jpg);
+    background-image: url(../images/cook.jpg);
 }
 
 .bg3 {
-  background-image: url(../images/cook_1.jpg);
+    background-image: url(../images/cook_1.jpg);
 }
 
 body {
-  background: #ffe259;
-  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #ffa751, #ffe259);
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #ffa751, #ffe259);
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #ffe259;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #ffa751, #ffe259);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #ffa751, #ffe259);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
 .carousel-item {
-  height: 32rem;
-  background: #000;
-  color: white;
-  position: relative;
+    height: 32rem;
+    background: #000;
+    color: white;
+    position: relative;
 }
 
 .overlay-image {
-  position: absolute;
-  bottom: 10%;
-  left: 0;
-  right: 0;
-  background-position: center;
-  background-size: cover;
-  opacity: 0.5;
+    position: absolute;
+    bottom: 10%;
+    left: 0;
+    right: 0;
+    background-position: center;
+    background-size: cover;
+    opacity: 0.5;
 }
 
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
-  bottom: 3rem;
-  z-index: 10;
+    bottom: 3rem;
+    z-index: 10;
 }
 
 /* Declare heights because of positioning of img element */
 .carousel-item {
-  height: 32rem;
+    height: 32rem;
 }
 
 .carousel-item > img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  min-width: 100%;
-  height: 120vh;
-  /* Usar altura completa de la ventana */
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    height: 120vh;
+    /* Usar altura completa de la ventana */
 }
 
 /* ICON
 -------------------------------------------------- */
 .custom-icon-container {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .custom-icon {
-  font-size: 3rem; /* Ajusta el tamaño del ícono según tus necesidades */
-  margin-right: 10px; /* Espacio entre el ícono y el texto */
+    font-size: 3rem; /* Ajusta el tamaño del ícono según tus necesidades */
+    margin-right: 10px; /* Espacio entre el ícono y el texto */
 }
 
 /* Product
 -------------------------------------------------- */
 .fixed-size-image {
-  width: 100%; /* Establece el ancho al 100% para ocupar todo el ancho de su contenedor */
-  height: 200px; /* Establece la altura deseada */
-  object-fit: cover; /* Opcional: ajusta el tamaño y recorta la imagen */
+    width: 100%; /* Establece el ancho al 100% para ocupar todo el ancho de su contenedor */
+    height: 200px; /* Establece la altura deseada */
+    object-fit: cover; /* Opcional: ajusta el tamaño y recorta la imagen */
 }
 
 .product-card {
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
-  margin: 15px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    margin: 15px;
 }
 
 @media (max-width: 768px) {
-  .product-card {
-    flex-direction: row;
-    justify-content: space-between;
-  }
+    .product-card {
+        flex-direction: row;
+        justify-content: space-between;
+    }
 }
 
 .product-card img {
-  max-width: 100%;
+    max-width: 100%;
 }
 
 .liveAlertPlaceholder {
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 10000; /* Ajusta el z-index según sea necesario para estar por encima de todo */
-  width: 300px; /* Ajusta el ancho según sea necesario */
-  margin: 10px; /* Ajusta el margen según sea necesario */
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 10000; /* Ajusta el z-index según sea necesario para estar por encima de todo */
+    width: 300px; /* Ajusta el ancho según sea necesario */
+    margin: 10px; /* Ajusta el margen según sea necesario */
 }
-
-
-
-.container {
-    display: flex;
-    width: 70px;
-    margin-bottom: 30px;
-    align-items: center; /* Centra verticalmente el contenido en el cuerpo del documento */
-    justify-content: center; /* Centra horizontalmente el contenido en el cuerpo del documento */
-
-}
-
-.root {
-    width: 60px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 20px;
-}
-
-.sidebar {
-    width: 500px;
-    border-radius: 5px;
-    background-color: white;
-    margin-left: 20px;
-    padding: 15px;
-    text-align: center;
-}
-
-.head {
-    background-color: #ffa751;
-    border-radius: 3px;
-    height: 40px;
-    padding: 10px;
-    margin-bottom: 20px;
-    color: white;
-    align-items: center; /* Centra verticalmente el contenido en .head */
-}
-
-.foot {
-    display: flex;
-    justify-content: space-between;
-    margin: 20px 0px;
-    padding: 10px 0px;
-    border-top: 1px solid #333;
-}
-
-.cart {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.fa-solid {
-    color: goldenrod;
-}
-
-.cart p {
-    align-items: center;
-    justify-content: center;
-    color: white; /* Cambia el color del texto dentro de la etiqueta <p> a negro */
-}
-
