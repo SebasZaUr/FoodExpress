@@ -3,10 +3,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Setter
@@ -27,6 +24,18 @@ public class Plate {
     private int id;
     @Column
     private String name;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Plate plate)) return false;
+        return getId() == plate.getId() && getPrice() == plate.getPrice() && Objects.equals(getName(), plate.getName()) && Objects.equals(getDescription(), plate.getDescription()) && Objects.equals(getPicture(), plate.getPicture()) && Objects.equals(ruta, plate.ruta) && Objects.equals(getCategories(), plate.getCategories()) && Objects.equals(ingredients, plate.ingredients);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getDescription(), getPrice(), getPicture(), ruta, getCategories(), ingredients);
+    }
 
     @Column
     private String description;

@@ -3,9 +3,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "Orders")
@@ -25,11 +23,9 @@ public class Order {
     @Column
     private String fecha;
 
-    @Column
-    private String idPago;
-
-    @Column
-    private String idUsuario;
+    @ManyToOne
+    @JoinColumn(name = "orden", nullable = true)
+    private User idUsuario;
 
     @ManyToMany
     @JoinTable(
@@ -37,18 +33,25 @@ public class Order {
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "dish_id")
     )
-    private Set<Plate> plates = new HashSet<>();
+    private List<Plate> orderPlates;
 
-    public Order(int id, String fecha, String idPago, String idUsuario, List<Plate> plates) {
+    @Column
+    private boolean pay = false;
+
+    @Column
+    private int price;
+
+
+
+    public Order(int id, String fecha, User idUsuario,int price) {
         this.id = id;
         this.fecha = fecha;
-        this.idPago = idPago;
         this.idUsuario = idUsuario;
+        this.price = price;
 //        this.plates = plates;
     }
 
-    public Order(int id) {
-        this.id = id;
+    public Order() {
     }
 
     public int getId() {
@@ -67,37 +70,76 @@ public class Order {
         this.fecha = fecha;
     }
 
-    public String getIdPago() {
-        return idPago;
-    }
 
-    public void setIdPago(String idPago) {
-        this.idPago = idPago;
-    }
 
     public String getIdUsuario() {
-        return idUsuario;
+        return idUsuario.getEmail();
     }
 
-    public void setIdUsuario(String idUsuario) {
+    public void setIdUsuario(User idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-//    public List<Plate> getPlates() {
-//        return plates;
-//    }
-//
-//    public void setPlates(List<Plate> plates) {
-//        this.plates = plates;
-//    }
+    public int countPlate(){
+        return orderPlates.size();
+    }
+
+    public List<Plate> getOrderPlates() {
+        return orderPlates;
+    }
+
+    public void setOrderPlates(List<Plate> plates) {
+        this.orderPlates = plates;
+    }
+
+    public void pay() {
+        this.pay = true;
+    }
+
+    public void addOrderPlate(Plate plate){
+        if (orderPlates == null) {
+            List<Plate> plates = new ArrayList<>();
+            plates.add(plate);
+            orderPlates = plates;
+        } else {
+            orderPlates.add(plate);
+        }
+    }
+
+    public int countPlates(){
+        int value =0;
+        if(orderPlates != null){
+            value =orderPlates.size();
+        }
+        return value;
+    }
+
+    public void deletePlate(Plate plato){
+        orderPlates.remove(plato);
+    }
+
+    public void setPay() {
+        this.pay = false;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public boolean isPay() {
+        return pay;
+    }
 
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
                 ", fecha='" + fecha + '\'' +
-                ", idPago='" + idPago + '\'' +
-                ", idUsuario='" + idUsuario + '\'' +
+                ", idUsuario='" + idUsuario.getEmail() + '\'' +
 //                ", plates=" + plates +
                 '}';
     }

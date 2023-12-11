@@ -40,6 +40,9 @@ public class User {
     @Column
     private int points;
 
+    @OneToMany
+    private List<Order> ordenes;
+
     @ManyToMany
     @JoinTable(
             name = "user_preferences",
@@ -198,5 +201,13 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(getEmail(), getPassword(), getRole(), getNombre(), getApellido(), getPoints());
+    }
+
+    public List<Order> getOrdenes() {
+        return ordenes;
+    }
+
+    public void setOrdenes(List<Order> ordenes) {
+        this.ordenes = ordenes;
     }
 }

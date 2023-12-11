@@ -1,12 +1,10 @@
 package Proyecto.GestorAlmuerzo.controller;
 
 import Proyecto.GestorAlmuerzo.Repository.UserRepository;
-import Proyecto.GestorAlmuerzo.model.Ingredient;
+import Proyecto.GestorAlmuerzo.model.*;
 import Proyecto.GestorAlmuerzo.service.IngredientServices;
+import Proyecto.GestorAlmuerzo.service.OrderServices;
 import proyecto.gestorAlmuerzo.exceptions.GestorAlmuerzosAppException;
-import Proyecto.GestorAlmuerzo.model.Plate;
-import Proyecto.GestorAlmuerzo.model.User;
-import Proyecto.GestorAlmuerzo.model.UserDTO;
 import Proyecto.GestorAlmuerzo.service.PlateServices;
 import Proyecto.GestorAlmuerzo.service.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +12,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import java.util.*;
 
 @Controller
 public class UserController {
+    private int valorTotal;
     private String userLogin;
     @Autowired
     PlateServices plateServices;
@@ -27,6 +29,12 @@ public class UserController {
     IngredientServices ingredientServices;
     @Autowired
     UserRepository repository;
+
+    @Autowired
+    OrderServices orderServices;
+
+    private Order order;
+    private List<Plate> plateList = new ArrayList<>();
 
     @GetMapping("/")
     public String index(Model model){
@@ -188,6 +196,7 @@ public class UserController {
             String fullName = user.getNombre().split(" ")[0] + " "+user.getApellido().split(" ")[0];
             m.addAttribute("username",fullName);
             m.addAttribute("link","yes");
+            m.addAttribute("numberPlate",plateList.size());
         }
     }
 
@@ -316,6 +325,55 @@ public class UserController {
         }
 
         return "redirect:/preferences";
+    }
+
+    @PostMapping("/addToCart")
+    private String addPlateToCart(@RequestParam("id") int plateId,Model m){
+        Optional<Plate> plate = plateServices.getPlateById(plateId);
+        Plate plato =plate.orElseThrow();
+        plateList.add(plato);
+        m.addAttribute("countOrder",plateList.size());
+        setValues(m);
+        return "redirect:/client";
+    }
+
+    @GetMapping("cart")
+    private String listPlatesOrder(Model m){
+        setValues(m);
+        valorTotal = 0;
+        for (Plate plato:plateList){
+            valorTotal += plato.getPrice();
+        }
+        m.addAttribute("precio",valorTotal);
+        m.addAttribute("platos",plateList);
+        return "user/buy's-cart";
+    }
+
+    @PostMapping("payOrder")
+    private String payOrder(Model m){
+        Optional<User> usuario = userServices.getUser(userLogin);
+        User user = usuario.orElseThrow();
+        List<Order> orderList = user.getOrdenes();
+        Date fecahHoy= new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        order = new Order(orderList.size()+1,dateFormat.format(fecahHoy),user,valorTotal);
+        for(Plate plato: plateList){
+            order.addOrderPlate(plato);
+        }
+        plateList = new ArrayList<>();
+        orderList.add(order);
+        orderServices.addOrder(order);
+        return "redirect:/facture";
+    }
+
+    @GetMapping("/facture")
+    private String generateFacture(Model m){
+        m.addAttribute("order",order);
+        Random num = new Random();
+        long randomLong = Math.abs(num.nextLong());
+        m.addAttribute("numFactura",randomLong);
+        setValues(m);
+        return "user/factura";
     }
 
 }

@@ -1,53 +1,69 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Index" />
-    <meta name="author" content="Johann Amaya" />
+    <meta name="author" content="Johann Amaya, Sebastian Zamora, Cesar Amaya, Christian Duarte" />
     <title>Food Express</title>
     <link rel="icon" href="../images/logo.ico" type="image/x-icon" />
     <!-- CSS -->
     <link
-      th:href="@{/css/style.css}"
-      rel="stylesheet"
-      href="../css/style.css"
+            th:href="@{/css/style.css}"
+            rel="stylesheet"
+            href="../css/style.css"
     />
     <link
-      th:href="@{/css/bootstrap.min.css}"
-      rel="stylesheet"
-      href="../css/bootstrap.min.css"
+            th:href="@{/css/bootstrap.min.css}"
+            rel="stylesheet"
+            href="../css/bootstrap.min.css"
     />
     <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-      integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+            integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
     />
-  </head>
-<div id="liveAlertPlaceholder"></div>
+</head>
+
 <body>
 <!-- Barra de navegación -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar"
+        >
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="../client.html">
-            <img src="../images/logoW.png" alt="" width="196" height="47"/>
-        </a>
-        <div class="offcanvas offcanvas-end text-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <a class="navbar-brand" href="/"
+        ><img src="../images/logoW.png" alt="" width="196" height="47"
+        /></a>
+        <div
+                class="offcanvas offcanvas-end text-bg-dark"
+                tabindex="-1"
+                id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel"
+        >
             <div class="offcanvas-header">
-                <a class="navbar-brand" href="/">
-                    <img src="../images/logoW.png" alt="" width="196" height="47"/>
-                </a>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <a class="navbar-brand" href="/"
+                ><img src="../images/logoW.png" alt="" width="196" height="47"
+                /></a>
+                <button
+                        type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="offcanvas"
+                        aria-label="Close"
+                ></button>
             </div>
             <div class="offcanvas-body">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="../client.html">Home</a>
+                        <a class="nav-link active" aria-current="page" href="/client">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/about-us">About</a>
@@ -56,33 +72,41 @@
                         <a class="nav-link" href="/contact-us">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/preferences">Gestion de preferencias</a>
+                        <a class="nav-link" href="/preferences">Preferencias</a>
                     </li>
                 </ul>
-
                 <div class="d-flex">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <i class="fa-solid fa-cart-shopping fa-fade"></i>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/userInfo" th:text="${username} ? ${username} : 'Login'"></a>
+                            <a
+                                    class="nav-link"
+                                    th:href="${link} ? '/userInfo' : '/login'"
+                                    th:text="${username} ?  ${username} : 'Login'"
+                            ></a>
                         </li>
                     </ul>
                 </div>
-                
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <input
+                            class="form-control me-2"
+                            type="search"
+                            placeholder="Search"
+                            aria-label="Search"
+                    />
+                    <button class="btn btn-outline-success" type="submit">
+                        Search
+                    </button>
                 </form>
+                <a class="cart" style="cursor: pointer;">
+                    <a href="/cart">
+                        <i class="fa-solid fa-cart-shopping fa-2xl" ></i>
+                    </a>
+                <a id="count" th:text="${numberPlate}"></a>
+                </div>
             </div>
         </div>
     </div>
 </nav>
-
-
 <!-- Carousel-->
 <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
@@ -133,7 +157,8 @@
                 <div class="carousel-caption">
                     <h1>Reserva Ahora y Deléitate con lo Mejor de la Gastronomía.</h1>
                     <p>
-                        Haz tu reserva ahora y descubre por qué somos la elección preferida de los amantes de la buena comida
+                        Haz tu reserva ahora y descubre por qué somos la elección
+                        preferida de los amantes de la buena comida
                     </p>
                     <p><a class="btn btn-lg btn-primary" href="#">Reserva</a></p>
                 </div>
@@ -208,31 +233,36 @@
         </div>
 
         <!-- Trending products-->
-        <!-- Trending products -->
         <div class="container my-4">
             <div class="row justify-content-center">
                 <!-- Itera sobre la lista de platos y muestra cada uno como una tarjeta -->
-                <div th:each="plate, iterStat : ${menu}" class="col-lg-3 col-md-6 col-sm-12">
+                <div
+                        th:each="plate, iterStat : ${menu}"
+                        class="col-lg-3 col-md-6 col-sm-12"
+                >
                     <div class="card mb-4">
-                        <!-- Usar expresiones Thymeleaf para establecer dinámicamente la URL de la imagen -->
+                        <!-- Usa la expresión Thymeleaf para establecer dinámicamente la URL de la imagen -->
                         <img th:if="${plate.picture != null}" th:src="${plate.picture}" class="card-img-top fixed-size-image" alt="Product Image" />
-                        <img th:if="${plate.picture == null}" th:src="|data:image/png;base64,${plate.ruta}|" class="card-img-top fixed-size-image" alt="Product Image" />
+                        <img th:if="${plate.picture == null}" th:src="${plate.pictureRemote}" class="card-img-top fixed-size-image" alt="Product Image" />
 
                         <div class="card-body">
                             <h5 th:text="${plate.name}" class="card-title"></h5>
                             <p th:text="${plate.description}" class="card-text"></p>
                             <p th:text="'$' + ${plate.price}" class="card-text"></p>
-                            <a href="#" class="btn btn-success" onclick="addToCart('${plate.id}')">Add to Cart</a>
+                            <form action="/addToCart" method="post">
+                                <input type="hidden" name="id" th:value="${plate.id}" />
+                                <button type="submit" class="btn btn-success">Add to Cart</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-      </div>>
-
-
+    </div>
+</div>
 
 <!-- JavaScript -->
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script
         src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -240,7 +270,5 @@
         crossorigin="anonymous"
 ></script>
 <script src="../js/all.min.js"></script>
-
 </body>
 </html>
-
