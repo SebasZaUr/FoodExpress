@@ -54,6 +54,9 @@ public class Order {
     public Order() {
     }
 
+    public Order(int orderId) {
+    }
+
     public int getId() {
         return id;
     }
