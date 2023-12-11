@@ -19,6 +19,7 @@ import java.util.*;
 
 @Controller
 public class UserController {
+    private Random num = new Random();
     private int valorTotal;
     private String userLogin;
     @Autowired
@@ -369,7 +370,6 @@ public class UserController {
     @GetMapping("/facture")
     private String generateFacture(Model m){
         m.addAttribute("order",order);
-        Random num = new Random();
         long randomLong = Math.abs(num.nextLong());
         m.addAttribute("numFactura",randomLong);
         setValues(m);
